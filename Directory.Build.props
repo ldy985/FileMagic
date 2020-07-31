@@ -1,0 +1,59 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Authors>Lasse Dyrsted</Authors>
+    <Copyright>Copyright 2020, by Lasse Dyrsted. All rights reserved.</Copyright>
+    <Description>Project1</Description>
+    <Version>0.1.0-alpha1</Version>
+
+    <!-- Set copying files etc. to timeout faster -->
+    <CopyRetryCount>2</CopyRetryCount>
+    <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
+
+    <LangVersion>8.0</LangVersion>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <WarningsAsErrors>CS0108,CS0109,CS0114,CS0162,CS0251,CS0659,CS0660,CS1717,CS1718</WarningsAsErrors>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Global.ruleset</CodeAnalysisRuleSet>
+    <RepositoryType>Git</RepositoryType>
+    <RootNamespace>ldy985.$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>ldy985.$(MSBuildProjectName)</AssemblyName>
+    <PackageProjectUrl>https://gitlab.com/ldy985/$(MSBuildProjectName)</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <!--SourceLink stuff-->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitLab" Version="1.0.0-beta2-19367-01" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.0.0" PrivateAssets="all" />
+    <PackageReference Include="IDisposableAnalyzers" Version="3.4.1" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0" PrivateAssets="all" />
+    <PackageReference Include="ToStringWithoutOverrideAnalyzer" Version="0.6.0" PrivateAssets="all" />
+    <PackageReference Include="AsyncFixer" Version="1.3.0" PrivateAssets="all" />
+    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="4.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+</Project>

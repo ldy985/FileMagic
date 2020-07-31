@@ -1,0 +1,46 @@
+image: registry.gitlab.com/ldy985/dotnetsdk_gitversion:dotnet
+
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+  FEED_URL: http://rancher.home:5555/v3/index.json
+  API_KEY: NUGET-SERVER-API-KEY
+
+cache:
+  key: "$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME"
+  paths:
+    - .nuget/
+
+stages:
+- build
+- test
+- deploy
+
+build:
+  stage: build
+  artifacts:
+    expire_in: 12 hours
+    paths:
+      - "*/bin"
+      - "*/obj"
+  script:
+    - bash ./build.sh build
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - bash ./build.sh test
+     
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+  artifacts:
+    expire_in: 14 days
+    paths:
+      - artifacts
+  script:
+    - bash ./build.sh pack+push -MyGetSource $FEED_URL -MyGetApiKey $API_KEY
+  when: manual
+

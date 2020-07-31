@@ -1,0 +1,19 @@
+﻿using ldy985.FileMagic.Abstracts;
+using Microsoft.Extensions.Logging;
+
+namespace ldy985.FileMagic.Core.Rules.Rules
+{
+    /// <summary>
+    /// https://mutagen-specs.readthedocs.io/en/latest/id3/id3v2.4.0-structure.html
+    /// </summary>
+    public class ID3ContainerRule : BaseRule
+    {
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("494433", 0);
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("ID3 container often contains mp3","MP3");
+
+        /// <inheritdoc />
+        public ID3ContainerRule(ILogger<ID3ContainerRule> logger) : base(logger) { }
+    }
+}

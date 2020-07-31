@@ -1,0 +1,20 @@
+assembly-versioning-scheme: MajorMinorPatchTag
+assembly-file-versioning-scheme: MajorMinorPatchTag
+mode: ContinuousDeployment
+continuous-delivery-fallback-tag: ''
+branches:
+  master:
+    increment: None
+  develop:
+    increment: Patch
+  hotfix:
+    tag: useBranchName
+    increment: None
+  release:
+    increment: None
+  pull-request:
+    increment: None
+  support:
+    increment: None
+ignore:
+  sha: []
