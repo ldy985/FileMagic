@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ldy985.FileMagic.Abstracts;
+﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules.Rules
