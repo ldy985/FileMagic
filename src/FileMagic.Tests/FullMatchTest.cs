@@ -12,7 +12,14 @@ namespace ldy985.FileMagic.Tests
 
         public FullMatchTest()
         {
-            _fileMagic = new FileMagic();
+            Options options = new Options
+            {
+                ParserCheck = true,
+                StructureCheck = true,
+                ParserHandle = false,
+                PatternCheck = true
+            };
+            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(options));
         }
 
         public static IEnumerable<object[]> TestFiles

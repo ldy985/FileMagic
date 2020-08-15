@@ -39,15 +39,15 @@ namespace ldy985.FileMagic.Core.Rules.Tests
             Result result = new Result();
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + _extension))
             {
-                bool match = _rule.TryParse(binaryReader, result);
+                bool match = _rule.TryParse(binaryReader, result, out var parsedObject);
                 Assert.True(match);
 
-                BitmapRule.BMP parsedObject = (BitmapRule.BMP)result.ParsedObject;
+                BitmapRule.BMP bmp = (BitmapRule.BMP)parsedObject;
 
-                Assert.Equal(BitmapRule.BMPType.BM, parsedObject.Type);
-                Assert.Equal(73926u, parsedObject.Size);
-                Assert.Equal(114u, parsedObject.Height);
-                Assert.Equal(215u, parsedObject.Width);
+                Assert.Equal(BitmapRule.BMPType.BM, bmp.Type);
+                Assert.Equal(73926u, bmp.Size);
+                Assert.Equal(114u, bmp.Height);
+                Assert.Equal(215u, bmp.Width);
             }
         }
     }

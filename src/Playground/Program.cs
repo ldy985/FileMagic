@@ -7,7 +7,6 @@ using CsvHelper;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic;
 using ldy985.FileMagic.Abstracts;
-using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

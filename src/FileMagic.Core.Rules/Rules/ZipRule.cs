@@ -19,7 +19,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Zip file", "JAR", "WAR", "DOCX", "XLSX", "PPTX", "ODT", "ODS", "ODP", "ZIPX", "NUPKG", "ZIP", "APK", "EPUB");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, out object parsed)
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
         {
             ZipArchive archive = new ZipArchive();
             using (System.IO.Compression.ZipArchive zipArchive = new System.IO.Compression.ZipArchive(reader.BaseStream, ZipArchiveMode.Read, true))
@@ -93,7 +93,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             //return false;
         }
 
-        public class ZipArchive
+        public class ZipArchive : IParsed
         {
             public List<ZipFile> Files { get; } = new List<ZipFile>();
 

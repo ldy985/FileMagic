@@ -81,15 +81,15 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
-        public bool TryParse(BinaryReader reader, IResult result)
+        public bool TryParse(BinaryReader reader, IResult result, out IParsed parsed)
         {
+            parsed = null;
+
             long position = reader.GetPosition();
             bool tryParseInternal = false;
             try
             {
-                tryParseInternal = TryParseInternal(reader, result, out object parsed);
-
-                result.ParsedObject = parsed;
+                tryParseInternal = TryParseInternal(reader, result, out parsed);
             }
             catch (EndOfStreamException)
             {
@@ -104,7 +104,7 @@ namespace ldy985.FileMagic.Core
             return tryParseInternal;
         }
 
-        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, out object parsed)
+        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
         {
             parsed = null;
             return false;

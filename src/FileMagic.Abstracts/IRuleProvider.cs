@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ldy985.FileMagic.Abstracts
+﻿namespace ldy985.FileMagic.Abstracts
 {
     public interface IRuleProvider
     {

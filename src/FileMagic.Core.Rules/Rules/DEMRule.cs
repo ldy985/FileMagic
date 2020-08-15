@@ -15,6 +15,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public DEMRule(ILogger<DEMRule> logger) : base(logger) { }
-
     }
 }

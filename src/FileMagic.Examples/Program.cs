@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
+using ldy985.FileMagic.Core.Rules.Rules;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -12,12 +14,19 @@ namespace ldy985.FileMagic.Examples
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddFileMagic();
             serviceCollection.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug).AddConsole());
+
+            serviceCollection.AddSingleton<IParsedHandlerProvider>(provider =>
+            {
+                ParsedHandlerProvider parsedHandlerProvider = new ParsedHandlerProvider();
+                parsedHandlerProvider.AddParsedHandler<BitmapRule, BitmapRule.BMP>(BMPAction);
+                return parsedHandlerProvider;
+            });
             using (ServiceProvider buildServiceProvider = serviceCollection.BuildServiceProvider())
             {
                 var fileMagic = buildServiceProvider.GetRequiredService<IFileMagic>();
                 var logger = buildServiceProvider.GetRequiredService<ILogger<Program>>();
 
-                using (FileStream fs = File.OpenRead(@"O:\BitSync\Programering\C#\FileMagic\resources\test0.ico"))
+                using (FileStream fs = File.OpenRead(@"O:\BitSync\Programering\C#\FileMagic\resources\test0.chm"))
                 {
                     //bool identifyStream = fileMagic.StreamMatches<ICORule>(fs, out var result);
                     //Console.WriteLine(identifyStream);
@@ -32,5 +41,7 @@ namespace ldy985.FileMagic.Examples
                 }
             }
         }
+
+        private static void BMPAction(BitmapRule.BMP obj) { }
     }
 }

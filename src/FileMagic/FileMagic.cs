@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MatchType = ldy985.FileMagic.Abstracts.Enums.MatchType;
 
 namespace ldy985.FileMagic
@@ -16,11 +16,13 @@ namespace ldy985.FileMagic
         private readonly ILogger<FileMagic> _logger;
         private readonly IRuleProvider _ruleProvider;
         private readonly ServiceProvider _provider;
-        private readonly Options config = new Options();
+        private readonly IOptions<Options> _config;
         private readonly IParallelMagicMatcher _parallelMagicMatcher;
+        private readonly IParsedHandlerProvider _handlerProvider;
 
-        public FileMagic()
+        public FileMagic(IOptions<Options> config)
         {
+            _config = config;
             ServiceCollection services = new ServiceCollection();
             services.AddFileMagic();
             _provider = services.BuildServiceProvider();
@@ -28,13 +30,17 @@ namespace ldy985.FileMagic
             _logger = _provider.GetRequiredService<ILogger<FileMagic>>();
             _ruleProvider = _provider.GetRequiredService<IRuleProvider>();
             _parallelMagicMatcher = _provider.GetRequiredService<IParallelMagicMatcher>();
+            if (_config.Value.ParserHandle)
+                _handlerProvider = _provider.GetRequiredService<IParsedHandlerProvider>();
         }
 
-        public FileMagic(ILogger<FileMagic> logger, IRuleProvider ruleProvider, IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider handlerProvider)
+        public FileMagic(ILogger<FileMagic> logger, IRuleProvider ruleProvider, IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider handlerProvider, IOptions<Options> config)
         {
             _logger = logger;
             _ruleProvider = ruleProvider;
             _parallelMagicMatcher = parallelMagicMatcher;
+            _handlerProvider = handlerProvider;
+            _config = config;
         }
 
         /// <summary>
@@ -61,7 +67,7 @@ namespace ldy985.FileMagic
                     {
                         _logger.LogDebug("Rule: {Rule}", rule.Name);
 
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, config.StructureCheck, config.ParserCheck);
+                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                         if (!structureMatched && !parserMatched && (rule.HasStructure || rule.HasParser))
                             continue;
@@ -75,7 +81,7 @@ namespace ldy985.FileMagic
                 {
                     foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
                     {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, config.StructureCheck, config.ParserCheck);
+                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                         if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
                         {
@@ -116,7 +122,7 @@ namespace ldy985.FileMagic
 
                     foreach (IRule rule in matchedRules)
                     {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, config.StructureCheck, config.ParserCheck);
+                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                         if (rule.HasStructure && !structureMatched || rule.HasParser && !parserMatched)
                             return false;
@@ -129,7 +135,7 @@ namespace ldy985.FileMagic
                 {
                     foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
                     {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, config.StructureCheck, config.ParserCheck);
+                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                         if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
                         {
@@ -165,7 +171,7 @@ namespace ldy985.FileMagic
 
             using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
             {
-                (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, config.PatternCheck, config.StructureCheck, config.ParserCheck);
+                (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                 if (!patternMatched && !structureMatched && !parserMatched)
                     return false;
@@ -213,12 +219,10 @@ namespace ldy985.FileMagic
             if (parserCheck && rule.HasParser)
             {
                 _logger.LogTrace("Testing {Rule} parser", rule.Name);
-                if (rule.TryParse(binaryReader, result))
+                if (rule.TryParse(binaryReader, result, out var parsedObject))
                 {
-                    if (config.ParserHandle)
-                    {
-
-                    }
+                    if (_config.Value.ParserHandle)
+                        _handlerProvider.ExecuteHandlers(rule, parsedObject);
 
                     _logger.LogDebug("Matched {Rule} parser", rule.Name);
                     parserMatched = true;
@@ -249,14 +253,7 @@ namespace ldy985.FileMagic
         }
     }
 
-    public interface IParsedHandlerProvider
-    {
-        public bool TryGetHandlers(Type type, out IParsedHandler<object> handler);
-        public void AddParsedHandler<TRule, TParsed>(IParsedHandler<TParsed> action);
-
-    }
-
-    internal class Options
+    public class Options
     {
         public bool PatternCheck { get; set; } = true;
         public bool StructureCheck { get; set; } = true;

@@ -21,7 +21,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bitmap", "BMP");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, out object parsed)
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
         {
             BMP bmp = new BMP();
             BMPType type = reader.ReadEnum<BMPType>();
@@ -36,42 +36,42 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             switch (dibSize)
             {
                 case 12:
-                {
-                    BITMAPCOREHEADER readStruct = reader.ReadStruct<BITMAPCOREHEADER>();
-                    bmp.Width = readStruct.Width;
-                    bmp.Height = readStruct.Height;
-                    break;
-                }
+                    {
+                        BITMAPCOREHEADER readStruct = reader.ReadStruct<BITMAPCOREHEADER>();
+                        bmp.Width = readStruct.Width;
+                        bmp.Height = readStruct.Height;
+                        break;
+                    }
 
                 case 40:
-                {
-                    BITMAPINFOHEADER readStruct = reader.ReadStruct<BITMAPINFOHEADER>();
-                    bmp.Width = (uint)readStruct.Width;
-                    bmp.Height = (uint)readStruct.Height;
-                    break;
-                }
+                    {
+                        BITMAPINFOHEADER readStruct = reader.ReadStruct<BITMAPINFOHEADER>();
+                        bmp.Width = (uint)readStruct.Width;
+                        bmp.Height = (uint)readStruct.Height;
+                        break;
+                    }
 
                 case 108:
-                {
-                    BITMAPV4HEADER readStruct = reader.ReadStruct<BITMAPV4HEADER>();
-                    bmp.Width = (uint)readStruct.Width;
-                    bmp.Height = (uint)readStruct.Height;
-                    break;
-                }
+                    {
+                        BITMAPV4HEADER readStruct = reader.ReadStruct<BITMAPV4HEADER>();
+                        bmp.Width = (uint)readStruct.Width;
+                        bmp.Height = (uint)readStruct.Height;
+                        break;
+                    }
 
                 case 124:
-                {
-                    BITMAPV5HEADER readStruct = reader.ReadStruct<BITMAPV5HEADER>();
-                    bmp.Width = (uint)readStruct.Width;
-                    bmp.Height = (uint)readStruct.Height;
-                    break;
-                }
+                    {
+                        BITMAPV5HEADER readStruct = reader.ReadStruct<BITMAPV5HEADER>();
+                        bmp.Width = (uint)readStruct.Width;
+                        bmp.Height = (uint)readStruct.Height;
+                        break;
+                    }
 
                 default:
-                {
-                    parsed = null;
-                    return false;
-                }
+                    {
+                        parsed = null;
+                        return false;
+                    }
             }
 
             parsed = bmp;
@@ -125,7 +125,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             internal int Height;
         }
 
-        public class BMP
+        public class BMP : IParsed
         {
             public uint Size { get; set; }
             public BMPType Type { get; set; }

@@ -14,7 +14,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Gif image", "GIF");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, out object parsed)
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
         {
             reader.SkipForwards(6);
             GIF gif = new GIF();
@@ -25,7 +25,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             return true;
         }
 
-        public class GIF
+        public class GIF : IParsed
         {
             public ushort Height { get; set; }
             public ushort Width { get; set; }

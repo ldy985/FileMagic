@@ -1,66 +1,47 @@
-﻿//using System.IO;
-//using BenchmarkDotNet.Attributes;
-//using ldy985.FileMagic.Core;
-//using ldy985.FileMagic.Matchers.Signature.Benchmarks.Helpers;
-//using ldy985.FileMagic.Matchers.Signature.Simple;
-//using ldy985.FileMagic.Matchers.Signature.Trie;
-//using Microsoft.Extensions.Logging.Abstractions;
-//using Shared.Interfaces;
+﻿using System.IO;
+using BenchmarkDotNet.Attributes;
+using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core.Rules.Rules;
 
-//namespace ldy985.FileMagic.Matchers.Signature.Benchmarks
-//{
-//    [MemoryDiagnoser]
-//    [InProcess]
-//    public class ByteComparison
-//    {
-//        private MemoryStream _memoryStream;
+namespace ldy985.FileMagic.Benchmarks
+{
+    [MemoryDiagnoser]
+    [InProcess]
+    public class ByteComparison
+    {
+        public static string BasePath(uint id) => $"../../../../../resources/test{id}.";
 
-//        private TestRule _testRule;
-//        private byte[] _buffer;
-//        private ISingleRuleMatcher _simpleByteTester;
-//        private BinaryReader _binaryReader;
+        private Stream _memoryStream;
 
-//        [GlobalSetup]
-//        public void Setup()
-//        {
-//            _buffer = new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x2 };
-//            _memoryStream = new MemoryStream(_buffer);
-//            _binaryReader = new BinaryReader(_memoryStream);
+        private FileMagic _fileMagic;
 
-//            _simpleByteTester = new SimpleSignatureMatcher();
+        [GlobalSetup]
+        public void Setup()
+        {
+            _memoryStream = new FileStream(BasePath(0) + "bmp", FileMode.Open);
 
-//            _testRule = new TestRule(new NullLogger<TestRule>());
-//        }
+            Options options = new Options
+            {
+                ParserCheck = false,
+                StructureCheck = false,
+                ParserHandle = false,
+                PatternCheck = true
+            };
 
-//        [GlobalCleanup]
-//        public void Dispose()
-//        {
-//            _binaryReader?.Dispose();
-//            _memoryStream?.Dispose();
-//        }
+            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(options));
+        }
 
-//        /// <summary>
-//        /// Simple
-//        /// </summary>
-//        /// <returns></returns>
-//        /// <exception cref="System.ObjectDisposedException">Ignore.</exception>
-//        [Benchmark(Baseline = true)]
-//        public bool Simple()
-//        {
-//            foreach (byte b in _buffer)
-//            {
-//                byte readByte = (byte)_memoryStream.ReadByte();
-//                if (readByte != b)
-//                    return false;
-//            }
+        [GlobalCleanup]
+        public void Dispose()
+        {
+            _fileMagic?.Dispose();
+            _memoryStream?.Dispose();
+        }
 
-//            return true;
-//        }
-
-//        [Benchmark]
-//        public bool FileTesterDirect()
-//        {
-//            return _simpleByteTester.TestRule(_binaryReader, _testRule);
-//        }
-//    }
-//}
+        [Benchmark]
+        public bool FileTesterDirect()
+        {
+            return _fileMagic.StreamMatches<BitmapRule>(_memoryStream, out IResult _);
+        }
+    }
+}

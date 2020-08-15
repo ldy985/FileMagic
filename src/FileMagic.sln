@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Matchers.Signatur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Tests", "FileMagic.Tests\FileMagic.Tests.csproj", "{5A44698D-7FC9-463D-8817-1D4580026CE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Matchers.Signature.Benchmarks", "FileMagic.Matchers.Signature.Benchmarks\FileMagic.Matchers.Signature.Benchmarks.csproj", "{A99FEDD9-9A9E-4ABF-A4C8-797D87A82C5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Benchmarks", "FileMagic.Matchers.Signature.Benchmarks\FileMagic.Benchmarks.csproj", "{A99FEDD9-9A9E-4ABF-A4C8-797D87A82C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMagic.Core.Rules.Tests", "FileMagic.Core.Rules.Tests\FileMagic.Core.Rules.Tests.csproj", "{7C8ECE48-704B-47BC-9C95-6B8330B035EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Core.Rules.Tests", "FileMagic.Core.Rules.Tests\FileMagic.Core.Rules.Tests.csproj", "{7C8ECE48-704B-47BC-9C95-6B8330B035EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "Playground\Playground.csproj", "{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground", "Playground\Playground.csproj", "{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
