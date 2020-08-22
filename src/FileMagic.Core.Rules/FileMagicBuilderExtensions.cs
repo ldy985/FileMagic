@@ -18,4 +18,12 @@ namespace ldy985.FileMagic.Core.Rules
             return fileMagicBuilder;
         }
     }
+
+    public static class FileMagicRuleHelpers
+    {
+        public static IEnumerable<IRule> GetDefaultFileMagicRules()
+        {
+            return TypeHelper.CreateInstanceOfAll<IRule>(typeof(FileMagicBuilderExtensions).Assembly);
+        }
+    }
 }

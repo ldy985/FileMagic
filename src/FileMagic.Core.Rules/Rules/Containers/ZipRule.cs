@@ -6,7 +6,7 @@ using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules.Containers
 {
     /// <summary>
     /// https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT

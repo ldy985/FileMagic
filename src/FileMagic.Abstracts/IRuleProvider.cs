@@ -2,8 +2,7 @@
 {
     public interface IRuleProvider
     {
-        T Rent<T>() where T : IRule;
-        void Return<T>(T rule) where T : IRule;
+        T Get<T>() where T : IRule;
         IRule[] PatternRules { get; }
         IRule[] ParserRules { get; }
         IRule[] StructureRules { get; }

@@ -16,11 +16,11 @@ namespace ldy985.FileMagic
         private readonly ILogger<FileMagic> _logger;
         private readonly IRuleProvider _ruleProvider;
         private readonly ServiceProvider _provider;
-        private readonly IOptions<Options> _config;
+        private readonly IOptions<FileMagicConfig> _config;
         private readonly IParallelMagicMatcher _parallelMagicMatcher;
         private readonly IParsedHandlerProvider _handlerProvider;
 
-        public FileMagic(IOptions<Options> config)
+        public FileMagic(IOptions<FileMagicConfig> config)
         {
             _config = config;
             ServiceCollection services = new ServiceCollection();
@@ -34,7 +34,7 @@ namespace ldy985.FileMagic
                 _handlerProvider = _provider.GetRequiredService<IParsedHandlerProvider>();
         }
 
-        public FileMagic(ILogger<FileMagic> logger, IRuleProvider ruleProvider, IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider handlerProvider, IOptions<Options> config)
+        public FileMagic(ILogger<FileMagic> logger, IRuleProvider ruleProvider, IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider handlerProvider, IOptions<FileMagicConfig> config)
         {
             _logger = logger;
             _ruleProvider = ruleProvider;
@@ -166,7 +166,7 @@ namespace ldy985.FileMagic
         /// <exception cref="IOException"></exception>
         public bool StreamMatches<T>(Stream stream, out IResult result) where T : IRule
         {
-            T rule = _ruleProvider.Rent<T>();
+            T rule = _ruleProvider.Get<T>();
             result = new Result();
 
             using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
@@ -251,13 +251,5 @@ namespace ldy985.FileMagic
         {
             Dispose(false);
         }
-    }
-
-    public class Options
-    {
-        public bool PatternCheck { get; set; } = true;
-        public bool StructureCheck { get; set; } = true;
-        public bool ParserCheck { get; set; } = true;
-        public bool ParserHandle { get; set; } = true;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
+using ldy985.FileMagic.Core.Misc;
 using ldy985.FileMagic.Core.Rules.Rules;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,36 @@ namespace ldy985.FileMagic.Examples
     internal class Program
     {
         public static void Main()
+        {
+            Example1.Start();
+            Example2.Start();
+            Example3.Start();
+        }
+    }
+
+    internal static class Example3
+    {
+        public static void Start()
+        {
+            FileMagicConfig fileMagicConfig = new FileMagicConfig();
+            FileMagic fileMagic = FileMagicBuilder.Create(fileMagicConfig).Build();
+        }
+    }
+
+    internal static class Example2
+    {
+        public static void Start()
+        {
+            FileMagicConfig fileMagicConfig = new FileMagicConfig();
+            FileMagic fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(fileMagicConfig));
+        }
+    }
+
+    internal static class Example1
+    {
+        private static void BMPAction(BitmapRule.BMP obj) { }
+
+        public static void Start()
         {
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddFileMagic();
@@ -41,7 +72,5 @@ namespace ldy985.FileMagic.Examples
                 }
             }
         }
-
-        private static void BMPAction(BitmapRule.BMP obj) { }
     }
 }

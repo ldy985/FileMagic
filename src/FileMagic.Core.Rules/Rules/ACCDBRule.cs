@@ -15,7 +15,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Access database", "ACCDB");
 
         /// <inheritdoc />
-        public ACCDBRule(ILogger<DEMRule> logger) : base(logger) { }
+        public ACCDBRule(ILogger<ACCDBRule> logger) : base(logger) { }
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Access database", "MDB");
 
         /// <inheritdoc />
-        public MDBRule(ILogger<DEMRule> logger) : base(logger) { }
+        public MDBRule(ILogger<MDBRule> logger) : base(logger) { }
     }
 }

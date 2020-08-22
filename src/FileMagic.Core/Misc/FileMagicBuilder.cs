@@ -1,4 +1,5 @@
-﻿using ldy985.FileMagic.Abstracts;
+using System;
+using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ldy985.FileMagic.Core.Misc
@@ -8,6 +9,11 @@ namespace ldy985.FileMagic.Core.Misc
         public FileMagicBuilder(IServiceCollection services)
         {
             Services = services;
+        }
+
+        public FileMagicBuilder()
+        {
+            Services = new ServiceCollection();
         }
 
         public IServiceCollection Services { get; }

@@ -11,14 +11,14 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
     {
         private readonly ILogger<TrieSignatureMatcher> _logger;
 
-        public TrieSignatureMatcher(ILogger<TrieSignatureMatcher> logger, IEnumerable<IRule> rules)
+        public TrieSignatureMatcher(ILogger<TrieSignatureMatcher> logger, IRuleProvider ruleProvider)
         {
             _logger = logger;
 
             RootNode = new Node<IRule>();
             RootNode.Children = new Dictionary<ushort, Node<IRule>>();
 
-            foreach (IRule rule in rules)
+            foreach (IRule rule in ruleProvider.PatternRules)
             {
                 logger.LogTrace("Registered: {RuleName}", rule.GetType().Name);
                 RegisterPattern(rule);
@@ -27,9 +27,6 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private void RegisterPattern(IRule rule)
         {
-            if (rule.Magic is null)
-                return;
-
             ulong offset = rule.Magic.Offset;
             string bytes = rule.Magic.Pattern;
 

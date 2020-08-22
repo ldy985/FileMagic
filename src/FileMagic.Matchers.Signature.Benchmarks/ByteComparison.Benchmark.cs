@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using BenchmarkDotNet.Attributes;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules;
 
 namespace ldy985.FileMagic.Benchmarks
@@ -20,15 +21,13 @@ namespace ldy985.FileMagic.Benchmarks
         {
             _memoryStream = new FileStream(BasePath(0) + "bmp", FileMode.Open);
 
-            Options options = new Options
-            {
-                ParserCheck = false,
-                StructureCheck = false,
-                ParserHandle = false,
-                PatternCheck = true
-            };
+            FileMagicConfig fileMagicConfig = new FileMagicConfig();
+            fileMagicConfig.ParserCheck = false;
+            fileMagicConfig.StructureCheck = false;
+            fileMagicConfig.ParserHandle = false;
+            fileMagicConfig.PatternCheck = true;
 
-            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(options));
+            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(fileMagicConfig));
         }
 
         [GlobalCleanup]

@@ -1,4 +1,4 @@
-﻿//#define test
+﻿#define test
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,8 +7,10 @@ using CsvHelper;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Runner
 {
@@ -16,6 +18,8 @@ namespace Runner
     {
         static void Main(string[] args)
         {
+            List<string> list = new List<string>();
+
             //Log.Logger = new LoggerConfiguration()
             //             .WriteTo.ColoredConsole(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{SourceContext}] {Message:lj}{NewLine}{Exception}")
             //             //.MinimumLevel.Is(LogEventLevel.Verbose)
@@ -30,7 +34,7 @@ namespace Runner
 
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddFileMagic();
-            serviceCollection.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug).AddConsole());
+            serviceCollection.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Information).AddConsole(options => options.Format=ConsoleLoggerFormat.Systemd));
             using (ServiceProvider buildServiceProvider = serviceCollection.BuildServiceProvider())
             {
                 var fileGuesser = buildServiceProvider.GetRequiredService<IFileMagic>();
@@ -63,7 +67,7 @@ namespace Runner
                 ulong count = 0;
                 ulong found = 0;
 
-                IEnumerable<string> filePaths = GetFiles(@"o:\Projects\FileProject\FileStorage\", "*.bmp", SearchOption.AllDirectories);
+                IEnumerable<string> filePaths = GetFiles(@"o:\Projects\FileProject\FileStorage\", "*.*", SearchOption.AllDirectories);
                 //string[] filePaths = File.ReadAllLines(@"G:\Test.txt");
 
                 foreach (string filePath in filePaths)
@@ -103,7 +107,7 @@ namespace Runner
                         if (identifyStream)
                         {
                             //log.Information(extension);
-                            log.LogInformation(result.Description);
+                            //log.LogInformation(result.Description);
 
                             string trimStart = extension.TrimStart('.');
 
@@ -115,7 +119,7 @@ namespace Runner
                             //    File.Copy(filePath,$"{s}{Path.GetFileName(filePath)}",true);
                             //}
 
-                            log.LogInformation(string.Join(", ", result.Extensions));
+                           // log.LogInformation(string.Join(", ", result.Extensions));
                             log.LogInformation("+ {FilePath}", Path.GetFileName(filePath));
                             found++;
                         }
@@ -124,6 +128,7 @@ namespace Runner
                             log.LogInformation("- {name} {FilePath}", Path.GetExtension(filePath), filePath);
 
                             //Thread.Sleep(500);
+                            list.Add(extension);
                         }
 
                         //log.Information("-----------------");
@@ -139,6 +144,10 @@ namespace Runner
 #endif
 #if test
                 Console.WriteLine((double)found / (double)count * 100);
+                foreach (string s in list)
+                {
+                    Console.WriteLine(s);
+                }
 #endif
             }
         }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
 using Xunit;
 
 namespace ldy985.FileMagic.Tests
@@ -12,14 +13,12 @@ namespace ldy985.FileMagic.Tests
 
         public FullMatchTest()
         {
-            Options options = new Options
-            {
-                ParserCheck = true,
-                StructureCheck = true,
-                ParserHandle = false,
-                PatternCheck = true
-            };
-            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(options));
+            FileMagicConfig fileMagicConfig = new FileMagicConfig();
+            fileMagicConfig.ParserCheck = true;
+            fileMagicConfig.StructureCheck = true;
+            fileMagicConfig.ParserHandle = false;
+            fileMagicConfig.PatternCheck = true;
+            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(fileMagicConfig));
         }
 
         public static IEnumerable<object[]> TestFiles

@@ -19,14 +19,13 @@ namespace ldy985.FileMagic.Tests
                 new TestRule2(NullLogger<BaseRule>.Instance),
                 new TestRule3(NullLogger<BaseRule>.Instance)
             };
-            Options options = new Options
-            {
-                ParserCheck = false,
-                StructureCheck = false,
-                ParserHandle = false,
-                PatternCheck = true
-            };
-            _simpleSignatureMatcher = new FileMagic(NullLogger<FileMagic>.Instance, new RuleProvider(rules), new TrieSignatureMatcher(NullLogger<TrieSignatureMatcher>.Instance, rules), null, Microsoft.Extensions.Options.Options.Create(options));
+            FileMagicConfig fileMagicConfig = new FileMagicConfig();
+            fileMagicConfig.ParserCheck = false;
+            fileMagicConfig.StructureCheck = false;
+            fileMagicConfig.ParserHandle = false;
+            fileMagicConfig.PatternCheck = true;
+            RuleProvider ruleProvider = new RuleProvider(rules);
+            _simpleSignatureMatcher = new FileMagic(NullLogger<FileMagic>.Instance, ruleProvider, new TrieSignatureMatcher(NullLogger<TrieSignatureMatcher>.Instance, ruleProvider), null, Microsoft.Extensions.Options.Options.Create(fileMagicConfig));
         }
 
         public void Dispose()

@@ -1,4 +1,5 @@
 ﻿using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -18,7 +19,7 @@ namespace ldy985.FileMagic
                                      x.GetRequiredService<IRuleProvider>(),
                                      x.GetRequiredService<IParallelMagicMatcher>(),
                                      x.GetRequiredService<IParsedHandlerProvider>(),
-                                     x.GetRequiredService<IOptions<Options>>());
+                                     x.GetRequiredService<IOptions<FileMagicConfig>>());
             });
             builder.Services.TryAddSingleton<IFileMagic, FileMagic>();
             return builder;

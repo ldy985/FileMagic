@@ -18,21 +18,15 @@ namespace ldy985.FileMagic.Core
 
             Rules = _rules.Values.ToArray();
             PatternRules = _rules.Values.Where(rule => rule.HasMagic).ToArray();
-            PatternRules = _rules.Values.Where(rule => rule.HasParser).ToArray();
+            ParserRules = _rules.Values.Where(rule => rule.HasParser).ToArray();
             StructureRules = _rules.Values.Where(rule => rule.HasStructure).ToArray();
             ComplexRulesOnly = _rules.Values.Where(rule => !rule.HasMagic && (rule.HasStructure || rule.HasParser)).ToArray();
         }
 
         /// <inheritdoc />
-        public T Rent<T>() where T : IRule
+        public T Get<T>() where T : IRule
         {
             return (T)_rules[typeof(T)];
-        }
-
-        /// <inheritdoc />
-        public void Return<T>(T rule) where T : IRule
-        {
-            //dummy
         }
 
         /// <inheritdoc />

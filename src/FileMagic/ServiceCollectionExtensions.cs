@@ -15,27 +15,13 @@ namespace ldy985.FileMagic
                       .UseFileMagic()
                       .AddDefaultFileMagicRules()
                       .AddDefaultParallelRuleMatchers()
-                      .AddDefaultConfig();
+                      .AddParsedHandler();
             return collection;
         }
 
         public static IFileMagicBuilder AddDefaultParallelRuleMatchers(this IFileMagicBuilder fileMagicBuilder)
         {
             fileMagicBuilder.Services.AddSingleton<IParallelMagicMatcher, TrieSignatureMatcher>();
-            return fileMagicBuilder;
-        }
-
-        public static IFileMagicBuilder AddDefaultConfig(this IFileMagicBuilder fileMagicBuilder)
-        {
-            fileMagicBuilder.Services.AddOptions<Options>()
-                            .Configure(options =>
-                            {
-                                options.StructureCheck = true;
-                                options.ParserCheck = true;
-                                options.PatternCheck = true;
-                                options.ParserHandle = false;
-                            });
-
             return fileMagicBuilder;
         }
 
@@ -47,11 +33,5 @@ namespace ldy985.FileMagic
 
             return parsedHandlerProvider;
         }
-
-        //public static IFileMagicBuilder AddDefaultSingleRuleMatchers(this IFileMagicBuilder fileMagicBuilder)
-        //{
-        //    fileMagicBuilder.Services.AddSingleton<ISingleRuleMatcher, SimpleSignatureMatcher>();
-        //    return fileMagicBuilder;
-        //}
     }
 }

@@ -9,9 +9,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class OGGRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4F67675300", 0);
+        public override IMagic Magic { get; } = new Magic("4F676753", 0);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Ogg Vorbis Audio File", "OGG");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Ogg Vorbis Audio File", "OGG", "OGX");
 
         /// <inheritdoc />
         public OGGRule(ILogger<OGGRule> logger) : base(logger) { }

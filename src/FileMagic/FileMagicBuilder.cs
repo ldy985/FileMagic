@@ -1,57 +1,46 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using ldy985.FileMagic;
-//using ldy985.FileMagic.Abstracts;
-//using ldy985.FileMagic.Core;
-//using ldy985.FileMagic.Matchers.Signature.Trie;
-//using ldy985.FileMagic.Matchers.Structure.Simple;
-//using Microsoft.Extensions.DependencyInjection;
-//using Shared;
-//using Shared.Interfaces;
+﻿using System;
+using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core;
+using ldy985.FileMagic.Core.Rules;
+using ldy985.FileMagic.Matchers.Signature.Trie;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
-//namespace FileIdentifier
-//{
-//    public class FileGuesserBuilder
-//    {
-//        private readonly DetectionOptions _options;
-//        private FileGuesser _fileGuesser;
-//        private readonly List<(Type, Action<object>)> _parsedActions;
-//        private IStructureMatcher _structureMatcher;
-//        private IByteMatcher _signatureMatcher;
-//        private ITextGuesser _textGuesser;
+namespace ldy985.FileMagic
+{
+    public class FileMagicBuilder
+    {
+        public static FileMagicBuilder Create(FileMagicConfig options)
+        {
+            return new FileMagicBuilder(options);
+        }
 
-//        public FileGuesserBuilder(DetectionOptions options)
-//        {
-//            _options = options;
-//            _parsedActions = new List<(Type, Action<object>)>();
-//        }
+        private readonly ParsedHandlerProvider _parsedHandlerProvider;
+        private readonly FileMagicConfig _options;
 
-//        public FileGuesserBuilder AddDefault()
-//        {
-           
-//            //List<IRule> rules = TypeHelper.CreateInstanceOfAll<IRule>(typeof(BaseRule).Assembly).ToList();
+        private FileMagicBuilder(FileMagicConfig options)
+        {
+            _options = options;
+            _parsedHandlerProvider = new ParsedHandlerProvider();
+        }
 
-//            //_textGuesser = new Heuristics(_options);
-//            _signatureMatcher = new TrieSignatureMatcher(); //rules.Where(rule => rule.Magic != null)
-//            _structureMatcher = new SimpleStructureMatcher(); //_options, rules.Where(rule => (rule.HasParser || rule.HasStructure) && rule.Magic == null)
-//            return this;
-//        }
+        public FileMagicBuilder AddParsedHandler<TRule, TParsed>(Action<TParsed> action) where TParsed : IParsed where TRule : IRule
+        {
+            _parsedHandlerProvider.AddParsedHandler<TRule, TParsed>(action);
+            return this;
+        }
 
-//        public FileGuesserBuilder AddParsedHandler<TRule, TParsed>(Action<TParsed> action)
-//        {
-//            _parsedActions.Add((typeof(TRule), obj => action((TParsed)obj)));
-//            return this;
-//        }
+        public FileMagic Build(ILogger<FileMagic> logger2 = null, ILogger<TrieSignatureMatcher> logger = null)
+        {
+            RuleProvider ruleProvider = new RuleProvider(FileMagicRuleHelpers.GetDefaultFileMagicRules());
 
-//        public FileGuesser Build()
-//        {
-//            _fileGuesser = new FileGuesser(_options);
-//            _fileGuesser.ByteMatcher = _signatureMatcher;
-//            _fileGuesser.StructureMatcher = _structureMatcher;
-//            _fileGuesser.TextGuesser = _textGuesser;
-//            _fileGuesser.RegisterParsedActions(_parsedActions);
-//            return _fileGuesser;
-//        }
-//    }
-//}
+            logger2 ??= NullLogger<FileMagic>.Instance;
+            logger ??= NullLogger<TrieSignatureMatcher>.Instance;
+
+            var parallelMagicMatcher = new TrieSignatureMatcher(logger, ruleProvider);
+
+            return new FileMagic(logger2, ruleProvider, parallelMagicMatcher, _parsedHandlerProvider, Options.Create(_options));
+        }
+    }
+}
