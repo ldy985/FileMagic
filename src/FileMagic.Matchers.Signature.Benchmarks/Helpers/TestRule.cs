@@ -2,7 +2,7 @@
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Matchers.Signature.Benchmarks.Helpers
+namespace ldy985.FileMagic.Benchmarks.Helpers
 {
     public class TestRule : BaseRule
     {

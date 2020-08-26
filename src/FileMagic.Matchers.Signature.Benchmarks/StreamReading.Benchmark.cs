@@ -1,0 +1,96 @@
+﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using BenchmarkDotNet.Attributes;
+
+namespace ldy985.FileMagic.Benchmarks
+{
+    [MemoryDiagnoser]
+    [InProcess]
+    public class StreamReading
+    {
+        private Stream _memoryStream;
+
+        [Params(512, 1024 * 10, 1024 * 1024 * 10)]
+        public int N { get; set; }
+
+        [GlobalSetup]
+        public void Setup()
+        {
+            Random random = new Random(1);
+            byte[] bytes = new byte[N];
+            random.NextBytes(bytes);
+            _memoryStream = new MemoryStream(bytes);
+        }
+
+        [GlobalCleanup]
+        public void Dispose()
+        {
+            _memoryStream?.Dispose();
+        }
+
+        [Benchmark]
+        public int StreamByte()
+        {
+            _memoryStream.Position = 0;
+            int b = 0;
+            for (int i = 0; i < N; i++)
+            {
+                b = _memoryStream.ReadByte();
+            }
+
+            return b;
+        }
+
+        [Benchmark]
+        public int BinaryReaderByte()
+        {
+            int b;
+            _memoryStream.Position = 0;
+            using (BinaryReader binaryReader = new BinaryReader(_memoryStream, Encoding.Default, true))
+            {
+                b = 0;
+                for (int i = 0; i < N; i++)
+                {
+                    b = binaryReader.ReadByte();
+                }
+            }
+
+            return b;
+        }
+
+        [Benchmark]
+        public long StreamLong()
+        {
+            _memoryStream.Position = 0;
+            long b = 0;
+            Span<byte> span = stackalloc byte[8];
+
+            for (int i = 0; i < N / sizeof(long); i++)
+            {
+                _memoryStream.Read(span);
+                b = MemoryMarshal.Read<long>(span);
+            }
+
+            return b;
+        }
+
+        [Benchmark]
+        public long BinaryReaderLong()
+        {
+            long b;
+            _memoryStream.Position = 0;
+            using (BinaryReader binaryReader = new BinaryReader(_memoryStream, Encoding.Default, true))
+            {
+                b = 0;
+                for (int i = 0; i < N / sizeof(long); i++)
+                {
+                    b = binaryReader.ReadInt64();
+                }
+            }
+
+            return b;
+        }
+    }
+}
