@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 
 namespace ldy985.FileMagic.Abstracts
 {
@@ -10,7 +11,7 @@ namespace ldy985.FileMagic.Abstracts
         ITypeInfo TypeInfo { get; }
         bool HasParser { get; }
         bool HasStructure { get; }
-        bool TryParse(BinaryReader reader, IResult result, out IParsed parsed);
+        bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed);
 
         bool TryStructure(BinaryReader reader, IResult result);
 

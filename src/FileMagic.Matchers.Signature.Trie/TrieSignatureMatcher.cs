@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
@@ -48,15 +49,15 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         private Node<IRule> RootNode { get; }
 
         /// <inheritdoc />
-        public bool TryFind(BinaryReader br, in IMetaData metaData, out IEnumerable<IRule> matchedRules)
+        public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
         {
             return TryFind(br, out matchedRules);
         }
 
-        public bool TryFind(BinaryReader br, out IEnumerable<IRule> matchedRules)
+        public bool TryFind(BinaryReader br, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();
-            bool tryFindInternal = TryFindInternal(RootNode, br, out Node<IRule> data);
+            bool tryFindInternal = TryFindInternal(RootNode, br, out Node<IRule>? data);
             br.SetPosition(streamPosition);
             if (!tryFindInternal)
             {
@@ -67,7 +68,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             _logger.LogTrace("Trie found at least 1 leaf");
 
-            matchedRules = data.GetAllLeafs();
+            matchedRules = data!.GetAllLeafs();
             return true;
 
             //foreach (IRule matchedRule in data.GetAllLeafs())
@@ -115,7 +116,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        private bool TryFindInternal(Node<IRule> node, BinaryReader br, out Node<IRule> result)
+        private bool TryFindInternal(Node<IRule> node, BinaryReader br, [NotNullWhen(true)]out Node<IRule>? result)
         {
             result = null;
 
@@ -133,16 +134,16 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             {
                 if (node.Children.TryGetValue(readByte, out Node<IRule> tempNode))
                 {
-                    tryFind1 = TryFindInternal(tempNode, br, out Node<IRule> temp1);
+                    tryFind1 = TryFindInternal(tempNode, br, out Node<IRule>? temp1);
                     if (tryFind1)
                         result = temp1;
                 }
 
                 br.SetPosition(streamPosition);
 
-                if (node.Children.TryGetValue(ushort.MaxValue, out Node<IRule> tempNode2))
+                if (node.Children.TryGetValue(ushort.MaxValue, out Node<IRule>? tempNode2))
                 {
-                    tryFind2 = TryFindInternal(tempNode2, br, out Node<IRule> temp2);
+                    tryFind2 = TryFindInternal(tempNode2, br, out Node<IRule>? temp2);
                     if (tryFind2)
                         result = temp2;
                 }

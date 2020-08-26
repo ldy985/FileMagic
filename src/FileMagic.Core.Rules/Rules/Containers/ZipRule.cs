@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using ldy985.BinaryReaderExtensions;
@@ -19,7 +20,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Zip file", "JAR", "WAR", "DOCX", "XLSX", "PPTX", "ODT", "ODS", "ODP", "ZIPX", "NUPKG", "ZIP", "APK", "EPUB");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             ZipArchive archive = new ZipArchive();
             using (System.IO.Compression.ZipArchive zipArchive = new System.IO.Compression.ZipArchive(reader.BaseStream, ZipArchiveMode.Read, true))

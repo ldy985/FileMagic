@@ -31,7 +31,7 @@ namespace ldy985.FileMagic
             return this;
         }
 
-        public FileMagic Build(ILogger<FileMagic> logger2 = null, ILogger<TrieSignatureMatcher> logger = null)
+        public FileMagic Build(ILogger<FileMagic>? logger2 = null, ILogger<TrieSignatureMatcher>? logger = null)
         {
             RuleProvider ruleProvider = new RuleProvider(FileMagicRuleHelpers.GetDefaultFileMagicRules());
 

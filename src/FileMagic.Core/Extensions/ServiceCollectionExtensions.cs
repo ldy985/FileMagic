@@ -9,13 +9,13 @@ namespace ldy985.FileMagic.Core.Extensions
     [PublicAPI]
     public static class ServiceCollectionExtensions
     {
-        public static IFileMagicBuilder AddFileMagicCore(this IServiceCollection collection, Action<FileMagicConfig> configureOptions)
+        public static IFileMagicBuilder AddFileMagicCore([NotNull]this IServiceCollection collection, Action<FileMagicConfig> configureOptions)
         {
-            collection?.Configure(configureOptions);
+            collection.Configure(configureOptions);
             return AddFileMagicCore(collection);
         }
 
-        public static IFileMagicBuilder AddFileMagicCore(this IServiceCollection collection)
+        public static IFileMagicBuilder AddFileMagicCore([NotNull]this IServiceCollection collection)
         {
             collection.AddOptions<FileMagicConfig>()
                       .Configure(options =>

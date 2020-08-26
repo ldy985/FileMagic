@@ -6,13 +6,14 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 {
     public class Node<T>
     {
-        public Node<T> Parent { get; set; }
-        public Dictionary<ushort, Node<T>> Children { get; set; }
+        public Node<T>? Parent { get; set; }
+
+        public Dictionary<ushort, Node<T>>? Children { get; set; }
 
         /// <summary>
         ///     Only set in leafs
         /// </summary>
-        public List<T> Values { get; private set; }
+        public List<T>? Values { get; private set; }
 
         public string MagicString
         {
@@ -31,11 +32,17 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         public IEnumerable<ushort?> GetMagic()
         {
+            if (Parent == null)
+                return Enumerable.Empty<ushort?>();
+
             return GetMagicInternal(Parent, this).Select(data => data == ushort.MaxValue ? null : (ushort?)data).Reverse();
         }
 
         private IEnumerable<ushort> GetMagicInternal(Node<T> lastNode, Node<T> node2)
         {
+            if (lastNode.Children == null)
+                yield break;
+
             foreach (var pair in lastNode.Children)
             {
                 if (pair.Value != node2)
@@ -79,12 +86,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         public void AddValue(T type)
         {
-            (Values ?? (Values = new List<T>())).Add(type);
+            (Values ??= new List<T>()).Add(type);
         }
 
         public void AddChild(ushort key, Node<T> value)
         {
-            (Children ?? (Children = new Dictionary<ushort, Node<T>>())).Add(key, value);
+            (Children ??= new Dictionary<ushort, Node<T>>()).Add(key, value);
         }
 
         /// <inheritdoc />

@@ -59,7 +59,7 @@ namespace ldy985.FileMagic
             {
                 string name = _parallelMagicMatcher.GetType().Name;
                 _logger.LogTrace("Trying {Matcher} matcher", name);
-                if (_parallelMagicMatcher.TryFind(binaryReader, helpingData, out IEnumerable<IRule> matchedRules))
+                if (_parallelMagicMatcher.TryFind(binaryReader, helpingData, out IEnumerable<IRule>? matchedRules))
                 {
                     _logger.LogDebug("{Matcher} matched:", name);
 
@@ -116,7 +116,7 @@ namespace ldy985.FileMagic
             {
                 string name = _parallelMagicMatcher.GetType().Name;
                 _logger.LogTrace("Trying {Matcher} matcher", name);
-                if (_parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule> matchedRules))
+                if (_parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules))
                 {
                     _logger.LogDebug("{Matcher} matched", name);
 
