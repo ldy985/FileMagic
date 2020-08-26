@@ -11,7 +11,7 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<T> CreateInstanceOfAll<T>([CanBeNull]Assembly lookInAssembly = null, bool callPrivateConstructors = false)
+        public static IEnumerable<T> CreateInstanceOfAll<T>([CanBeNull]Assembly? lookInAssembly = null, bool callPrivateConstructors = false)
         {
             foreach (Type type in GetInstanceTypesInheritedFrom<T>(lookInAssembly))
             {
@@ -25,7 +25,7 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<Type> GetTypesInheritedFrom<T>([CanBeNull]Assembly assembly = null)
+        public static IEnumerable<Type> GetTypesInheritedFrom<T>([CanBeNull]Assembly? assembly = null)
         {
             return GetTypesInheritedFrom(typeof(T), assembly);
         }
@@ -33,7 +33,7 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<Type> GetTypesInheritedFrom(Type type, Assembly assembly = null)
+        public static IEnumerable<Type> GetTypesInheritedFrom(Type type, Assembly? assembly = null)
         {
             if (assembly == null)
                 assembly = type.Assembly;
@@ -51,7 +51,7 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<Type> GetInstanceTypesInheritedFrom<T>([CanBeNull]Assembly assembly = null)
+        public static IEnumerable<Type> GetInstanceTypesInheritedFrom<T>([CanBeNull]Assembly? assembly = null)
         {
             return GetInstanceTypesInheritedFrom(typeof(T), assembly);
         }
@@ -59,7 +59,7 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<Type> GetInstanceTypesInheritedFrom(Type type, Assembly assembly = null)
+        public static IEnumerable<Type> GetInstanceTypesInheritedFrom(Type type, Assembly? assembly = null)
         {
             if (assembly == null)
                 assembly = type.Assembly;

@@ -156,7 +156,7 @@ namespace Chronos.Libraries.FileClassifier.MagicRule
             {
                 return int.Parse(s);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
                 return defaultVal;

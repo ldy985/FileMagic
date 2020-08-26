@@ -16,6 +16,4 @@
     <ProjectReference Include="..\FileMagic.Matchers.Signature.Trie\FileMagic.Matchers.Signature.Trie.csproj" />
   </ItemGroup>
 
-
-
 </Project>

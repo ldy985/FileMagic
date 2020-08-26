@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
@@ -22,7 +23,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
         {
-            CompoundFile compoundFile = new CompoundFile(reader.BaseStream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen | CFSConfiguration.NoValidationException);
+            using CompoundFile compoundFile = new CompoundFile(reader.BaseStream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen | CFSConfiguration.NoValidationException);
             OLEData oleData = new OLEData();
             compoundFile.RootStorage.VisitEntries(item => oleData.Directories.Add(item.Name), true);
 
@@ -40,9 +41,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                         {
                             for (int index = 0; index < propertySetStream.PropertySet0.PropertyIdentifierAndOffsets.Count; index++)
                             {
-                                string name = propertySetStream.PropertySet0.PropertyIdentifierAndOffsets[index].PropertyIdentifier.GetDescription(SummaryInfoMap.SummaryInfo);
+                                string? name = propertySetStream.PropertySet0.PropertyIdentifierAndOffsets[index].PropertyIdentifier.GetDescription(SummaryInfoMap.SummaryInfo);
                                 object value = propertySetStream.PropertySet0.Properties[index].Value;
-                                if (name?.Length == 0)
+
+                                if (string.IsNullOrEmpty(name))
                                     continue;
 
                                 oleData.MetaInfo.Add(name, value);
@@ -105,7 +107,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     if (any)
                     {
                         parsed = oleData;
-                        compoundFile.Close();
                         return true;
                     }
                 }
@@ -147,12 +148,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     continue;
 
                 parsed = oleData;
-                compoundFile.Close();
                 return true;
             }
 
-            parsed = null;
-            compoundFile.Close();
+            parsed = null!;
+
             return false;
         }
 

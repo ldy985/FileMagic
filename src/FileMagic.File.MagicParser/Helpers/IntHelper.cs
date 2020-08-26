@@ -63,7 +63,7 @@ namespace Chronos.Libraries.FileClassifier.Helpers
                 result = Convert.ToInt64(input.Substring(index), radix);
                 result = negative ? Convert.ToInt64(-result) : result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // If number is Integer.MIN_VALUE, we'll end up here. The next line handles this
                 // case, and causes any genuine format error to be rethrown.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using ldy985.BinaryReaderExtensions;
@@ -48,7 +49,7 @@ namespace ldy985.FileMagic.Core
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        public bool TryMagic(BinaryReader stream)
+        public bool TryMagic([NotNull]BinaryReader stream)
         {
             if (Magic.Offset != 0)
             {
@@ -81,7 +82,7 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
-        public bool TryParse(BinaryReader reader, IResult result, out IParsed parsed)
+        public bool TryParse([JetBrains.Annotations.NotNull]BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed parsed)
         {
             parsed = null;
 
@@ -97,21 +98,21 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error while parsing with: {RuleName}", GetType().Name);
+                _logger.LogError(ex, "Error while parsing with: {RuleName}", GetType().Name);
             }
 
             reader.SetPosition(position);
             return tryParseInternal;
         }
 
-        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, out IParsed parsed)
+        protected virtual bool TryParseInternal([NotNull]BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed parsed)
         {
             parsed = null;
             return false;
         }
 
         /// <inheritdoc />
-        public bool TryStructure(BinaryReader reader, IResult result)
+        public bool TryStructure([NotNull]BinaryReader reader, IResult result)
         {
             long position = reader.GetPosition();
             bool tryStructureInternal = false;
@@ -125,14 +126,14 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error while TryingStructure with: {RuleName}", GetType().Name);
+                _logger.LogError(ex, "Error while TryingStructure with: {RuleName}", GetType().Name);
             }
 
             reader.SetPosition(position);
             return tryStructureInternal;
         }
 
-        protected virtual bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected virtual bool TryStructureInternal([NotNull]BinaryReader reader, IResult result)
         {
             return false;
         }
