@@ -5,7 +5,6 @@ using Xunit;
 
 namespace ldy985.FileMagic.Core.Rules.Tests
 {
-    // ReSharper disable once InconsistentNaming
     public sealed class EXERuleTest
     {
         public EXERuleTest()

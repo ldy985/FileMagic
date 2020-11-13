@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.1.0-alpha1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
-    <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj" />
   </ItemGroup>
 
 </Project>

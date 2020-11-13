@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chronos.Libraries.FileClassifier.MagicRule
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     [Flags]
     public enum Flags

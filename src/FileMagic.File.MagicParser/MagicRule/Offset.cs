@@ -1,4 +1,4 @@
-namespace Chronos.Libraries.FileClassifier.MagicRule
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     /// <summary>
     /// The offset defined by the magic.

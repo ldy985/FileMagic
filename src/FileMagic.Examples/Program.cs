@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
-using ldy985.FileMagic.Core.Misc;
 using ldy985.FileMagic.Core.Rules.Rules;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

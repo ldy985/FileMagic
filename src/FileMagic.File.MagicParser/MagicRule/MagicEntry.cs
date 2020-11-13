@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
-using Chronos.Libraries.FileClassifier.MagicRule;
 
-namespace Chronos.Libraries.FileClassifier.entries
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     /// <summary>
     /// One magic rule.

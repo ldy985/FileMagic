@@ -1,7 +1,7 @@
-﻿using Chronos.Libraries.FileClassifier.Enums;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using ldy985.FileMagic.File.MagicParser.Enums;
 
-namespace Chronos.Libraries.FileClassifier.Values
+namespace ldy985.FileMagic.File.MagicParser.Values
 {
     /// <summary>
     ///     The value.

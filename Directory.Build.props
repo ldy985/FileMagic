@@ -9,8 +9,11 @@
     <CopyRetryCount>2</CopyRetryCount>
     <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
 
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+	
+	<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
 
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>

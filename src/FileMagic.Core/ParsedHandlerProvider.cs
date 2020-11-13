@@ -21,13 +21,13 @@ namespace ldy985.FileMagic.Core
 
         public IParsedHandlerProvider AddParsedHandler<TRule, TParsed>(Action<TParsed> action1) where TRule : IRule where TParsed : IParsed
         {
-            Action<object> action = obj => action1((TParsed)obj);
+            void Action(object obj) => action1((TParsed)obj);
 
             Type type = typeof(TRule);
             if (_parsedActions.TryGetValue(type, out List<Action<object>> actions))
-                actions.Add(action);
+                actions.Add(Action);
             else
-                _parsedActions.Add(type, new List<Action<object>> { action });
+                _parsedActions.Add(type, new List<Action<object>> { Action });
 
             return this;
         }

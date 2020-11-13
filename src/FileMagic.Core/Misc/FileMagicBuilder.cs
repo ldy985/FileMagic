@@ -1,4 +1,3 @@
-using System;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
@@ -50,7 +50,7 @@ namespace ldy985.FileMagic.Core
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
 #if NETSTANDARD2_1
-        public bool TryMagic([NotNull]BinaryReader stream)
+        public bool TryMagic(BinaryReader stream)
 #else
         public bool TryMagic(BinaryReader stream)
 #endif

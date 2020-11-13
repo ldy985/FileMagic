@@ -8,6 +8,6 @@ namespace ldy985.FileMagic.Abstracts
         string[] Extensions { get; set; }
         string Description { get; set; }
         string MatchedRuleName { get; set; }
-        MatchType MatchedRuleType { get; set; }
+        MatchTypes MatchedRuleTypes { get; set; }
     }
 }

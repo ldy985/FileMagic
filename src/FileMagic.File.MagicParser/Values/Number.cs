@@ -1,7 +1,7 @@
 using System;
-using Chronos.Libraries.FileClassifier.Enums;
+using ldy985.FileMagic.File.MagicParser.Enums;
 
-namespace Chronos.Libraries.FileClassifier.Values
+namespace ldy985.FileMagic.File.MagicParser.Values
 {
     public class Number : Value
     {

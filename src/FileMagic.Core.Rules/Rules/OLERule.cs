@@ -33,7 +33,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
             if (oleData.Directories.Contains(_metaInfoName))
             {
-                oleData.MetaInfo = new Dictionary<string, object>();
                 CFStream tryGetStream = compoundFile.RootStorage.TryGetStream(_metaInfoName);
                 if (tryGetStream != null)
                 {
@@ -184,13 +183,13 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
     public class OLEData : IParsed
     {
-        /// <inheritdoc />
         public OLEData()
         {
             Directories = new List<string>();
+            MetaInfo = new Dictionary<string, object>();
         }
 
-        public List<string> Directories { get; set; }
-        public IDictionary<string, object> MetaInfo { get; set; }
+        public List<string> Directories { get; }
+        public IDictionary<string, object> MetaInfo { get; }
     }
 }

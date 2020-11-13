@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿#if NETSTANDARD2_1
+using System.Diagnostics.CodeAnalysis;
+#endif
 using System.IO;
 
 namespace ldy985.FileMagic.Abstracts

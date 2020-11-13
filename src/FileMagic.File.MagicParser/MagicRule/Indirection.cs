@@ -1,6 +1,6 @@
-﻿using Chronos.Libraries.FileClassifier.Enums;
+﻿using ldy985.FileMagic.File.MagicParser.Enums;
 
-namespace Chronos.Libraries.FileClassifier.MagicRule
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     /// <summary>
     /// Indirection is when the offset is read from a value in the file.

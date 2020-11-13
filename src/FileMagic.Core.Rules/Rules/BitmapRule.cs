@@ -4,10 +4,6 @@ using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-// ReSharper disable IdentifierTypo
-// ReSharper disable InconsistentNaming
-#pragma warning disable 649
-
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>

@@ -22,9 +22,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                 StringBuilder sb = new StringBuilder();
 
                 foreach (ushort? data in GetMagic())
-                {
                     sb.Append(data.HasValue ? $"{data:X2}" : "??");
-                }
 
                 return sb.ToString();
             }
@@ -43,7 +41,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             if (lastNode.Children == null)
                 yield break;
 
-            foreach (var pair in lastNode.Children)
+            foreach (KeyValuePair<ushort, Node<T>> pair in lastNode.Children)
             {
                 if (pair.Value != node2)
                     continue;
@@ -56,9 +54,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                 yield break;
 
             foreach (ushort key in GetMagicInternal(lastNode.Parent, lastNode))
-            {
                 yield return key;
-            }
         }
 
         public IEnumerable<T> GetAllLeafs()
@@ -66,16 +62,14 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             return Values ?? ValuesDeep(this).Distinct();
         }
 
-        private IEnumerable<T> ValuesDeep(Node<T> node)
+        private static IEnumerable<T> ValuesDeep(Node<T> node)
         {
             IEnumerable<T> valuesDeep = Enumerable.Empty<T>();
 
             if (node.Children != null)
             {
-                foreach (var pair in node.Children)
-                {
+                foreach (KeyValuePair<ushort, Node<T>> pair in node.Children)
                     valuesDeep = valuesDeep.Concat(ValuesDeep(pair.Value));
-                }
             }
 
             if (node.Values != null)

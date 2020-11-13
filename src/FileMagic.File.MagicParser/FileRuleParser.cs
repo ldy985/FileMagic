@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Chronos.Libraries.FileClassifier.Enums;
-using Chronos.Libraries.FileClassifier.Helpers;
-using Chronos.Libraries.FileClassifier.Parser;
-using Chronos.Libraries.FileClassifier.entries;
+using ldy985.FileMagic.File.MagicParser.Enums;
+using ldy985.FileMagic.File.MagicParser.MagicRule;
+using ldy985.FileMagic.File.MagicParser.Parser;
 using Microsoft.Extensions.Logging;
 
-namespace Chronos.Libraries.FileClassifier
+namespace ldy985.FileMagic.File.MagicParser
 {
     public class FileRuleParser
     {
@@ -43,9 +40,9 @@ namespace Chronos.Libraries.FileClassifier
         /// <returns>The <see cref="ContentInfo"/>.</returns>
         public void LoadRulesWithParser(string fileOrFolder)
         {
-            if (File.Exists(fileOrFolder))
+            if (System.IO.File.Exists(fileOrFolder))
             {
-                using (var fileStream = File.OpenRead(fileOrFolder))
+                using (var fileStream = System.IO.File.OpenRead(fileOrFolder))
                 using (var reader2 = new StreamReader(fileStream))
                 {
                     ParseEntries(reader2);
@@ -56,7 +53,7 @@ namespace Chronos.Libraries.FileClassifier
             {
                 foreach (var ruleFilePath in Directory.GetFiles(fileOrFolder, "*", SearchOption.AllDirectories))
                 {
-                    using (var fileStream = File.OpenRead(ruleFilePath))
+                    using (var fileStream = System.IO.File.OpenRead(ruleFilePath))
                     using (var reader2 = new StreamReader(fileStream))
                     {
                         ParseEntries(reader2);

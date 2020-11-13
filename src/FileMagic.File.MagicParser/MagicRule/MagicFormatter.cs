@@ -7,9 +7,8 @@
 
 using System.Text;
 using System.Text.RegularExpressions;
-using Chronos.Libraries.FileClassifier.MagicRule;
 
-namespace Chronos.Libraries.FileClassifier.entries
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     public class MagicFormatter
     {

@@ -1,7 +1,7 @@
-using Chronos.Libraries.FileClassifier.Enums;
-using Chronos.Libraries.FileClassifier.Values;
+using ldy985.FileMagic.File.MagicParser.Enums;
+using ldy985.FileMagic.File.MagicParser.Values;
 
-namespace Chronos.Libraries.FileClassifier.MagicRule
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     /// <summary>
     /// The test to run on the file.

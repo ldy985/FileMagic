@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Chronos.Libraries.FileClassifier.Types
+namespace ldy985.FileMagic.File.MagicParser.Types
 {
     public class StringType
     {

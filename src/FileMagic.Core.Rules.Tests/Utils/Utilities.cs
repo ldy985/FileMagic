@@ -29,9 +29,11 @@ namespace ldy985.FileMagic.Core.Rules.Tests.Utils
             return true;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created.", Justification = "<Pending>")]
         public static Stream GetFileSteam(string filePath)
         {
-            return new BufferedStream(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan), 8096);
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan);
+            return new BufferedStream(fileStream, 8096);
         }
 
         public static BinaryReader GetReader(string filePath)

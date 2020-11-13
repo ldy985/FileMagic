@@ -7,11 +7,10 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using Chronos.Libraries.FileClassifier.entries;
-using Chronos.Libraries.FileClassifier.Enums;
-using Chronos.Libraries.FileClassifier.Values;
+using ldy985.FileMagic.File.MagicParser.Enums;
+using ldy985.FileMagic.File.MagicParser.Values;
 
-namespace Chronos.Libraries.FileClassifier.MagicRule
+namespace ldy985.FileMagic.File.MagicParser.MagicRule
 {
     
     public class PercentExpression
@@ -93,14 +92,14 @@ namespace Chronos.Libraries.FileClassifier.MagicRule
                 case 'e':
                 case 'E':
                 {
-                    this.decimalFormat = ScientificFormat(dotPrecision);
+                    decimalFormat = ScientificFormat(dotPrecision);
                     break;
                 }
 
                 case 'f':
                 case 'F':
                 {
-                    this.decimalFormat = DecimalFormat(dotPrecision);
+                    decimalFormat = DecimalFormat(dotPrecision);
 
                     break;
                 }
@@ -109,7 +108,7 @@ namespace Chronos.Libraries.FileClassifier.MagicRule
                 case 'G':
                 {
                     // will take the shorter of the two
-                    this.decimalFormat = DecimalFormat(dotPrecision);
+                    decimalFormat = DecimalFormat(dotPrecision);
                     break;
                 }
 

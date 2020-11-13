@@ -3,7 +3,7 @@
 namespace ldy985.FileMagic.Abstracts.Enums
 {
     [Flags]
-    public enum MatchType
+    public enum MatchTypes
     {
         Unknown = 0b0,
         Signature = 0b01,

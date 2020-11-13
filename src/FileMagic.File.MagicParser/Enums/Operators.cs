@@ -1,4 +1,4 @@
-﻿namespace Chronos.Libraries.FileClassifier.Enums
+﻿namespace ldy985.FileMagic.File.MagicParser.Enums
 {
     public enum Operators
     {

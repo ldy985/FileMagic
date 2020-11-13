@@ -1,15 +1,14 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Chronos.Libraries.FileClassifier.entries;
-using Chronos.Libraries.FileClassifier.Enums;
-using Chronos.Libraries.FileClassifier.Helpers;
-using Chronos.Libraries.FileClassifier.MagicRule;
-using Chronos.Libraries.FileClassifier.Types;
-using Chronos.Libraries.FileClassifier.Values;
+using ldy985.FileMagic.File.MagicParser.Enums;
+using ldy985.FileMagic.File.MagicParser.Helpers;
+using ldy985.FileMagic.File.MagicParser.MagicRule;
+using ldy985.FileMagic.File.MagicParser.Types;
+using ldy985.FileMagic.File.MagicParser.Values;
 using Microsoft.Extensions.Logging;
 
-namespace Chronos.Libraries.FileClassifier.Parser
+namespace ldy985.FileMagic.File.MagicParser.Parser
 {
     /// <summary>
     /// Class which parses a line from the magic (5) format and produces a <see cref="MagicEntry"/>.

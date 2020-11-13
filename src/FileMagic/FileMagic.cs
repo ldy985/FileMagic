@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MatchType = ldy985.FileMagic.Abstracts.Enums.MatchType;
 
 namespace ldy985.FileMagic
 {
@@ -208,7 +208,7 @@ namespace ldy985.FileMagic
                 {
                     _logger.LogDebug("Matched {Rule} pattern", rule.Name);
                     patternMatched = true;
-                    result.MatchedRuleType |= MatchType.Signature;
+                    result.MatchedRuleTypes |= MatchTypes.Signature;
                 }
             }
 
@@ -219,7 +219,7 @@ namespace ldy985.FileMagic
                 {
                     _logger.LogDebug("Matched {Rule} structure", rule.Name);
                     structureMatched = true;
-                    result.MatchedRuleType |= MatchType.Structure;
+                    result.MatchedRuleTypes |= MatchTypes.Structure;
                 }
             }
 
@@ -237,7 +237,7 @@ namespace ldy985.FileMagic
 
                     _logger.LogDebug("Matched {Rule} parser", rule.Name);
                     parserMatched = true;
-                    result.MatchedRuleType |= MatchType.Parser;
+                    result.MatchedRuleTypes |= MatchTypes.Parser;
                 }
             }
 

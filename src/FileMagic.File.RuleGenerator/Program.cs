@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Chronos.Libraries.FileClassifier;
-using Chronos.Libraries.FileClassifier.entries;
-using Chronos.Libraries.FileClassifier.Parser;
+using ldy985.FileMagic.File.MagicParser;
+using ldy985.FileMagic.File.MagicParser.MagicRule;
+using ldy985.FileMagic.File.MagicParser.Parser;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
-namespace FileMagic.File.RuleGenerator
+namespace ldy985.FileMagic.File.RuleGenerator
 {
     class Program
     {

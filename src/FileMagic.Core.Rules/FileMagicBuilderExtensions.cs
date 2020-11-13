@@ -41,7 +41,7 @@ namespace ldy985.FileMagic.Core.Rules
 
                 ConstructorInfo constructorInfo = type.GetConstructors().First();
 
-                yield return (T)constructorInfo.Invoke(new[] { (object)null! });
+                yield return (T)constructorInfo.Invoke(new[] { ((object)null!)! });
             }
         }
     }

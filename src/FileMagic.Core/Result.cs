@@ -10,6 +10,6 @@ namespace ldy985.FileMagic.Core
         public string[] Extensions { get; set; }
         public string Description { get; set; }
         public string MatchedRuleName { get; set; }
-        public MatchType MatchedRuleType { get; set; }
+        public MatchTypes MatchedRuleTypes { get; set; }
     }
 }
