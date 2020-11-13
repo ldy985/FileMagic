@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{9EE5FA62-35A2-45A6-BCB3-8A80F52E18FC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryReaderExtensions", "..\..\!UtillityClasses\BinaryExtensions\src\BinaryReaderExtensions\BinaryReaderExtensions.csproj", "{53FF5D03-1C28-461B-9887-A9819DB069B4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumberExtensions", "..\..\!UtillityClasses\NumberExtensions\src\NumberExtensions\NumberExtensions.csproj", "{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Core", "FileMagic.Core\FileMagic.Core.csproj", "{A1CE1AF4-B5F5-4BBF-98FA-EC41D842A1D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Core.Rules", "FileMagic.Core.Rules\FileMagic.Core.Rules.csproj", "{3CDA8618-CC95-4E00-AA7F-668656F417F0}"
@@ -29,9 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Core.Rules.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground", "Playground\Playground.csproj", "{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMagic.File.RuleGenerator", "FileMagic.File.RuleGenerator\FileMagic.File.RuleGenerator.csproj", "{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.File.RuleGenerator", "FileMagic.File.RuleGenerator\FileMagic.File.RuleGenerator.csproj", "{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMagic.File.MagicParser", "FileMagic.File.MagicParser\FileMagic.File.MagicParser.csproj", "{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.File.MagicParser", "FileMagic.File.MagicParser\FileMagic.File.MagicParser.csproj", "{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8A5F10CB-9CD2-4E7F-956B-EE0D70433E6D}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\Global.ruleset = ..\Global.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,14 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53FF5D03-1C28-461B-9887-A9819DB069B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53FF5D03-1C28-461B-9887-A9819DB069B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53FF5D03-1C28-461B-9887-A9819DB069B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53FF5D03-1C28-461B-9887-A9819DB069B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1CE1AF4-B5F5-4BBF-98FA-EC41D842A1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1CE1AF4-B5F5-4BBF-98FA-EC41D842A1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1CE1AF4-B5F5-4BBF-98FA-EC41D842A1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -98,10 +90,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{53FF5D03-1C28-461B-9887-A9819DB069B4} = {9EE5FA62-35A2-45A6-BCB3-8A80F52E18FC}
-		{13DA4FF5-8B6A-4FD4-A8E1-C3888679F8B5} = {9EE5FA62-35A2-45A6-BCB3-8A80F52E18FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {744838AB-492A-4888-95CC-2E8635B3A15F}

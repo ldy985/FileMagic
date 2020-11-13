@@ -49,12 +49,20 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         private Node<IRule> RootNode { get; }
 
         /// <inheritdoc />
+#if NETSTANDARD2_1
         public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
+#else
+        public bool TryFind(BinaryReader br, in IMetaData metaData, out IEnumerable<IRule>? matchedRules)
+#endif
         {
             return TryFind(br, out matchedRules);
         }
 
+#if NETSTANDARD2_1
         public bool TryFind(BinaryReader br, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
+#else
+        public bool TryFind(BinaryReader br, out IEnumerable<IRule>? matchedRules)
+#endif
         {
             long streamPosition = br.GetPosition();
             bool tryFindInternal = TryFindInternal(RootNode, br, out Node<IRule>? data);
@@ -116,7 +124,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
+#if NETSTANDARD2_1
         private bool TryFindInternal(Node<IRule> node, BinaryReader br, [NotNullWhen(true)]out Node<IRule>? result)
+#else
+        private bool TryFindInternal(Node<IRule> node, BinaryReader br, out Node<IRule>? result)
+#endif
+
         {
             result = null;
 

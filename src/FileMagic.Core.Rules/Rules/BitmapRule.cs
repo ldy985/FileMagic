@@ -22,7 +22,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bitmap", "BMP");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
+#if NETSTANDARD2_1
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+#else
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
+#endif
         {
             BMP bmp = new BMP();
             BMPType type = reader.ReadEnum<BMPType>();

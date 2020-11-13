@@ -5,6 +5,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
     /// http://metastatic.org/source/JKS.java
+    /// https://stackoverflow.com/questions/10839303/specification-of-jks-key-store-format
     /// </summary>
     public class JKSRule : BaseRule
     {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
       <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -10,10 +10,10 @@
     <PackageReference Include="OpenMcdf" Version="2.2.1.3" />
     <PackageReference Include="OpenMcdf.Extensions" Version="2.2.1.3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+    <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.1.0-alpha1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\!UtillityClasses\BinaryExtensions\src\BinaryReaderExtensions\BinaryReaderExtensions.csproj" />
     <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj" />
   </ItemGroup>
 

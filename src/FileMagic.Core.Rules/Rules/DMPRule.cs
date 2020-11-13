@@ -10,7 +10,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("504147454455", 0);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows crash dump", "DMP");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Minidump", "DMP");
 
         /// <inheritdoc />
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
@@ -29,5 +29,16 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public DMPRule(ILogger<DMPRule> logger) : base(logger) { }
+    }
+
+    public class MDMPRule : BaseRule
+    {
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("4D444D5093A7", 0);
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
+
+        /// <inheritdoc />
+        public MDMPRule(ILogger<MDMPRule> logger) : base(logger) { }
     }
 }

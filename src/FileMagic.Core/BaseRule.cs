@@ -49,7 +49,11 @@ namespace ldy985.FileMagic.Core
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
+#if NETSTANDARD2_1
         public bool TryMagic([NotNull]BinaryReader stream)
+#else
+        public bool TryMagic(BinaryReader stream)
+#endif
         {
             if (Magic.Offset != 0)
             {
@@ -82,7 +86,11 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
+#if NETSTANDARD2_1
         public bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+#else
+        public bool TryParse(BinaryReader reader, IResult result, out IParsed? parsed)
+#endif
         {
             long position = reader.GetPosition();
             bool tryParseInternal = false;
@@ -105,7 +113,11 @@ namespace ldy985.FileMagic.Core
             return tryParseInternal;
         }
 
+#if NETSTANDARD2_1
         protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+#else
+        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
+#endif
         {
             parsed = null;
             return false;

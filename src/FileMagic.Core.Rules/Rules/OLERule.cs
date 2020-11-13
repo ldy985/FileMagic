@@ -21,7 +21,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Object Linking and Embedding (OLE) Compound File", "DOC", "DOT", "PPS", "PPT", "XLA", "XLS", "WIZ", "AC_", "ADP", "DB", "MSC", "MSG", "MSI", "MTW", "MXD", "OPT", "PUB", "QBM", "RVT", "SUO", "SPO", "VSD", "WPS");
 
         /// <inheritdoc />
+#if NETSTANDARD2_1
         protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
+#else
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
+#endif
         {
             using CompoundFile compoundFile = new CompoundFile(reader.BaseStream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen | CFSConfiguration.NoValidationException);
             OLEData oleData = new OLEData();
@@ -61,26 +65,41 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 {
                     string value = (string)dataValue;
                     bool any = false;
-
+#if NETSTANDARD2_1
                     if (value.Contains("Word", StringComparison.Ordinal))
+#else
+                    if (value.Contains("Word"))
+#endif
                     {
                         result.Description = "Microsoft Word document";
                         result.Extensions = new[] { "DOC", "DOT" };
                         any = true;
                     }
+#if NETSTANDARD2_1
                     else if (value.Contains("Excel", StringComparison.Ordinal))
+#else
+                    else if (value.Contains("Excel"))
+#endif
                     {
                         result.Description = "Microsoft Excel document";
                         result.Extensions = new[] { "XLS" };
                         any = true;
                     }
+#if NETSTANDARD2_1
                     else if (value.Contains("PowerPoint", StringComparison.Ordinal))
+#else
+                    else if (value.Contains("PowerPoint"))
+#endif
                     {
                         result.Description = "Microsoft PowerPoint document";
                         result.Extensions = new[] { "PPT", "PPS" };
                         any = true;
                     }
-                    else if (value.Contains("Installer", StringComparison.Ordinal) || value.Contains("InstallShieldr", StringComparison.Ordinal))
+#if NETSTANDARD2_1
+                    else if (value.Contains("Installer", StringComparison.Ordinal) || value.Contains("InstallShield", StringComparison.Ordinal))
+#else
+                    else if (value.Contains("Installer") || value.Contains("InstallShield"))
+#endif
                     {
                         result.Description = "Windows MSI installer";
                         result.Extensions = new[] { "MSI" };

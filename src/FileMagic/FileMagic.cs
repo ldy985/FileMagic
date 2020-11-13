@@ -63,7 +63,11 @@ namespace ldy985.FileMagic
                 {
                     _logger.LogDebug("{Matcher} matched:", name);
 
+#if NETSTANDARD2_1
                     foreach (IRule rule in matchedRules)
+#else
+                    foreach (IRule rule in matchedRules!)
+#endif
                     {
                         _logger.LogDebug("Rule: {Rule}", rule.Name);
 
@@ -119,8 +123,11 @@ namespace ldy985.FileMagic
                 if (_parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules))
                 {
                     _logger.LogDebug("{Matcher} matched", name);
-
+#if NETSTANDARD2_1
                     foreach (IRule rule in matchedRules)
+#else
+                    foreach (IRule rule in matchedRules!)
+#endif
                     {
                         (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
@@ -222,7 +229,11 @@ namespace ldy985.FileMagic
                 if (rule.TryParse(binaryReader, result, out var parsedObject))
                 {
                     if (_config.Value.ParserHandle)
+#if NETSTANDARD2_1
                         _handlerProvider.ExecuteHandlers(rule, parsedObject);
+#else
+                        _handlerProvider.ExecuteHandlers(rule, parsedObject!);
+#endif
 
                     _logger.LogDebug("Matched {Rule} parser", rule.Name);
                     parserMatched = true;

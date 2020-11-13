@@ -15,7 +15,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Gif image", "GIF");
 
         /// <inheritdoc />
+#if NETSTANDARD2_1
         protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
+#else
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
+#endif
         {
             reader.SkipForwards(6);
             GIF gif = new GIF();
