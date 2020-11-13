@@ -48,10 +48,10 @@ namespace ldy985.FileMagic
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="result"></param>
-        /// <param name="helpingData"></param>
+        /// <param name="metaData"></param>
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
-        public bool IdentifyStream(Stream stream, out IResult result, ref IMetaData helpingData)
+        public bool IdentifyStream(Stream stream, out IResult result, ref IMetaData metaData)
         {
             result = new Result();
 
@@ -59,7 +59,7 @@ namespace ldy985.FileMagic
             {
                 string name = _parallelMagicMatcher.GetType().Name;
                 _logger.LogTrace("Trying {Matcher} matcher", name);
-                if (_parallelMagicMatcher.TryFind(binaryReader, helpingData, out IEnumerable<IRule>? matchedRules))
+                if (_parallelMagicMatcher.TryFind(binaryReader, metaData, out IEnumerable<IRule>? matchedRules))
                 {
                     _logger.LogDebug("{Matcher} matched:", name);
 

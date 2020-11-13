@@ -21,12 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Benchmarks", "Fil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.Core.Rules.Tests", "FileMagic.Core.Rules.Tests\FileMagic.Core.Rules.Tests.csproj", "{7C8ECE48-704B-47BC-9C95-6B8330B035EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Playground", "Playground\Playground.csproj", "{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.File.RuleGenerator", "FileMagic.File.RuleGenerator\FileMagic.File.RuleGenerator.csproj", "{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileMagic.File.MagicParser", "FileMagic.File.MagicParser\FileMagic.File.MagicParser.csproj", "{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8A5F10CB-9CD2-4E7F-956B-EE0D70433E6D}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
@@ -75,18 +69,6 @@ Global
 		{7C8ECE48-704B-47BC-9C95-6B8330B035EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C8ECE48-704B-47BC-9C95-6B8330B035EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C8ECE48-704B-47BC-9C95-6B8330B035EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A4241CA4-08D9-4877-BCEE-3B81BA0AABD7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCBFAAED-DB97-46E4-BB9A-A340C1CD6550}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5FA9330-A2B6-41FE-A663-AD7B4697E05D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

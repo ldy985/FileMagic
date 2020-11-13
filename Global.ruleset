@@ -185,6 +185,7 @@
     <Rule Id="Serilog001" Action="Error" />
   </Rules>
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
+    <Rule Id="S1118" Action="None" />
     <Rule Id="S1121" Action="None" />
   </Rules>
 </RuleSet>

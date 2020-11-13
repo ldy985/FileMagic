@@ -1,5 +1,7 @@
 using System;
+#if NETSTANDARD2_1
 using System.Diagnostics.CodeAnalysis;
+#endif
 using System.IO;
 using System.Reflection;
 using ldy985.BinaryReaderExtensions;

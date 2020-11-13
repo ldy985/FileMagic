@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+#if NETSTANDARD2_1
 using System.Diagnostics.CodeAnalysis;
+#endif
 using System.IO;
 using System.IO.Compression;
 using ldy985.BinaryReaderExtensions;
@@ -122,9 +124,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
 
         public class ZipFile
         {
-            public string FullName { get; set; }
-            public DateTimeOffset LastWriteTime { get; set; }
-            public byte[] Data { get; set; }
+            public string? FullName { get; set; }
+            public DateTimeOffset? LastWriteTime { get; set; }
+            public byte[]? Data { get; set; }
         }
 
         /// <inheritdoc />

@@ -37,6 +37,10 @@ namespace ldy985.FileMagic.Examples
 
     internal static class Example1
     {
+        /// <summary>
+        /// Do something with the BMP.
+        /// </summary>
+        /// <param name="obj">the BMP data.</param>
         private static void BMPAction(BitmapRule.BMP obj) { }
 
         public static void Start()
