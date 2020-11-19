@@ -5,7 +5,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
     /// http://fileformats.archiveteam.org/wiki/Extensible_Storage_Engine
-    /// https://github.com/libyal/libesedb
+    /// https://github.com/libyal/libesedb/blob/master/documentation/Extensible%20Storage%20Engine%20(ESE)%20Database%20File%20(EDB)%20format.asciidoc
     /// </summary>
     public class ESEDBRule : BaseRule
     {
