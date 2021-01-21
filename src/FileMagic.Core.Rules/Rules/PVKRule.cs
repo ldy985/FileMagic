@@ -49,6 +49,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft proprietary format for storing a single RSA Private Key", "PVK");
 
         /// <inheritdoc />
-        public PVKRule(ILogger<JKSRule> logger) : base(logger) { }
+        public PVKRule(ILogger<PVKRule> logger) : base(logger) { }
     }
 }

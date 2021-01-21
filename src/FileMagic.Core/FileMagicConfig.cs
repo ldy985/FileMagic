@@ -3,8 +3,8 @@
     public class FileMagicConfig
     {
         public bool PatternCheck { get; set; } = true;
-        public bool StructureCheck { get; set; } = true;
-        public bool ParserCheck { get; set; } = true;
-        public bool ParserHandle { get; set; } = true;
+        public bool StructureCheck { get; set; }
+        public bool ParserCheck { get; set; } 
+        public bool ParserHandle { get; set; }
     }
 }

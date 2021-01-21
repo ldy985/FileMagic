@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\!UtillityClasses\BinaryExtensions\src\BinaryReaderExtensions\BinaryReaderExtensions.csproj" />
     <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
   </ItemGroup>
 

@@ -45,6 +45,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("EnCase® Evidence File Format Version 2", "Ex01");
 
         /// <inheritdoc />
-        public EWFEx01Rule(ILogger<EWFL01Rule> logger) : base(logger) { }
+        public EWFEx01Rule(ILogger<EWFEx01Rule> logger) : base(logger) { }
     }
 }

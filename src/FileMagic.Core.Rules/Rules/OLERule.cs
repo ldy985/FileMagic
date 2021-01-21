@@ -62,7 +62,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     }
                 }
 
-                if (oleData.MetaInfo.TryGetValue("Application Name", out var dataValue))
+                if (oleData.MetaInfo.TryGetValue("Application Name", out object? dataValue))
                 {
                     string value = (string)dataValue;
                     bool any = false;

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using JetBrains.Annotations;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,30 +16,6 @@ namespace ldy985.FileMagic.Core.Rules
             }
 
             return fileMagicBuilder;
-        }
-    }
-
-    public static class FileMagicRuleHelpers
-    {
-        public static IEnumerable<IRule> GetDefaultFileMagicRules()
-        {
-            return CreateRules<IRule>(typeof(FileMagicBuilderExtensions).Assembly);
-        }
-
-        [NotNull]
-        [ItemNotNull]
-        [Pure]
-        public static IEnumerable<T> CreateRules<T>([CanBeNull]Assembly? lookInAssembly = null)
-        {
-            foreach (Type type in TypeHelper.GetInstanceTypesInheritedFrom<T>(lookInAssembly))
-            {
-                if (type.ContainsGenericParameters)
-                    continue;
-
-                ConstructorInfo constructorInfo = type.GetConstructors().First();
-
-                yield return (T)constructorInfo.Invoke(new[] { ((object)null!)! });
-            }
         }
     }
 }

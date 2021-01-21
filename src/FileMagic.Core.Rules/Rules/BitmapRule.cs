@@ -26,8 +26,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
 #endif
         {
-            BMP bmp = new BMP();
-            BMPType type = reader.ReadEnum<BMPType>();
+            Bmp bmp = new Bmp();
+            BmpType type = reader.ReadEnum<BmpType>();
             uint size = reader.ReadUInt32();
             reader.SkipForwards(4);
             uint dataAddress = reader.ReadUInt32();
@@ -40,7 +40,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             {
                 case 12:
                 {
-                    BITMAPCOREHEADER readStruct = reader.ReadStruct<BITMAPCOREHEADER>();
+                    Bitmapcoreheader readStruct = reader.ReadStruct<Bitmapcoreheader>();
                     bmp.Width = readStruct.Width;
                     bmp.Height = readStruct.Height;
                     break;
@@ -48,7 +48,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
                 case 40:
                 {
-                    BITMAPINFOHEADER readStruct = reader.ReadStruct<BITMAPINFOHEADER>();
+                    Bitmapinfoheader readStruct = reader.ReadStruct<Bitmapinfoheader>();
                     bmp.Width = (uint)readStruct.Width;
                     bmp.Height = (uint)readStruct.Height;
                     break;
@@ -56,7 +56,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
                 case 108:
                 {
-                    BITMAPV4HEADER readStruct = reader.ReadStruct<BITMAPV4HEADER>();
+                    Bitmapv4Header readStruct = reader.ReadStruct<Bitmapv4Header>();
                     bmp.Width = (uint)readStruct.Width;
                     bmp.Height = (uint)readStruct.Height;
                     break;
@@ -64,7 +64,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
                 case 124:
                 {
-                    BITMAPV5HEADER readStruct = reader.ReadStruct<BITMAPV5HEADER>();
+                    Bitmapv5Header readStruct = reader.ReadStruct<Bitmapv5Header>();
                     bmp.Width = (uint)readStruct.Width;
                     bmp.Height = (uint)readStruct.Height;
                     break;
@@ -91,7 +91,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-tagbitmapcoreheader
         /// </summary>
-        private struct BITMAPCOREHEADER
+        private struct Bitmapcoreheader
         {
             internal uint Size;
             internal ushort Width;
@@ -101,7 +101,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         /// https://docs.microsoft.com/en-us/previous-versions/dd183376(v%3Dvs.85)
         /// </summary>
-        private struct BITMAPINFOHEADER
+        private struct Bitmapinfoheader
         {
             internal uint Size;
             internal int Width;
@@ -111,7 +111,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header
         /// </summary>
-        private struct BITMAPV4HEADER
+        private struct Bitmapv4Header
         {
             internal uint Size;
             internal int Width;
@@ -121,29 +121,29 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header
         /// </summary>
-        private struct BITMAPV5HEADER
+        private struct Bitmapv5Header
         {
             internal uint Size;
             internal int Width;
             internal int Height;
         }
 
-        public class BMP : IParsed
+        public class Bmp : IParsed
         {
             public uint Size { get; set; }
-            public BMPType Type { get; set; }
+            public BmpType Type { get; set; }
             public uint Height { get; set; }
             public uint Width { get; set; }
         }
 
-        public enum BMPType : short
+        public enum BmpType : short
         {
-            BM = 0x4d42,
-            BA = 0x4142,
-            CI = 0x4943,
-            CP = 0x5043,
-            IC = 0x4349,
-            PT = 0x5450
+            Bm = 0x4d42,
+            Ba = 0x4142,
+            Ci = 0x4943,
+            Cp = 0x5043,
+            Ic = 0x4349,
+            Pt = 0x5450
         }
 
         /// <inheritdoc />

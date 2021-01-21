@@ -13,6 +13,9 @@ namespace ldy985.FileMagic.Core
 
         public Magic(string pattern, ulong offset = 0)
         {
+            if (pattern.Length % 2 != 0)
+                throw new ArgumentException("Invalid magic length");
+
             Pattern = pattern;
             Offset = offset;
 

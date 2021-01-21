@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Digital negative image, subtype of TIFF", "DNG");
 
         /// <inheritdoc />
-        public DNGRule(ILogger<DNGRule> logger) : base(logger) { }
+        public DNGRule(ILogger<DNGRule> logger) : base(logger)
+        {
+        }
     }
 }

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
+    <ProjectReference Include="..\FileMagic.Matchers.Signature.Trie\FileMagic.Matchers.Signature.Trie.csproj" />
   </ItemGroup>
 
 

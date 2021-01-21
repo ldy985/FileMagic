@@ -1,4 +1,6 @@
 using System.IO;
+using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core.Extensions;
 using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -19,7 +21,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         [Fact]
         public void TestMagic()
         {
-            Assert.True(_rule.MatchMagic(Utilities.BasePath(0) + _extension));
+            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + _extension));
         }
 
         [Fact]
@@ -39,12 +41,12 @@ namespace ldy985.FileMagic.Core.Rules.Tests
             Result result = new Result();
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + _extension))
             {
-                bool match = _rule.TryParse(binaryReader, result, out var parsedObject);
+                bool match = _rule.TryParse(binaryReader, result, out IParsed? parsedObject);
                 Assert.True(match);
 
-                BitmapRule.BMP bmp = (BitmapRule.BMP)parsedObject;
+                BitmapRule.Bmp bmp = (BitmapRule.Bmp) parsedObject;
 
-                Assert.Equal(BitmapRule.BMPType.BM, bmp.Type);
+                Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
                 Assert.Equal(73926u, bmp.Size);
                 Assert.Equal(114u, bmp.Height);
                 Assert.Equal(215u, bmp.Width);

@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Tests.TestRules
     internal class TestRule2 : BaseRule
     {
         /// <inheritdoc />
-        public TestRule2(ILogger<BaseRule> logger) : base(logger) { }
+        public TestRule2(ILogger<TestRule2> logger) : base(logger) { }
 
         public override IMagic Magic { get; } = new Magic("000102", 4);
 

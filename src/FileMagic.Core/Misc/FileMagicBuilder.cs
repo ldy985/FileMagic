@@ -10,11 +10,6 @@ namespace ldy985.FileMagic.Core.Misc
             Services = services;
         }
 
-        public FileMagicBuilder()
-        {
-            Services = new ServiceCollection();
-        }
-
         public IServiceCollection Services { get; }
     }
 }

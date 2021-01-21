@@ -8,7 +8,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     /// </summary>
     public class AESRule : BaseRule
     {
-        public AESRule(ILogger<BaseRule> logger) : base(logger) { }
+        public AESRule(ILogger<AESRule> logger) : base(logger) { }
 
         public override IMagic Magic { get; } = new Magic("414553??00");
 

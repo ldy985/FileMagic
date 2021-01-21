@@ -5,6 +5,7 @@ using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
+using ldy985.FileMagic.Core.Rules;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -18,23 +19,36 @@ namespace ldy985.FileMagic
         private readonly ServiceProvider _provider;
         private readonly IOptions<FileMagicConfig> _config;
         private readonly IParallelMagicMatcher _parallelMagicMatcher;
-        private readonly IParsedHandlerProvider _handlerProvider;
+        private readonly IParsedHandlerProvider? _handlerProvider;
 
-        public FileMagic(IOptions<FileMagicConfig> config)
+        public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler) { }
+
+        public FileMagic(IOptions<FileMagicConfig> config, IParsedHandlerProvider? parsedHandler = null)
         {
+
+            if (config.Value.ParserHandle && parsedHandler == null)
+                throw new Exception("A Handler must be defined");
+            
             _config = config;
+            _handlerProvider = parsedHandler;
+
             ServiceCollection services = new ServiceCollection();
-            services.AddFileMagic();
+            services.AddFileMagic()
+                .UseFileMagic()
+                .AddDefaultFileMagicRules();
+            
+            services.AddSingleton<IOptions<FileMagicConfig>>(config);
+
+            
             _provider = services.BuildServiceProvider();
 
             _logger = _provider.GetRequiredService<ILogger<FileMagic>>();
             _ruleProvider = _provider.GetRequiredService<IRuleProvider>();
             _parallelMagicMatcher = _provider.GetRequiredService<IParallelMagicMatcher>();
-            if (_config.Value.ParserHandle)
-                _handlerProvider = _provider.GetRequiredService<IParsedHandlerProvider>();
         }
 
-        public FileMagic(ILogger<FileMagic> logger, IRuleProvider ruleProvider, IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider handlerProvider, IOptions<FileMagicConfig> config)
+        public FileMagic(IOptions<FileMagicConfig> config, ILogger<FileMagic> logger, IRuleProvider ruleProvider,
+            IParallelMagicMatcher parallelMagicMatcher, IParsedHandlerProvider? handlerProvider = null)
         {
             _logger = logger;
             _ruleProvider = ruleProvider;
@@ -226,13 +240,13 @@ namespace ldy985.FileMagic
             if (parserCheck && rule.HasParser)
             {
                 _logger.LogTrace("Testing {Rule} parser", rule.Name);
-                if (rule.TryParse(binaryReader, result, out var parsedObject))
+                if (rule.TryParse(binaryReader, result, out IParsed? parsedObject))
                 {
                     if (_config.Value.ParserHandle)
 #if NETSTANDARD2_1
-                        _handlerProvider.ExecuteHandlers(rule, parsedObject);
+                        _handlerProvider?.ExecuteHandlers(rule, parsedObject);
 #else
-                        _handlerProvider.ExecuteHandlers(rule, parsedObject!);
+                        _handlerProvider?.ExecuteHandlers(rule, parsedObject!);
 #endif
 
                     _logger.LogDebug("Matched {Rule} parser", rule.Name);
