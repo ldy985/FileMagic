@@ -57,3 +57,5 @@ ServiceFabricBackup/
 
 # MSBuild
 *.binlog
+
+.idea
