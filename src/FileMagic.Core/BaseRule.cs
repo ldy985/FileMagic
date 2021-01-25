@@ -1,7 +1,6 @@
 using System;
-#if NETSTANDARD2_1
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-#endif
 using System.IO;
 using System.Reflection;
 using ldy985.BinaryReaderExtensions;
@@ -33,7 +32,7 @@ namespace ldy985.FileMagic.Core
         public bool HasMagic => Magic != null;
 
         /// <inheritdoc />
-        public abstract IMagic Magic { get; }
+        public abstract IMagic? Magic { get; }
 
         /// <inheritdoc />
         public abstract ITypeInfo TypeInfo { get; }
@@ -51,13 +50,10 @@ namespace ldy985.FileMagic.Core
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-#if NETSTANDARD2_1
         public bool TryMagic(BinaryReader stream)
-#else
-        public bool TryMagic(BinaryReader stream)
-#endif
         {
-            if (Magic.Offset != 0)
+            
+            if (Magic!.Offset != 0)
             {
                 long streamPosition = stream.GetPosition() + (long)Magic.Offset;
                 if (streamPosition >= stream.GetLength())
@@ -88,11 +84,7 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
-#if NETSTANDARD2_1
         public bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
-#else
-        public bool TryParse(BinaryReader reader, IResult result, out IParsed? parsed)
-#endif
         {
             long position = reader.GetPosition();
             bool tryParseInternal = false;
@@ -115,11 +107,7 @@ namespace ldy985.FileMagic.Core
             return tryParseInternal;
         }
 
-#if NETSTANDARD2_1
         protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
-#else
-        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
-#endif
         {
             parsed = null;
             return false;

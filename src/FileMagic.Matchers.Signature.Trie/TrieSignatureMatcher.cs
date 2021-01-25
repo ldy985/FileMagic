@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
@@ -27,10 +28,13 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private void RegisterPattern(IRule rule)
         {
+            if (rule.Magic == null)
+                throw new ArgumentException("Rule must have a magic");
+
             ulong offset = rule.Magic.Offset;
             string bytes = rule.Magic.Pattern;
 
-            byte?[] data = new byte?[offset + (ulong)bytes.Length / 2];
+            byte?[] data = new byte?[offset + (ulong) bytes.Length / 2];
             for (int i = 0; i < bytes.Length; i += 2)
             {
                 string substring = bytes.Substring(i, 2);
@@ -48,20 +52,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         private Node<IRule> RootNode { get; }
 
         /// <inheritdoc />
-#if NETSTANDARD2_1
-        public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
-#else
-        public bool TryFind(BinaryReader br, in IMetaData metaData, out IEnumerable<IRule>? matchedRules)
-#endif
+        public bool TryFind([NotNull] BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             return TryFind(br, out matchedRules);
         }
 
-#if NETSTANDARD2_1
-        public bool TryFind(BinaryReader br, [NotNullWhen(true)]out IEnumerable<IRule>? matchedRules)
-#else
-        public bool TryFind(BinaryReader br, out IEnumerable<IRule>? matchedRules)
-#endif
+        public bool TryFind([NotNull] BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();
             bool tryFindInternal = TryFindInternal(RootNode, br, out Node<IRule>? data);
@@ -123,11 +119,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-#if NETSTANDARD2_1
-        private bool TryFindInternal(Node<IRule> node, BinaryReader br, [NotNullWhen(true)]out Node<IRule>? result)
-#else
-        private bool TryFindInternal(Node<IRule> node, BinaryReader br, out Node<IRule>? result)
-#endif
+        private bool TryFindInternal(Node<IRule> node, BinaryReader br, [NotNullWhen(true)] out Node<IRule>? result)
 
         {
             result = null;
@@ -162,7 +154,9 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             }
 
             if (tryFind1 || tryFind2)
+#pragma warning disable 8762
                 return true;
+#pragma warning restore 8762
 
             if (node.Values == null)
                 return false;
@@ -178,7 +172,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             for (int index = 0; index < path.Length; index++)
             {
                 byte? b = path[index];
-                ushort key = b.HasValue ? (ushort)b : ushort.MaxValue;
+                ushort key = b.HasValue ? (ushort) b : ushort.MaxValue;
 
                 if (node.Children != null && node.Children.TryGetValue(key, out Node<IRule> tempNode))
                 {

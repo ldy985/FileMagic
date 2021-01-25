@@ -8,8 +8,11 @@ namespace ldy985.FileMagic.Core.Extensions
     {
         public static bool TryMagic(this IRule rule, Stream stream)
         {
+            if (!rule.HasMagic)
+                throw new ArgumentException("Rule must have a magic");
+            
             long streamPosition = stream.Position;
-            long magicOffset = (long) rule.Magic.Offset;
+            long magicOffset = (long) rule.Magic!.Offset;
             ReadOnlySpan<byte?> magic = rule.Magic.MagicBytes.Value;
 
             if (streamPosition + magicOffset + (rule.Magic.Pattern.Length >> 1) > stream.Length)
@@ -43,10 +46,13 @@ namespace ldy985.FileMagic.Core.Extensions
 
         public static bool TryMagic(this IRule rule, string filePath)
         {
+            if (!rule.HasMagic)
+                throw new ArgumentException("Rule must have a magic");
+
             using (FileStream? stream = File.OpenRead(filePath))
             {
                 long streamPosition = stream.Position;
-                long magicOffset = (long) rule.Magic.Offset;
+                long magicOffset = (long) rule.Magic!.Offset;
                 ReadOnlySpan<byte?> magic = rule.Magic.MagicBytes.Value;
 
                 if (streamPosition + magicOffset + (rule.Magic.Pattern.Length >> 1) > stream.Length)

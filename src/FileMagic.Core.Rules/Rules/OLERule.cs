@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NETSTANDARD2_1
 using System.Diagnostics.CodeAnalysis;
-#endif
 using System.IO;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
@@ -23,11 +21,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Object Linking and Embedding (OLE) Compound File", "DOC", "DOT", "PPS", "PPT", "XLA", "XLS", "WIZ", "AC_", "ADP", "DB", "MSC", "MSG", "MSI", "MTW", "MXD", "OPT", "PUB", "QBM", "RVT", "SUO", "SPO", "VSD", "WPS");
 
         /// <inheritdoc />
-#if NETSTANDARD2_1
         protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
-#else
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, out IParsed? parsed)
-#endif
         {
             using CompoundFile compoundFile = new CompoundFile(reader.BaseStream, CFSUpdateMode.ReadOnly, CFSConfiguration.LeaveOpen | CFSConfiguration.NoValidationException);
             OLEData oleData = new OLEData();

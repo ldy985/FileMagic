@@ -1,6 +1,4 @@
-﻿#if NETSTANDARD2_1
-using System.Diagnostics.CodeAnalysis;
-#endif
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ldy985.FileMagic.Abstracts
@@ -9,15 +7,11 @@ namespace ldy985.FileMagic.Abstracts
     {
         string Name { get; }
         bool HasMagic { get; }
-        IMagic Magic { get; }
+        IMagic? Magic { get; }
         ITypeInfo TypeInfo { get; }
         bool HasParser { get; }
         bool HasStructure { get; }
-#if NETSTANDARD2_1
         bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed);
-#else
-        bool TryParse(BinaryReader reader, IResult result, out IParsed? parsed);
-#endif
 
         bool TryStructure(BinaryReader reader, IResult result);
 
