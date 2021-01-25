@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
@@ -14,7 +15,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");
 
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             return ADTSShared.B(reader);
         }
@@ -34,7 +35,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");
 
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             return ADTSShared.B(reader);
         }

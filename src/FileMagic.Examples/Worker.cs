@@ -21,20 +21,22 @@ namespace ConsoleApp
             _logger = logger;
             _fileMagic = fileMagic;
         }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            IEnumerable<string> filePaths = GetFiles(@"o:\Projects\FileProject\FileStorage\aac\", "*.aac", SearchOption.AllDirectories);
+            IEnumerable<string> filePaths = GetFiles(@"o:\Projects\FileProject\FileStorage\", "*", SearchOption.AllDirectories);
 
             foreach (string filePath in filePaths)
             {
                 if (stoppingToken.IsCancellationRequested)
                     break;
+
                 try
                 {
-                    Transform(filePath);
+                    await Transform(filePath);
                 }
                 catch (Exception e)
-                {   
+                {
                     Console.WriteLine(e);
                 }
             }
@@ -44,7 +46,7 @@ namespace ConsoleApp
             //Example3.Start();
         }
 
-        private void Transform(string filePath)
+        private async Task Transform(string filePath)
         {
             string? extension = Path.GetExtension(filePath);
 
@@ -73,7 +75,9 @@ namespace ConsoleApp
                 }
 
                 if (identifyStream)
+                {
                     _logger.LogInformation("+ {Type} {FilePath}", result.MatchedRuleName, Path.GetFileName(filePath));
+                }
                 else
                     _logger.LogInformation("- {name} {FilePath}", Path.GetExtension(filePath), filePath);
             }
@@ -91,9 +95,7 @@ namespace ConsoleApp
                 {
                     next = Directory.GetFiles(path, searchPattern, allDirectories);
                 }
-                catch
-                {
-                }
+                catch { }
 
                 if (next != null && next.Length != 0)
                     foreach (string file in next)
@@ -103,9 +105,7 @@ namespace ConsoleApp
                     next = Directory.GetDirectories(path);
                     foreach (string subdir in next) pending.Push(subdir);
                 }
-                catch
-                {
-                }
+                catch { }
             }
         }
     }

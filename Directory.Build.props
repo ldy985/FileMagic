@@ -11,7 +11,8 @@
 
     <LangVersion>latest</LangVersion>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
-
+    <Nullable>enable</Nullable>
+    
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <WarningsAsErrors>CS0108,CS0109,CS0114,CS0162,CS0251,CS0659,CS0660,CS1717,CS1718</WarningsAsErrors>
@@ -33,7 +34,7 @@
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)"/>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup >
     <Compile Include="$(MSBuildThisFileDirectory)\src\NullableAttributes.cs" />
   </ItemGroup>
 

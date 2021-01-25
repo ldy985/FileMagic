@@ -53,7 +53,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         }
 
         /// <inheritdoc />
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             switch (reader.ReadUInt32())
             {

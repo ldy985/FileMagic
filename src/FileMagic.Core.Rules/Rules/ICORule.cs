@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -8,11 +9,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class ICORule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; }
+        public override IMagic? Magic { get; }
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Icon file", "ICO", "CUR");
 
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             if (reader.ReadUInt16() != 0)
                 return false;

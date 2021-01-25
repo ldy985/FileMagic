@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core.Extensions;
@@ -41,15 +42,17 @@ namespace ldy985.FileMagic.Core.Rules.Tests
             Result result = new Result();
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + _extension))
             {
-                bool match = _rule.TryParse(binaryReader, result, out IParsed? parsedObject);
-                Assert.True(match);
+                if (_rule.TryParse(binaryReader, result, out IParsed? parsedObject))
+                {
+                    BitmapRule.Bmp bmp = (BitmapRule.Bmp) parsedObject;
 
-                BitmapRule.Bmp bmp = (BitmapRule.Bmp) parsedObject;
-
-                Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
-                Assert.Equal(73926u, bmp.Size);
-                Assert.Equal(114u, bmp.Height);
-                Assert.Equal(215u, bmp.Width);
+                    Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
+                    Assert.Equal(73926u, bmp.Size);
+                    Assert.Equal(114u, bmp.Height);
+                    Assert.Equal(215u, bmp.Width);
+                }
+                else
+                    throw new Exception("Didn't succeed");
             }
         }
     }

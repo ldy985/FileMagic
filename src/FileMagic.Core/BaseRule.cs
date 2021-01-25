@@ -50,12 +50,11 @@ namespace ldy985.FileMagic.Core
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        public bool TryMagic(BinaryReader stream)
+        public bool TryMagic([NotNull] BinaryReader stream)
         {
-            
             if (Magic!.Offset != 0)
             {
-                long streamPosition = stream.GetPosition() + (long)Magic.Offset;
+                long streamPosition = stream.GetPosition() + (long) Magic.Offset;
                 if (streamPosition >= stream.GetLength())
                     return false;
 
@@ -84,7 +83,7 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
-        public bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+        public bool TryParse([NotNull] BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             long position = reader.GetPosition();
             bool tryParseInternal = false;
@@ -107,14 +106,14 @@ namespace ldy985.FileMagic.Core
             return tryParseInternal;
         }
 
-        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             parsed = null;
             return false;
         }
 
         /// <inheritdoc />
-        public bool TryStructure(BinaryReader reader, IResult result)
+        public bool TryStructure([NotNull] BinaryReader reader, IResult result)
         {
             long position = reader.GetPosition();
             bool tryStructureInternal = false;
@@ -135,7 +134,7 @@ namespace ldy985.FileMagic.Core
             return tryStructureInternal;
         }
 
-        protected virtual bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected virtual bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             return false;
         }

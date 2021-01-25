@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using ldy985.BinaryReaderExtensions;
@@ -20,7 +21,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Extensible Binary Meta Language container", "MKV", "WEBM");
 
         /// <inheritdoc />
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             List<byte> bytes = new List<byte>();
             for (int i = 0; i < 64; i++)

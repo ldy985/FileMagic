@@ -11,10 +11,10 @@ namespace ldy985.FileMagic.Abstracts
         ITypeInfo TypeInfo { get; }
         bool HasParser { get; }
         bool HasStructure { get; }
-        bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed);
+        bool TryParse([NotNull] BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed);
 
-        bool TryStructure(BinaryReader reader, IResult result);
+        bool TryStructure([NotNull] BinaryReader reader, IResult result);
 
-        bool TryMagic(BinaryReader stream);
+        bool TryMagic([NotNull] BinaryReader stream);
     }
 }
