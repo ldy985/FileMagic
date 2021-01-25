@@ -15,9 +15,9 @@ namespace ldy985.FileMagic.Tests
         {
             IRule[] rules =
             {
-                new TestRule(NullLogger<BaseRule>.Instance),
-                new TestRule2(NullLogger<BaseRule>.Instance),
-                new TestRule3(NullLogger<BaseRule>.Instance)
+                new TestRule(NullLogger<TestRule>.Instance),
+                new TestRule2(NullLogger<TestRule2>.Instance),
+                new TestRule3(NullLogger<TestRule3>.Instance)
             };
             FileMagicConfig fileMagicConfig = new FileMagicConfig();
             fileMagicConfig.ParserCheck = false;
