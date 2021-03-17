@@ -11,8 +11,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML based file");
 
         /// <inheritdoc />
-        public XMLRule(ILogger<XMLRule> logger) : base(logger) { }
-    }  
+        public XMLRule(ILogger<XMLRule> logger) : base(logger)
+        {
+        }
+    }
+
     public class XMLBOMRule : BaseRule
     {
         /// <inheritdoc />
@@ -21,6 +24,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML with BOM based file");
 
         /// <inheritdoc />
-        public XMLBOMRule(ILogger<XMLBOMRule> logger) : base(logger) { }
+        public XMLBOMRule(ILogger<XMLBOMRule> logger) : base(logger)
+        {
+        }
     }
 }
