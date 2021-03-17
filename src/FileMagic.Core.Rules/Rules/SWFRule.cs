@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
+    /// <summary>
+    /// https://www.adobe.com/content/dam/acom/en/devnet/pdf/swf-file-format-spec.pdf
+    /// </summary>
     public class SWFRule : BaseRule
     {
         /// <inheritdoc />

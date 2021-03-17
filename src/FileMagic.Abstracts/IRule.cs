@@ -15,6 +15,6 @@ namespace ldy985.FileMagic.Abstracts
 
         bool TryStructure([NotNull] BinaryReader reader, IResult result);
 
-        bool TryMagic([NotNull] BinaryReader stream);
+        bool TryMagic([NotNull] Stream stream);
     }
 }

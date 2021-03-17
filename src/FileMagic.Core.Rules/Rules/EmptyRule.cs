@@ -14,11 +14,13 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             return reader.GetLength() == 0;
         }
 
-        public override IMagic? Magic { get; }
+        public override IMagic? Magic { get; } = new Magic("", 0);
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Empty file");
 
         /// <inheritdoc />
-        public EmptyRule(ILogger<EmptyRule> logger) : base(logger) { }
+        public EmptyRule(ILogger<EmptyRule> logger) : base(logger)
+        {
+        }
     }
 }

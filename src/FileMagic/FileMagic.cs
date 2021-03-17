@@ -6,6 +6,7 @@ using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules;
+using ldy985.FileMagic.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -210,7 +211,7 @@ namespace ldy985.FileMagic
             if (patternCheck && rule.HasMagic)
             {
                 _logger.LogTrace("Testing {Rule} pattern", rule.Name);
-                if (rule.TryMagic(binaryReader))
+                if (rule.TryMagic(binaryReader.BaseStream))
                 {
                     _logger.LogDebug("Matched {Rule} pattern", rule.Name);
                     patternMatched = true;

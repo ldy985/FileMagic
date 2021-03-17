@@ -28,14 +28,17 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
             var position = reader.GetPosition();
-            reader.SetPosition(reader.GetLength() - 18);
+            if (!reader.TrySetPosition(reader.GetLength() - 18))
+                return false;
 
             //Check for v2 optional footer
             var readFixedString = reader.ReadFixedString(17, Encoding.ASCII);
             if (readFixedString == "TRUEVISION-XFILE.")
                 return true;
 
-            reader.SetPosition(position + 2);
+            if (!reader.TrySetPosition(position + 2))
+                return false;
+            
             var colorMap = reader.ReadByte();
             if (colorMap > 2)
                 return false;

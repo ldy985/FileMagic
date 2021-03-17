@@ -11,9 +11,14 @@ namespace ldy985.FileMagic.Core
 {
     public abstract class BaseRule : IRule
     {
-        private readonly ILogger<BaseRule> _logger;
+        public override string ToString()
+        {
+            return Name;
+        }
 
-        protected BaseRule(ILogger<BaseRule> logger)
+        private readonly ILogger _logger;
+
+        protected BaseRule(ILogger logger)
         {
             _logger = logger;
             HasParser = IsOverridden(GetType(), nameof(TryParseInternal));
@@ -50,26 +55,22 @@ namespace ldy985.FileMagic.Core
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        public bool TryMagic([NotNull] BinaryReader stream)
+        public bool TryMagic([NotNull] Stream stream)
         {
-            if (Magic!.Offset != 0)
-            {
-                long streamPosition = stream.GetPosition() + (long) Magic.Offset;
-                if (streamPosition >= stream.GetLength())
-                    return false;
-
-                stream.SetPosition(streamPosition);
-            }
-
-            byte?[] magicBytesValue = Magic.MagicBytes.Value;
-            if (stream.GetPosition() + magicBytesValue.Length > stream.GetLength())
+            var position = stream.Position;
+            var length = stream.Length;
+          
+            byte?[] magicBytesValue = Magic!.MagicBytes.Value;
+            if (position + magicBytesValue.Length +(long) Magic.Offset > length)
                 return false;
+
+            stream.Seek(position + (long) Magic.Offset, SeekOrigin.Begin);
 
             foreach (byte? b in magicBytesValue)
             {
                 if (!b.HasValue)
                 {
-                    stream.SkipBackwards(1);
+                    stream.Position++;
                     continue;
                 }
 

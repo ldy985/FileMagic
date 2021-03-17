@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Core.Rules.Rules;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules
@@ -18,18 +19,17 @@ namespace ldy985.FileMagic.Core.Rules
         [NotNull]
         [ItemNotNull]
         [Pure]
-        public static IEnumerable<T> CreateRules<T>(ILoggerFactory loggerFactory, [CanBeNull] Assembly? lookInAssembly = null)
+        public static IEnumerable<TRule> CreateRules<TRule>(ILoggerFactory loggerFactory, [CanBeNull] Assembly? lookInAssembly = null) where TRule : IRule
         {
-            foreach (Type type in TypeHelper.GetInstanceTypesInheritedFrom<T>(lookInAssembly))
+            foreach (Type type in TypeHelper.GetInstanceTypesInheritedFrom<TRule>(lookInAssembly))
             {
                 if (type.ContainsGenericParameters)
                     continue;
 
-                ILogger logger = loggerFactory.CreateLogger(type);
-
-                ConstructorInfo constructorInfo = type.GetConstructors().First();
-
-                yield return (T) constructorInfo.Invoke(new[] {((object) null!)!});
+                Type log = typeof(Logger<>);
+                Type? genericLogger = log.MakeGenericType(type);
+                var logger = Activator.CreateInstance(genericLogger, loggerFactory);
+                yield return (TRule) Activator.CreateInstance(type, logger);
             }
         }
     }
