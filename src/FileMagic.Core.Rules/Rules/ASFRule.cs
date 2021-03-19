@@ -12,6 +12,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Advanced Systems Format", "ASF");
 
         /// <inheritdoc />
-        public ASFRule(ILogger<ASFRule> logger) : base(logger) { }
+        public ASFRule(ILogger<ASFRule> logger) : base(logger)
+        {
+        }
     }
 }
