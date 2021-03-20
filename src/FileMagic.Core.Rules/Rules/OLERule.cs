@@ -35,19 +35,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     try
                     {
                         //todo use new code from git repo.
-                        PropertySetStream propertySetStream = tryGetStream.AsOLEProperties();
-                        if (propertySetStream.PropertySet0.NumProperties == propertySetStream.PropertySet0.PropertyIdentifierAndOffsets.Count && propertySetStream.PropertySet0.NumProperties == propertySetStream.PropertySet0.Properties.Count)
+                        OLEPropertiesContainer propertySetStream = tryGetStream.AsOLEPropertiesContainer();
+                        foreach (OLEProperty oleProperty in propertySetStream.Properties)
                         {
-                            for (int index = 0; index < propertySetStream.PropertySet0.PropertyIdentifierAndOffsets.Count; index++)
-                            {
-                                string? name = propertySetStream.PropertySet0.PropertyIdentifierAndOffsets[index].PropertyIdentifier.GetDescription(SummaryInfoMap.SummaryInfo);
-                                object value = propertySetStream.PropertySet0.Properties[index].Value;
-
-                                if (string.IsNullOrEmpty(name))
-                                    continue;
-
-                                oleData.MetaInfo.Add(name, value);
-                            }
+                            string? name = oleProperty.PropertyIdentifier.GetDescription(ContainerType.SummaryInfo);
+                            object value = oleProperty.Value;
+                            oleData.MetaInfo.Add(name, value);
                         }
                     }
                     catch (Exception)
@@ -58,7 +51,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
                 if (oleData.MetaInfo.TryGetValue("Application Name", out object? dataValue))
                 {
-                    string value = (string)dataValue;
+                    string value = (string) dataValue;
                     bool any = false;
 #if NETSTANDARD2_1
                     if (value.Contains("Word", StringComparison.Ordinal))
@@ -67,7 +60,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 #endif
                     {
                         result.Description = "Microsoft Word document";
-                        result.Extensions = new[] { "DOC", "DOT" };
+                        result.Extensions = new[] {"DOC", "DOT"};
                         any = true;
                     }
 #if NETSTANDARD2_1
@@ -77,7 +70,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 #endif
                     {
                         result.Description = "Microsoft Excel document";
-                        result.Extensions = new[] { "XLS" };
+                        result.Extensions = new[] {"XLS"};
                         any = true;
                     }
 #if NETSTANDARD2_1
@@ -87,7 +80,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 #endif
                     {
                         result.Description = "Microsoft PowerPoint document";
-                        result.Extensions = new[] { "PPT", "PPS" };
+                        result.Extensions = new[] {"PPT", "PPS"};
                         any = true;
                     }
 #if NETSTANDARD2_1
@@ -97,7 +90,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 #endif
                     {
                         result.Description = "Windows MSI installer";
-                        result.Extensions = new[] { "MSI" };
+                        result.Extensions = new[] {"MSI"};
                         any = true;
                     }
                     else
@@ -133,27 +126,27 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 {
                     case "WordDocument":
                         result.Description = "Microsoft Word document";
-                        result.Extensions = new[] { "DOC", "DOT" };
+                        result.Extensions = new[] {"DOC", "DOT"};
                         any = true;
                         break;
                     case "PowerPoint Document":
                         result.Description = "Microsoft PowerPoint document";
-                        result.Extensions = new[] { "PPT", "PPS" };
+                        result.Extensions = new[] {"PPT", "PPS"};
                         any = true;
                         break;
                     case "Workbook":
                         result.Description = "Microsoft Excel document";
-                        result.Extensions = new[] { "XLS" };
+                        result.Extensions = new[] {"XLS"};
                         any = true;
                         break;
                     case "Envelope":
                         result.Description = "Microsoft Publisher document";
-                        result.Extensions = new[] { "PUB" };
+                        result.Extensions = new[] {"PUB"};
                         any = true;
                         break;
                     case "DataAccessPages":
                         result.Description = "Microsoft Access document";
-                        result.Extensions = new[] { "ADP" };
+                        result.Extensions = new[] {"ADP"};
                         any = true;
                         break;
                 }
