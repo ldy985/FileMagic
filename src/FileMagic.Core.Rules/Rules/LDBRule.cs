@@ -14,9 +14,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
-            if (!reader.TrySetPosition(reader.GetLength() - 8))
+            long length = reader.GetLength();
+            if (length < 8)
                 return false;
-
+            
+            reader.SetPosition(length - 8);
             return reader.ReadUInt64() == 0xdb4775248b80fb57;
         }
 
