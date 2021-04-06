@@ -32,5 +32,17 @@ namespace ldy985.FileMagic.Core.Rules
                 yield return (TRule) Activator.CreateInstance(type, logger);
             }
         }
+
+        [NotNull]
+        [Pure]
+        public static TRule CreateRule<TRule>(ILoggerFactory loggerFactory, [CanBeNull] Assembly? lookInAssembly = null) where TRule : class, IRule
+        {
+            var type = typeof(TRule);
+
+            Type log = typeof(Logger<>);
+            Type? genericLogger = log.MakeGenericType(type);
+            var logger = Activator.CreateInstance(genericLogger, loggerFactory);
+            return (TRule) Activator.CreateInstance(type, logger);
+        }
     }
 }

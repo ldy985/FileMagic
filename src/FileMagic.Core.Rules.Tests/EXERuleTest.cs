@@ -13,7 +13,8 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 
         public EXERuleTest()
         {
-            _rule = new EXERule(NullLogger<EXERule>.Instance);
+            _rule = FileMagicRuleHelpers.CreateRule<EXERule>(NullLoggerFactory.Instance);
+
         }
 
         [Fact]

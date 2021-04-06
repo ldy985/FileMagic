@@ -39,17 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.2" PrivateAssets="all" />
-    <PackageReference Include="IDisposableAnalyzers" Version="3.4.13" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="3.1.0" PrivateAssets="all" />
-    <PackageReference Include="Nerdbank.GitVersioning">
-      <Version>3.3.37</Version>
-      <PrivateAssets>all</PrivateAssets>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="*" PrivateAssets="all" />
+    <PackageReference Include="IDisposableAnalyzers" Version="*" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" Version="*" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" Version="*">
     </PackageReference>
-    <PackageReference Include="ToStringWithoutOverrideAnalyzer" Version="0.6.0" PrivateAssets="all" />
-    <PackageReference Include="AsyncFixer" Version="1.5.1" PrivateAssets="all" />
-    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0" PrivateAssets="all" />
+    <PackageReference Include="ToStringWithoutOverrideAnalyzer" Version="*" PrivateAssets="all" />
+    <PackageReference Include="AsyncFixer" Version="*" PrivateAssets="all" />
+    <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="*" PrivateAssets="all" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

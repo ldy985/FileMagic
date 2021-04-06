@@ -16,7 +16,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 
         public BitmapRuleTest()
         {
-            _rule = new BitmapRule(NullLogger<BitmapRule>.Instance);
+            _rule = FileMagicRuleHelpers.CreateRule<BitmapRule>(NullLoggerFactory.Instance);
         }
 
         [Fact]

@@ -13,7 +13,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 
         public SWFRuleTest()
         {
-            _rule = new SWFRule(NullLogger<SWFRule>.Instance);
+            _rule = FileMagicRuleHelpers.CreateRule<SWFRule>(NullLoggerFactory.Instance);
         }
 
         [Fact]

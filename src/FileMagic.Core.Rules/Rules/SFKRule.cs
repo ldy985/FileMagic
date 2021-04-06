@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Waveform image of a WAV audio file", "SFK");
 
         /// <inheritdoc />
-        public SFKRule(ILogger<SFKRule> logger) : base(logger) { }
+        public SFKRule(ILogger<SFKRule> logger) : base(logger)
+        {
+        }
     }
 }

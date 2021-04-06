@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class PRIResourceRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("6D726D5F70726932", 0);
+        public override IMagic Magic { get; } = new Magic("6D726D5F707269", 0);
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows UWP App resource file", "PRI");
 

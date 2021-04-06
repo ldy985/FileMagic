@@ -34,11 +34,15 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             if (newline != 0x0A0Du)
                 return false;
 
-            reader.SkipForwards(4); // timestamp
+            // TODO some undefined ObjectTypes in here e.g 0x60, 0xAD and 0x8C. Figure out what is going on. Possibly flags?
+            // {
+            //     reader.SkipForwards(4); // timestamp
+            //
+            //     ObjectType type = reader.ReadEnum<ObjectType>();
+            //     if (!Enum.IsDefined(typeof(ObjectType), type))
+            //         return false;
+            // }
 
-            ObjectType type = reader.ReadEnum<ObjectType>();
-            if (!Enum.IsDefined(typeof(ObjectType), type))
-                return false;
 
             return true;
         }
@@ -152,18 +156,40 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         }
 
 
+        /// <summary>
+        /// https://github.com/python/cpython/blob/master/Python/marshal.c#L41
+        /// </summary>
         private enum ObjectType : byte
         {
-            Tuple = 0x28,
-            PyFalse = 0x46,
-            None = 0x4E,
-            StringRef = 0x52,
-            PyTrue = 0x54,
-            CodeObject = 0x63,
-            Int = 0x69,
-            String = 0x73,
-            Interned = 0x74,
-            UnicodeString = 0x75,
+            TYPE_TUPLE = 0x28,
+            TYPE_SMALL_TUPLE = 0x29,
+            TYPE_ELLIPSIS = 0x2E,
+            TYPE_NULL = 0x30,
+            TYPE_SET = 0x3C,
+            TYPE_FROZENSET = 0x3E,
+            TYPE_UNKNOWN = 0x3F,
+            TYPE_ASCII_INTERNED = 0x41,
+            TYPE_FALSE = 0x46,
+            TYPE_INT64 = 0x49,
+            TYPE_NONE = 0x4E,
+            TYPE_STOPITER = 0x53,
+            TYPE_TRUE = 0x54,
+            TYPE_SHORT_ASCII_INTERNED = 0x5A,
+            TYPE_LIST = 0x5B,
+            TYPE_ASCII = 0x61,
+            TYPE_CODE = 0x63,
+            TYPE_FLOAT = 0x66,
+            TYPE_BINARY_FLOAT = 0x67,
+            TYPE_INT = 0x69,
+            TYPE_LONG = 0x6C,
+            TYPE_REF = 0x72,
+            TYPE_STRING = 0x73,
+            TYPE_INTERNED = 0x74,
+            TYPE_UNICODE = 0x75,
+            TYPE_COMPLEX = 0x78,
+            TYPE_BINARY_COMPLEX = 0x79,
+            TYPE_SHORT_ASCII = 0x7A,
+            TYPE_DICT = 0x7B,
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class P7XRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("504B4358308221", 0);
+        public override IMagic Magic { get; } = new Magic("504B43583082", 0);
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("APPX Packed Digital Signature File", "P7X");
