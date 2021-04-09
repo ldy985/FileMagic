@@ -16,11 +16,11 @@ namespace ldy985.FileMagic.Core
             return Name;
         }
 
-        private readonly ILogger _logger;
+        protected ILogger Logger { get; }
 
         protected BaseRule(ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
             HasParser = IsOverridden(GetType(), nameof(TryParseInternal));
             HasStructure = IsOverridden(GetType(), nameof(TryStructureInternal));
             Name = GetType().Name;
@@ -99,7 +99,7 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while parsing with: {RuleName}", GetType().Name);
+                Logger.LogError(ex, "Error while parsing with: {RuleName}", GetType().Name);
                 parsed = null;
             }
 
@@ -128,7 +128,7 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while TryingStructure with: {RuleName}", GetType().Name);
+                Logger.LogError(ex, "Error while TryingStructure with: {RuleName}", GetType().Name);
             }
 
             reader.SetPosition(position);

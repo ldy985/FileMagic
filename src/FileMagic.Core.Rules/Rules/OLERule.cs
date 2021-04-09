@@ -29,12 +29,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
             if (oleData.Directories.Contains(_metaInfoName))
             {
-                CFStream tryGetStream = compoundFile.RootStorage.TryGetStream(_metaInfoName);
-                if (tryGetStream != null)
+                if (compoundFile.RootStorage.TryGetStream(_metaInfoName, out var tryGetStream))
                 {
                     try
                     {
-                        //todo use new code from git repo.
                         OLEPropertiesContainer propertySetStream = tryGetStream.AsOLEPropertiesContainer();
                         foreach (OLEProperty oleProperty in propertySetStream.Properties)
                         {
@@ -43,9 +41,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                             oleData.MetaInfo.Add(name, value);
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // ignored
+                        Logger.LogWarning(ex, "Failed to parse OLE SummaryInformation");
                     }
                 }
 
@@ -95,21 +93,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     }
                     else
                     {
-                        Console.WriteLine(value);
+                        Logger.LogWarning("Unhandled Application Name: {AppName}", value);
                     }
 
-                    //result.Description = "Microsoft PowerPoint document";
-                    //result.Extensions = new[] { "PPT", "PPS" };
-                    //any = true;
-                    //result.Description = "Microsoft Excel document";
-                    //result.Extensions = new[] { "XLS" };
-                    //any = true;
-                    //result.Description = "Microsoft Publisher document";
-                    //result.Extensions = new[] { "PUB" };
-                    //any = true;
-                    //result.Description = "Microsoft Access document";
-                    //result.Extensions = new[] { "ADP" };
-                    //any = true;
 
                     if (any)
                     {
@@ -147,6 +133,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     case "DataAccessPages":
                         result.Description = "Microsoft Access document";
                         result.Extensions = new[] {"ADP"};
+                        any = true;
+                        break;
+                    case "__nameid_version1.0": //https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/b046868c-9fbf-41ae-9ffb-8de2bd4eec82?redirectedfrom=MSDN
+                        result.Description = "Microsoft Outlook Item File";
+                        result.Extensions = new[] {"MSG"};
                         any = true;
                         break;
                 }
