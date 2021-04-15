@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Core.Rules
     {
         public static IFileMagicBuilder AddDefaultFileMagicRules(this IFileMagicBuilder fileMagicBuilder)
         {
-            IEnumerable<Type> instanceOfAll = TypeHelper.GetInstanceTypesInheritedFrom<IRule>(typeof(FileMagicBuilderExtensions).Assembly);
+            IEnumerable<Type> instanceOfAll = TypeHelper.GetAllTypesThatImplementInterface<IRule>(typeof(FileMagicBuilderExtensions).Assembly);
             foreach (Type type in instanceOfAll)
             {
                 fileMagicBuilder.Services.AddSingleton(typeof(IRule), type);

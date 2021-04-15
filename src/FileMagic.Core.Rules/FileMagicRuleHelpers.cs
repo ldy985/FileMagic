@@ -21,7 +21,7 @@ namespace ldy985.FileMagic.Core.Rules
         [Pure]
         public static IEnumerable<TRule> CreateRules<TRule>(ILoggerFactory loggerFactory, [CanBeNull] Assembly? lookInAssembly = null) where TRule : IRule
         {
-            foreach (Type type in TypeHelper.GetInstanceTypesInheritedFrom<TRule>(lookInAssembly))
+            foreach (Type type in TypeHelper.GetAllTypesThatImplementInterface<TRule>(lookInAssembly))
             {
                 if (type.ContainsGenericParameters)
                     continue;
