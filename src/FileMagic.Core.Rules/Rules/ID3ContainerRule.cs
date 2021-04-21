@@ -11,7 +11,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("494433", 0);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("ID3 container", "MP3", "AAC");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("ID3 container", "MP3", "AAC","MP2");
 
         /// <inheritdoc />
         public ID3ContainerRule(ILogger<ID3ContainerRule> logger) : base(logger)

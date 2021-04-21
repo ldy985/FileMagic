@@ -4,7 +4,7 @@ using ldy985.FileMagic.Core;
 
 namespace ldy985.FileMagic
 {
-    public static class FileGuesserExtensions
+    public static class FileMagicExtensions
     {
         /// <summary>
         /// IdentifyFile
@@ -18,7 +18,7 @@ namespace ldy985.FileMagic
         /// <exception cref="System.UnauthorizedAccessException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="IOException"></exception>
-        public static bool IdentifyFile(this FileMagic fileMagic, string filePath, out IResult result)
+        public static bool IdentifyFile(this IFileMagic fileMagic, string filePath, out IResult result)
         {
             using (FileStream fileStream = File.OpenRead(filePath))
             {

@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
+    <ProjectReference Include="..\FileMagic.Core.Rules.Tests\FileMagic.Core.Rules.Tests.csproj" />
     <ProjectReference Include="..\FileMagic.Core.Rules\FileMagic.Core.Rules.csproj" />
     <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj" />
     <ProjectReference Include="..\FileMagic\FileMagic.csproj" />

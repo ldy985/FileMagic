@@ -27,7 +27,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
         {
-            var position = reader.GetPosition();
+            long position = reader.GetPosition();
             if (!reader.TrySetPosition(reader.GetLength() - 18))
                 return false;
 
@@ -39,11 +39,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             if (!reader.TrySetPosition(position + 2))
                 return false;
             
-            var colorMap = reader.ReadByte();
+            byte colorMap = reader.ReadByte();
             if (colorMap > 2)
                 return false;
 
-            var dataType = reader.ReadByte();
+            byte dataType = reader.ReadByte();
             switch (dataType)
             {
                 // case 0: //this is useless eg. empty image

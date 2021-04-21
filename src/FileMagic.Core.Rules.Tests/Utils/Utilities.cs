@@ -21,7 +21,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests.Utils
 
         public static BinaryReader GetReader(string filePath)
         {
-            return new(GetFileSteam(filePath));
+            return new BinaryReader(GetFileSteam(filePath));
         }
     }
 }

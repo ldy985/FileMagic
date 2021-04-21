@@ -1,11 +1,10 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace ldy985.FileMagic
+namespace ldy985.FileMagic.Extensions
 {
     public static class FileMagicBuilderExtensions
     {
@@ -13,9 +12,13 @@ namespace ldy985.FileMagic
         {
             builder.Services.AddSingleton(x =>
             {
-                return new FileMagic(x.GetRequiredService<IOptions<FileMagicConfig>>(),
-                    x.GetRequiredService<ILogger<FileMagic>>(), x.GetRequiredService<IRuleProvider>(),
-                    x.GetRequiredService<IParallelMagicMatcher>(), x.GetService<IParsedHandlerProvider>());
+                ILogger<FileMagic> logger = x.GetRequiredService<ILogger<FileMagic>>();
+                IOptions<FileMagicConfig>? options = x.GetRequiredService<IOptions<FileMagicConfig>>();
+                IRuleProvider ruleProvider = x.GetRequiredService<IRuleProvider>();
+                IParsedHandlerProvider? handlerProvider = x.GetService<IParsedHandlerProvider>();
+                IParallelMagicMatcher parallelMagicMatcher = x.GetRequiredService<IParallelMagicMatcher>();
+
+                return new FileMagic(options, logger, ruleProvider, parallelMagicMatcher, handlerProvider);
             });
 
             builder.Services.AddSingleton<IFileMagic>(x => x.GetRequiredService<FileMagic>());

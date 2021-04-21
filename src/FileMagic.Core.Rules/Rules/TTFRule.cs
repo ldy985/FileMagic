@@ -33,9 +33,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 if (length < sizeof(OffsetTable))
                     return false;
 
-                var offsetTable = reader.ReadStruct<OffsetTable>();
+                OffsetTable offsetTable = reader.ReadStruct<OffsetTable>();
 
-                var offsetTableNumTables = offsetTable.numTables.Reverse();
+                ushort offsetTableNumTables = offsetTable.numTables.Reverse();
 
                 if (length < offsetTableNumTables * sizeof(DirTableEntry))
                     return false;

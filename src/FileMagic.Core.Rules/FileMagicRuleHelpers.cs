@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using ldy985.FileMagic.Abstracts;
-using ldy985.FileMagic.Core.Rules.Rules;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules

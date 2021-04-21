@@ -10,10 +10,11 @@ namespace ldy985.FileMagic.Core.Extensions
     [PublicAPI]
     public static class ServiceCollectionExtensions
     {
-        public static IFileMagicBuilder AddFileMagicCore([NotNull] this IServiceCollection collection,
-            Action<FileMagicConfig> configureOptions)
+        public static IFileMagicBuilder AddFileMagicCore([NotNull] this IServiceCollection collection, Action<FileMagicConfig>? configureOptions = null)
         {
-            collection.Configure(configureOptions);
+            if (configureOptions != null)
+                collection.Configure(configureOptions);
+
             return AddFileMagicCore(collection);
         }
 
@@ -21,7 +22,7 @@ namespace ldy985.FileMagic.Core.Extensions
         {
             collection.AddLogging();
             collection.AddOptions();
-            
+
             collection.AddSingleton<IParallelMagicMatcher, TrieSignatureMatcher>();
             collection.AddSingleton<IRuleProvider, RuleProvider>();
 

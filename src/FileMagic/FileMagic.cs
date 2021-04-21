@@ -22,14 +22,15 @@ namespace ldy985.FileMagic
         private readonly IParallelMagicMatcher _parallelMagicMatcher;
         private readonly IParsedHandlerProvider? _handlerProvider;
 
-        public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler) { }
+        public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler)
+        {
+        }
 
         public FileMagic(IOptions<FileMagicConfig> config, IParsedHandlerProvider? parsedHandler = null)
         {
-
             if (config.Value.ParserHandle && parsedHandler == null)
                 throw new Exception("A Handler must be defined");
-            
+
             _config = config;
             _handlerProvider = parsedHandler;
 
@@ -37,10 +38,10 @@ namespace ldy985.FileMagic
             services.AddFileMagic()
                 .UseFileMagic()
                 .AddDefaultFileMagicRules();
-            
+
             services.AddSingleton<IOptions<FileMagicConfig>>(config);
 
-            
+
             _provider = services.BuildServiceProvider();
 
             _logger = _provider.GetRequiredService<ILogger<FileMagic>>();
@@ -76,11 +77,11 @@ namespace ldy985.FileMagic
                 _logger.LogTrace("Trying {Matcher} matcher", name);
                 if (_parallelMagicMatcher.TryFind(binaryReader, metaData, out IEnumerable<IRule>? matchedRules))
                 {
-                    _logger.LogDebug("{Matcher} matched:", name);
+                    _logger.LogDebug("{Matcher} matched", name);
 
                     foreach (IRule rule in matchedRules)
                     {
-                        _logger.LogDebug("Rule: {Rule}", rule.Name);
+                        _logger.LogDebug("Rule: {Rule} matched", rule.Name);
 
                         (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
 

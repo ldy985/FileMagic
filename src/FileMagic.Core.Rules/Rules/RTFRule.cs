@@ -8,9 +8,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("7B5C72746631", 0);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Rich Text Format File", "RTF");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Rich Text Format File", "RTF", "DOC");
 
         /// <inheritdoc />
-        public RTFRule(ILogger<RTFRule> logger) : base(logger) { }
+        public RTFRule(ILogger<RTFRule> logger) : base(logger)
+        {
+        }
     }
 }

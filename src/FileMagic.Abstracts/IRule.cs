@@ -12,9 +12,7 @@ namespace ldy985.FileMagic.Abstracts
         bool HasParser { get; }
         bool HasStructure { get; }
         bool TryParse([NotNull] BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed);
-
         bool TryStructure([NotNull] BinaryReader reader, IResult result);
-
         bool TryMagic([NotNull] Stream stream);
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
@@ -57,11 +56,11 @@ namespace ldy985.FileMagic.Core
         /// <exception cref="ObjectDisposedException"></exception>
         public bool TryMagic([NotNull] Stream stream)
         {
-            var position = stream.Position;
-            var length = stream.Length;
-          
+            long position = stream.Position;
+            long length = stream.Length;
+
             byte?[] magicBytesValue = Magic!.MagicBytes.Value;
-            if (position + magicBytesValue.Length +(long) Magic.Offset > length)
+            if (position + magicBytesValue.Length + (long) Magic.Offset > length)
                 return false;
 
             stream.Seek(position + (long) Magic.Offset, SeekOrigin.Begin);

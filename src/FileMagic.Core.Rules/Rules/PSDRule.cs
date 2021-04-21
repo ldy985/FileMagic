@@ -8,7 +8,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("38425053", 0);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Photoshop image file", "PSD");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Photoshop image file", "PSD", "PDD");
 
         /// <inheritdoc />
         public PSDRule(ILogger<PSDRule> logger) : base(logger) { }

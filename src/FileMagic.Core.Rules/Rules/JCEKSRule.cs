@@ -12,9 +12,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("CECECECE", 0);
 
         /// <inheritdoc />
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java Key Store", "JCEKS");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java Key Store", "JCEKS", "JKS");
 
         /// <inheritdoc />
-        public JCEKSRule(ILogger<JCEKSRule> logger) : base(logger) { }
+        public JCEKSRule(ILogger<JCEKSRule> logger) : base(logger)
+        {
+        }
     }
 }

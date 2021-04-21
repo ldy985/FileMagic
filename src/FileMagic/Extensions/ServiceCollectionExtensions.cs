@@ -2,17 +2,15 @@
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Extensions;
-using ldy985.FileMagic.Core.Rules;
-using ldy985.FileMagic.Matchers.Signature.Trie;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ldy985.FileMagic
+namespace ldy985.FileMagic.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IFileMagicBuilder AddFileMagic(this IServiceCollection collection)
+        public static IFileMagicBuilder AddFileMagic(this IServiceCollection collection, Action<FileMagicConfig>? config = null)
         {
-            IFileMagicBuilder coreBuilder = collection.AddFileMagicCore();
+            IFileMagicBuilder coreBuilder = collection.AddFileMagicCore(config);
             coreBuilder.UseFileMagic();
 
             return new Core.Misc.FileMagicBuilder(collection);

@@ -2,7 +2,6 @@
 using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
-using ldy985.NumberExtensions;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules.Rules
