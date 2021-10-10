@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using BenchmarkDotNet.Attributes;
+using Microsoft.Toolkit.HighPerformance;
 
 namespace ldy985.FileMagic.Benchmarks
 {
@@ -30,6 +31,19 @@ namespace ldy985.FileMagic.Benchmarks
             _memoryStream?.Dispose();
         }
 
+        [Benchmark]
+        public int StreamPerfByte()
+        {
+            _memoryStream.Position = 0;
+            int b = 0;
+            for (int i = 0; i < N; i++)
+            {
+                b = _memoryStream.Read<byte>();
+            }
+
+            return b;
+        }
+        
         [Benchmark]
         public int StreamByte()
         {
@@ -60,6 +74,18 @@ namespace ldy985.FileMagic.Benchmarks
             return b;
         }
 
+        [Benchmark]
+        public long StreamPerfLong()
+        {
+            _memoryStream.Position = 0;
+            long b = 0;
+            for (int i = 0; i < N / sizeof(long); i++)
+            {
+                b = _memoryStream.Read<long>();
+            }
+            return b;
+        }
+        
         [Benchmark]
         public long StreamLong()
         {
