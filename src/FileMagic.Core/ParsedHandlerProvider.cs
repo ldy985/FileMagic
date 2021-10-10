@@ -22,7 +22,7 @@ namespace ldy985.FileMagic.Core
             void Action(object obj) => action1((TParsed)obj);
 
             Type type = typeof(TRule);
-            if (_parsedActions.TryGetValue(type, out List<Action<object>> actions))
+            if (_parsedActions.TryGetValue(type, out List<Action<object>>? actions))
                 actions.Add(Action);
             else
                 _parsedActions.Add(type, new List<Action<object>> { Action });

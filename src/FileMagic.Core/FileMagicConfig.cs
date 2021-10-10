@@ -1,5 +1,8 @@
 ﻿namespace ldy985.FileMagic.Core
 {
+    /// <summary>
+    /// The config for FileMagic.
+    /// </summary>
     public class FileMagicConfig
     {
         /// <summary>

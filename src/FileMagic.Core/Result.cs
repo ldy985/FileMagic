@@ -3,13 +3,19 @@ using ldy985.FileMagic.Abstracts.Enums;
 
 namespace ldy985.FileMagic.Core
 {
+    /// <inheritdoc />
     public class Result : IResult
     {
-        public object ParsedObject { get; set; }
-
+        /// <inheritdoc />
         public string[] Extensions { get; set; }
+
+        /// <inheritdoc />
         public string Description { get; set; }
+
+        /// <inheritdoc />
         public string MatchedRuleName { get; set; }
+
+        /// <inheritdoc />
         public MatchTypes MatchedRuleTypes { get; set; }
     }
 }

@@ -8,6 +8,10 @@ using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Matchers.Signature.Trie
 {
+    /// <summary>
+    /// An implementation of <see cref="IParallelMagicMatcher"/> using a trie as lookup structure.
+    /// It allows to match multiple rules quickly by only going though the stream once.
+    /// </summary>
     public class TrieSignatureMatcher : IParallelMagicMatcher
     {
         private readonly ILogger<TrieSignatureMatcher> _logger;
@@ -52,12 +56,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         private Node<IRule> RootNode { get; }
 
         /// <inheritdoc />
-        public bool TryFind([NotNull] BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
+        public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             return TryFind(br, out matchedRules);
         }
 
-        public bool TryFind([NotNull] BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
+        public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();
             bool tryFindInternal = TryFindInternal(RootNode, br, streamPosition, out Node<IRule>? data);
@@ -85,7 +89,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        private bool TryFindInternal(Node<IRule> node, BinaryReader br, long pos, [NotNullWhen(true)] out Node<IRule>? result)
+        private static bool TryFindInternal(Node<IRule> node, BinaryReader br, long pos, [NotNullWhen(true)] out Node<IRule>? result)
         {
             result = null;
 
@@ -99,7 +103,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             pos++;
             if (node.Children != null)
             {
-                if (node.Children.TryGetValue(readByte, out Node<IRule> tempNode))
+                if (node.Children.TryGetValue(readByte, out Node<IRule>? tempNode))
                 {
                     tryFind1 = TryFindInternal(tempNode, br, pos, out Node<IRule>? temp1);
                     if (tryFind1)
@@ -137,7 +141,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                 byte? b = path[index];
                 ushort key = b.HasValue ? (ushort) b : ushort.MaxValue;
 
-                if (node.Children != null && node.Children.TryGetValue(key, out Node<IRule> tempNode))
+                if (node.Children != null && node.Children.TryGetValue(key, out Node<IRule>? tempNode))
                 {
                     if (index == path.Count - 1)
                         tempNode.AddValue(leafData);
