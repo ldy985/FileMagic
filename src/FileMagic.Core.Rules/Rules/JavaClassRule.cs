@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
@@ -18,7 +17,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java class file", "CLASS");
 
         /// <inheritdoc />
-        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             reader.SkipForwards(4);
             ushort minorVersion = reader.ReadUInt16().Reverse();

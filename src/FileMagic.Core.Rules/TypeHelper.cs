@@ -17,12 +17,11 @@ namespace ldy985.FileMagic.Core.Rules
         /// <param name="callPrivateConstructors"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        [NotNull]
         [ItemNotNull]
         [Pure]
         public static IEnumerable<T> CreateAllImplementors<T>(Assembly? lookInAssembly = null, bool callPrivateConstructors = false)
         {
-            return GetAllTypesThatImplementInterface<T>(lookInAssembly).Select(type => (T) Activator.CreateInstance(type, callPrivateConstructors));
+            return GetAllTypesThatImplementInterface<T>(lookInAssembly).Select(type => (T)Activator.CreateInstance(type, callPrivateConstructors)!);
         }
 
         /// <summary>

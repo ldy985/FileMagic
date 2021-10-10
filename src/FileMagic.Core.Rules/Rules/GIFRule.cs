@@ -32,7 +32,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             public ushort Width { get; set; }
         }
 
-        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             reader.SkipForwards(3);
             ushort type = reader.ReadUInt16();

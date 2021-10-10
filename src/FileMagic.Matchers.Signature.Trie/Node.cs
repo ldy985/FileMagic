@@ -41,12 +41,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             if (lastNode.Children == null)
                 yield break;
 
-            foreach (KeyValuePair<ushort, Node<T>> pair in lastNode.Children)
+            foreach ((ushort key, Node<T> value) in lastNode.Children)
             {
-                if (pair.Value != node2)
+                if (value != node2)
                     continue;
 
-                yield return pair.Key;
+                yield return key;
                 break;
             }
 

@@ -10,7 +10,7 @@ namespace ldy985.FileMagic.Core.Extensions
     [PublicAPI]
     public static class ServiceCollectionExtensions
     {
-        public static IFileMagicBuilder AddFileMagicCore([NotNull] this IServiceCollection collection, Action<FileMagicConfig>? configureOptions = null)
+        public static IFileMagicBuilder AddFileMagicCore(this IServiceCollection collection, Action<FileMagicConfig>? configureOptions = null)
         {
             if (configureOptions != null)
                 collection.Configure(configureOptions);
@@ -18,7 +18,7 @@ namespace ldy985.FileMagic.Core.Extensions
             return AddFileMagicCore(collection);
         }
 
-        public static IFileMagicBuilder AddFileMagicCore([NotNull] this IServiceCollection collection)
+        public static IFileMagicBuilder AddFileMagicCore(this IServiceCollection collection)
         {
             collection.AddLogging();
             collection.AddOptions();

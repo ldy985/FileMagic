@@ -32,7 +32,7 @@ namespace ldy985.FileMagic.Tests
                 foreach (string file in files)
                 {
                     TestFile testFile = new TestFile(file);
-                    testFiles.Add(new object[] { testFile });
+                    testFiles.Add(new object[] {testFile});
                 }
 
                 return testFiles;

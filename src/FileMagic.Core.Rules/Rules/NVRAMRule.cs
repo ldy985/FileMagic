@@ -14,7 +14,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("VMware nvram file", "NVRAM");
 
         /// <inheritdoc />
-        public NVRAMRule(ILogger<ATFRule> logger) : base(logger)
+        public NVRAMRule(ILogger<NVRAMRule> logger) : base(logger)
         {
         }
     }

@@ -11,7 +11,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 {
     public sealed class BitmapRuleTest
     {
-        private const string _extension = "bmp";
+        private const string Extension = "bmp";
         private readonly BitmapRule _rule;
 
         public BitmapRuleTest()
@@ -22,14 +22,14 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         [Fact]
         public void TestMagic()
         {
-            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + _extension));
+            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + Extension));
         }
 
         [Fact]
         public void TestStructure()
         {
             Result result = new Result();
-            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + _extension))
+            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
                 bool match = _rule.TryStructure(binaryReader, result);
                 Assert.True(match);
@@ -40,7 +40,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         public void TestParsing()
         {
             Result result = new Result();
-            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + _extension))
+            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
                 if (_rule.TryParse(binaryReader, result, out IParsed? parsedObject))
                 {

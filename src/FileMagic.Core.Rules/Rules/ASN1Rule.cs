@@ -1,5 +1,6 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
+// ReSharper disable All
 
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
@@ -65,7 +66,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("ASN1 encoded file", "P7B");
 
         /// <inheritdoc />
-        public P7SPEMRule(ILogger<P7SRule> logger) : base(logger)
+        public P7SPEMRule(ILogger<P7SPEMRule> logger) : base(logger)
         {
         }
     }

@@ -151,7 +151,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             Python3_10a1b = 0xD67, // (New line number table format -- PEP 626)
             Python3_10a2a = 0xD68, // (Function annotation for MAKE_FUNCTION is changed from dict to tuple bpo-42202)
             Python3_10a2b = 0xD69, // (RERAISE restores f_lasti if oparg != 0)
-            Python3_10a6 = 0xD6A, // (PEP 634:Structural Pattern Matching)
+            Python3_10a6 = 0xD6A// (PEP 634:Structural Pattern Matching)
         }
 
 
@@ -188,7 +188,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             TYPE_COMPLEX = 0x78,
             TYPE_BINARY_COMPLEX = 0x79,
             TYPE_SHORT_ASCII = 0x7A,
-            TYPE_DICT = 0x7B,
+            TYPE_DICT = 0x7B
         }
     }
 }

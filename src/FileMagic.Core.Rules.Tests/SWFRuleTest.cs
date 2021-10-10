@@ -8,7 +8,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 {
     public sealed class SWFRuleTest
     {
-        private const string _extension = "swf";
+        private const string Extension = "swf";
         private readonly SWFRule _rule;
 
         public SWFRuleTest()
@@ -19,7 +19,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         [Fact]
         public void TestMagic()
         {
-            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + _extension));
+            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + Extension));
         }
     }
 }

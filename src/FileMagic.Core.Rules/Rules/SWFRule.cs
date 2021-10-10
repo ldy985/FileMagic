@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -17,7 +16,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Shockwave Flash Movie", "SWF");
 
         /// <inheritdoc />
-        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             reader.SkipForwards(4);
             uint fileSize = reader.ReadUInt32();

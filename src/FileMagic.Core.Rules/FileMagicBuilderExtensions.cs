@@ -7,13 +7,16 @@ namespace ldy985.FileMagic.Core.Rules
 {
     public static class FileMagicBuilderExtensions
     {
+        /// <summary>
+        /// Adds all the default rules.
+        /// </summary>
+        /// <param name="fileMagicBuilder"></param>
+        /// <returns></returns>
         public static IFileMagicBuilder AddDefaultFileMagicRules(this IFileMagicBuilder fileMagicBuilder)
         {
             IEnumerable<Type> instanceOfAll = TypeHelper.GetAllTypesThatImplementInterface<IRule>(typeof(FileMagicBuilderExtensions).Assembly);
             foreach (Type type in instanceOfAll)
-            {
                 fileMagicBuilder.Services.AddSingleton(typeof(IRule), type);
-            }
 
             return fileMagicBuilder;
         }

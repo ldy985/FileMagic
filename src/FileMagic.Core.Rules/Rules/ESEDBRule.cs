@@ -12,9 +12,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("efcdab89", 4);
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Extensible Storage Engine (ESE) Database File (EDB)", "EDB", "SDB");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Extensible Storage Engine (ESE) Database File (EDB)", "EDB", "SDB", "DIT");
 
         /// <inheritdoc />
-        public ESEDBRule(ILogger<ESEDBRule> logger) : base(logger) { }
+        public ESEDBRule(ILogger<ESEDBRule> logger) : base(logger)
+        {
+        }
     }
 }

@@ -75,7 +75,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             return true;
         }
 
-        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             reader.SkipForwards(2);
             uint size = reader.ReadUInt32();

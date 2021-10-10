@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
@@ -25,7 +24,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         {
         }
 
-        protected override bool TryStructureInternal([NotNull] BinaryReader reader, IResult result)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             unsafe
             {
