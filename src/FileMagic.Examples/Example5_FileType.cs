@@ -17,7 +17,7 @@ namespace ldy985.FileMagic.Examples
 
             using (FileMagic fileMagic = new FileMagic(fileMagicConfig))
             {
-                string filePath = Utilities.BasePath(0) + "bmp";
+                string filePath = Program.BasePath(0) + "bmp";
 
                 if (fileMagic.IdentifyFile(filePath, out IResult result))
                 {

@@ -21,7 +21,7 @@ namespace ldy985.FileMagic.Examples
             {
                 IFileMagic fileMagic = buildServiceProvider.GetRequiredService<IFileMagic>();
 
-                string filePath = Utilities.BasePath(0) + "ico";
+                string filePath = Program.BasePath(0) + "ico";
 
                 using (FileStream fs = File.OpenRead(filePath))
                 {

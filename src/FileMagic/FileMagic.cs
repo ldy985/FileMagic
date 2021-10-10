@@ -35,9 +35,7 @@ namespace ldy985.FileMagic
             _handlerProvider = parsedHandler;
 
             ServiceCollection services = new ServiceCollection();
-            services.AddFileMagic()
-                .UseFileMagic()
-                .AddDefaultFileMagicRules();
+            services.AddFileMagic();
 
             services.AddSingleton<IOptions<FileMagicConfig>>(config);
 

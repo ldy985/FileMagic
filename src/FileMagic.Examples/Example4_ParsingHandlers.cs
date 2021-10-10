@@ -45,7 +45,7 @@ namespace ldy985.FileMagic.Examples
             using (ServiceProvider buildServiceProvider = serviceCollection.BuildServiceProvider())
             {
                 IFileMagic fileMagic = buildServiceProvider.GetRequiredService<IFileMagic>();
-                string filePath = Utilities.BasePath(0) + "bmp";
+                string filePath = Program.BasePath(0) + "bmp";
 
                 //File Magic invokes BMPAction if the file is matching the rule specified when running AddParsedHandler
                 if (fileMagic.IdentifyFile(filePath, out var result))

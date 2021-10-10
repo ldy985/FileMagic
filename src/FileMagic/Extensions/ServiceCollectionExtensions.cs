@@ -2,6 +2,7 @@
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Extensions;
+using ldy985.FileMagic.Core.Rules;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ldy985.FileMagic.Extensions
@@ -12,6 +13,7 @@ namespace ldy985.FileMagic.Extensions
         {
             IFileMagicBuilder coreBuilder = collection.AddFileMagicCore(config);
             coreBuilder.UseFileMagic();
+            coreBuilder.AddDefaultFileMagicRules();
 
             return new Core.Misc.FileMagicBuilder(collection);
         }
