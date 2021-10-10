@@ -1,0 +1,26 @@
+name: Nuget release
+
+on:
+  push:
+    tags:
+      - 'v[0-9].[0-9]+.[0-9]+-?*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Build with dotnet
+        run: |    
+          dotnet pack -c Release src/FileMagic.sln -o artifacts
+          dotnet nuget push --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json artifacts/*

@@ -1,0 +1,23 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v1
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore src/FileMagic.sln
+      - name: Build
+        run: dotnet build --no-restore -c Release src/FileMagic.sln
+      - name: Test
+        run: dotnet test --no-build --verbosity normal -c Release src/FileMagic.sln
