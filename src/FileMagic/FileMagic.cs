@@ -41,7 +41,6 @@ namespace ldy985.FileMagic
 
             services.AddSingleton<IOptions<FileMagicConfig>>(config);
 
-
             _provider = services.BuildServiceProvider();
 
             _logger = _provider.GetRequiredService<ILogger<FileMagic>>();
@@ -196,14 +195,6 @@ namespace ldy985.FileMagic
             }
         }
 
-        /// <summary>
-        /// StructureMatched
-        /// </summary>
-        /// <param name="binaryReader"></param>
-        /// <param name="rule"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        /// <exception cref="IOException">Ignore.</exception>
         private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, IResult result, bool patternCheck, bool structureCheck, bool parserCheck)
         {
             bool patternMatched = false;

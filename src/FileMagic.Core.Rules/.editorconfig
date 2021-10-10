@@ -2,3 +2,6 @@
 
 # S101: Types should be named in PascalCase
 dotnet_diagnostic.S101.severity = none
+dotnet_diagnostic.CS1591.severity = none
+resharper_inconsistent_naming_highlighting = none
+resharper_unused_type_global_highlighting = none
