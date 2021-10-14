@@ -7,19 +7,19 @@ namespace ldy985.FileMagic.Abstracts
         /// <summary>
         /// Tries to identify the data in a steam.
         /// </summary>
-        /// <param name="stream">The data stream.</param>
+        /// <param name="binaryReader">The data stream.</param>
         /// <param name="result">The result</param>
         /// <param name="metaData">Any metadata to help the identification.</param>
         /// <returns>True if we found a match.</returns>
-        bool IdentifyStream(Stream stream, out IResult result, ref IMetaData metaData);
+        bool IdentifyStream(BinaryReader binaryReader, out IResult result, in IMetaData metaData);
 
         /// <summary>
         /// Tries to identify the data in a steam.
         /// </summary>
-        /// <param name="stream">The data stream.</param>
+        /// <param name="binaryReader">The data stream.</param>
         /// <param name="result">The result</param>
         /// <returns>True if we found a match.</returns>
-        bool IdentifyStream(Stream stream, out IResult result);
+        bool IdentifyStream(BinaryReader binaryReader,  out IResult result);
 
         /// <summary>
         /// Checks if the stream matches with a given rule.

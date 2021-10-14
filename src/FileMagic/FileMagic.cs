@@ -21,10 +21,9 @@ namespace ldy985.FileMagic
         private readonly IOptions<FileMagicConfig> _config;
         private readonly IParallelMagicMatcher _parallelMagicMatcher;
         private readonly IParsedHandlerProvider? _handlerProvider;
+        private readonly string _name;
 
-        public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler)
-        {
-        }
+        public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler) { }
 
         public FileMagic(IOptions<FileMagicConfig> config, IParsedHandlerProvider? parsedHandler = null)
         {
@@ -37,13 +36,14 @@ namespace ldy985.FileMagic
             ServiceCollection services = new ServiceCollection();
             services.AddFileMagic();
 
-            services.AddSingleton<IOptions<FileMagicConfig>>(config);
+            services.AddSingleton(config);
 
-            _provider = services.BuildServiceProvider();
+            ServiceProvider provider = _provider = services.BuildServiceProvider();
 
-            _logger = _provider.GetRequiredService<ILogger<FileMagic>>();
-            _ruleProvider = _provider.GetRequiredService<IRuleProvider>();
-            _parallelMagicMatcher = _provider.GetRequiredService<IParallelMagicMatcher>();
+            _logger = provider.GetRequiredService<ILogger<FileMagic>>();
+            _ruleProvider = provider.GetRequiredService<IRuleProvider>();
+            _parallelMagicMatcher = provider.GetRequiredService<IParallelMagicMatcher>();
+            _name = _parallelMagicMatcher.GetType().Name;
         }
 
         public FileMagic(IOptions<FileMagicConfig> config, ILogger<FileMagic> logger, IRuleProvider ruleProvider,
@@ -54,6 +54,7 @@ namespace ldy985.FileMagic
             _parallelMagicMatcher = parallelMagicMatcher;
             _handlerProvider = handlerProvider;
             _config = config;
+            _name = _parallelMagicMatcher.GetType().Name;
         }
 
         /// <summary>
@@ -64,55 +65,56 @@ namespace ldy985.FileMagic
         /// <param name="metaData"></param>
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
-        public bool IdentifyStream(Stream stream, out IResult result, ref IMetaData metaData)
+        public bool IdentifyStream(BinaryReader binaryReader, out IResult result, in IMetaData metaData)
         {
             result = new Result();
+            _logger.LogTrace("Trying {Matcher} matcher", _name);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out IEnumerable<IRule>? matchedRules);
+            return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
+        }
 
-            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
+        private bool ComplexMatch(bool hasMagicMatch, IResult result, BinaryReader binaryReader, IEnumerable<IRule> matchedRules)
+        {
+            if (hasMagicMatch)
             {
-                string name = _parallelMagicMatcher.GetType().Name;
-                _logger.LogTrace("Trying {Matcher} matcher", name);
-                if (_parallelMagicMatcher.TryFind(binaryReader, metaData, out IEnumerable<IRule>? matchedRules))
+                _logger.LogDebug("{Matcher} matched", _name);
+
+                foreach (IRule rule in matchedRules!)
                 {
-                    _logger.LogDebug("{Matcher} matched", name);
+                    _logger.LogDebug("Rule: {Rule} matched", rule.Name);
 
-                    foreach (IRule rule in matchedRules)
+                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
+
+                    if (!structureMatched && !parserMatched && (rule.HasStructure || rule.HasParser))
+                        continue;
+
+                    RuleHelper.AddData(result, rule);
+
+                    return true;
+                }
+            }
+            else
+            {
+                foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
+                {
+                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
+
+                    if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
                     {
-                        _logger.LogDebug("Rule: {Rule} matched", rule.Name);
-
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
-
-                        if (!structureMatched && !parserMatched && (rule.HasStructure || rule.HasParser))
-                            continue;
-
                         RuleHelper.AddData(result, rule);
-
                         return true;
                     }
-                }
-                else
-                {
-                    foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
+
+                    if (rule.HasParser && parserMatched && !rule.HasStructure)
                     {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
+                        RuleHelper.AddData(result, rule);
+                        return true;
+                    }
 
-                        if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
-
-                        if (rule.HasParser && parserMatched && !rule.HasStructure)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
-
-                        if (rule.HasStructure && structureMatched && !rule.HasParser)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
+                    if (rule.HasStructure && structureMatched && !rule.HasParser)
+                    {
+                        RuleHelper.AddData(result, rule);
+                        return true;
                     }
                 }
             }
@@ -121,56 +123,13 @@ namespace ldy985.FileMagic
         }
 
         /// <inheritdoc />
-        public bool IdentifyStream(Stream stream, out IResult result)
+        public bool IdentifyStream(BinaryReader binaryReader, out IResult result)
         {
             result = new Result();
 
-            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                string name = _parallelMagicMatcher.GetType().Name;
-                _logger.LogTrace("Trying {Matcher} matcher", name);
-                if (_parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules))
-                {
-                    _logger.LogDebug("{Matcher} matched", name);
-                    foreach (IRule rule in matchedRules)
-                    {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
-
-                        if (rule.HasStructure && !structureMatched || rule.HasParser && !parserMatched)
-                            return false;
-
-                        RuleHelper.AddData(result, rule);
-                        return true;
-                    }
-                }
-                else
-                {
-                    foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
-                    {
-                        (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
-
-                        if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
-
-                        if (rule.HasParser && parserMatched && !rule.HasStructure)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
-
-                        if (rule.HasStructure && structureMatched && !rule.HasParser)
-                        {
-                            RuleHelper.AddData(result, rule);
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
+            _logger.LogTrace("Trying {Matcher} matcher", _name);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules);
+            return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
         }
 
         /// <inheritdoc />
@@ -183,7 +142,7 @@ namespace ldy985.FileMagic
 
             using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
             {
-                (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
+                (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
                 if (!patternMatched && !structureMatched && !parserMatched)
                     return false;
@@ -193,7 +152,7 @@ namespace ldy985.FileMagic
             }
         }
 
-        private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, IResult result, bool patternCheck, bool structureCheck, bool parserCheck)
+        private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, ref IResult result, bool patternCheck, bool structureCheck, bool parserCheck)
         {
             bool patternMatched = false;
             bool structureMatched = false;

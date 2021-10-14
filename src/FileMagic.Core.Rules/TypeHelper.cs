@@ -21,7 +21,11 @@ namespace ldy985.FileMagic.Core.Rules
         [Pure]
         public static IEnumerable<T> CreateAllImplementors<T>(Assembly? lookInAssembly = null, bool callPrivateConstructors = false)
         {
-            return GetAllTypesThatImplementInterface<T>(lookInAssembly).Select(type => (T)Activator.CreateInstance(type, callPrivateConstructors)!);
+            foreach (Type type in GetAllTypesThatImplementInterface<T>(lookInAssembly))
+            {
+                T instance = (T)(Activator.CreateInstance(type, callPrivateConstructors) ?? throw new InvalidOperationException());
+                yield return instance;
+            }
         }
 
         /// <summary>

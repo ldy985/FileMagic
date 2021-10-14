@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 
@@ -27,8 +28,24 @@ namespace ldy985.FileMagic
                     return fileMagic.IdentifyStream(fileStream, out result);
 
                 IMetaData helpingData = new MetaData(extension);
-                return fileMagic.IdentifyStream(fileStream, out result, ref helpingData);
+                return fileMagic.IdentifyStream(fileStream, out result, in helpingData);
             }
+        }
+
+        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result, in IMetaData metaData)
+        {
+            result = new Result();
+
+            using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
+            return fileMagic.IdentifyStream(binaryReader, out result, metaData);
+        }
+
+        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result)
+        {
+            result = new Result();
+
+            using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
+            return fileMagic.IdentifyStream(binaryReader, out result);
         }
     }
 }

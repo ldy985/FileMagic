@@ -49,53 +49,37 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
                 if (oleData.MetaInfo.TryGetValue("Application Name", out object? dataValue))
                 {
-                    string value = (string) dataValue;
+                    string value = (string)dataValue;
                     bool any = false;
-#if NETSTANDARD2_1
                     if (value.Contains("Word", StringComparison.Ordinal))
-#else
-                    if (value.Contains("Word"))
-#endif
                     {
                         result.Description = "Microsoft Word document";
-                        result.Extensions = new[] {"DOC", "DOT"};
+                        result.Extensions = new[] { "DOC", "DOT" };
                         any = true;
                     }
-#if NETSTANDARD2_1
                     else if (value.Contains("Excel", StringComparison.Ordinal))
-#else
-                    else if (value.Contains("Excel"))
-#endif
+
                     {
                         result.Description = "Microsoft Excel document";
-                        result.Extensions = new[] {"XLS"};
+                        result.Extensions = new[] { "XLS" };
                         any = true;
                     }
-#if NETSTANDARD2_1
                     else if (value.Contains("PowerPoint", StringComparison.Ordinal))
-#else
-                    else if (value.Contains("PowerPoint"))
-#endif
                     {
                         result.Description = "Microsoft PowerPoint document";
-                        result.Extensions = new[] {"PPT", "PPS"};
+                        result.Extensions = new[] { "PPT", "PPS" };
                         any = true;
                     }
-#if NETSTANDARD2_1
                     else if (value.Contains("Installer", StringComparison.Ordinal) || value.Contains("InstallShield", StringComparison.Ordinal))
-#else
-                    else if (value.Contains("Installer") || value.Contains("InstallShield"))
-#endif
                     {
                         result.Description = "Windows MSI installer";
-                        result.Extensions = new[] {"MSI"};
+                        result.Extensions = new[] { "MSI" };
                         any = true;
                     }
                     else
                     {
                         Logger.LogWarning("Unhandled Application Name: {AppName}", value);
                     }
-
 
                     if (any)
                     {
@@ -112,32 +96,32 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 {
                     case "WordDocument":
                         result.Description = "Microsoft Word document";
-                        result.Extensions = new[] {"DOC", "DOT"};
+                        result.Extensions = new[] { "DOC", "DOT" };
                         any = true;
                         break;
                     case "PowerPoint Document":
                         result.Description = "Microsoft PowerPoint document";
-                        result.Extensions = new[] {"PPT", "PPS"};
+                        result.Extensions = new[] { "PPT", "PPS" };
                         any = true;
                         break;
                     case "Workbook":
                         result.Description = "Microsoft Excel document";
-                        result.Extensions = new[] {"XLS"};
+                        result.Extensions = new[] { "XLS" };
                         any = true;
                         break;
                     case "Envelope":
                         result.Description = "Microsoft Publisher document";
-                        result.Extensions = new[] {"PUB"};
+                        result.Extensions = new[] { "PUB" };
                         any = true;
                         break;
                     case "DataAccessPages":
                         result.Description = "Microsoft Access document";
-                        result.Extensions = new[] {"ADP"};
+                        result.Extensions = new[] { "ADP" };
                         any = true;
                         break;
-                    case "__nameid_version1.0": //https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/b046868c-9fbf-41ae-9ffb-8de2bd4eec82?redirectedfrom=MSDN
+                    case "__nameid_version1.0"://https://docs.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxmsg/b046868c-9fbf-41ae-9ffb-8de2bd4eec82?redirectedfrom=MSDN
                         result.Description = "Microsoft Outlook Item File";
-                        result.Extensions = new[] {"MSG"};
+                        result.Extensions = new[] { "MSG" };
                         any = true;
                         break;
                 }

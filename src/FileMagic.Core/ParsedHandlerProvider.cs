@@ -13,7 +13,7 @@ namespace ldy985.FileMagic.Core
             if (!_parsedActions.TryGetValue(type.GetType(), out List<Action<object>>? handlers))
                 return;
 
-            foreach (Action<object>? parsedHandler in handlers) 
+            foreach (Action<object>? parsedHandler in handlers)
                 parsedHandler.Invoke(parsed);
         }
 

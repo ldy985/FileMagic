@@ -2,7 +2,7 @@
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules.Media
 {
     /// <summary>
     /// http://www.multiweb.cz/twoinches/mp3inside.htm#FrameHeaderJ

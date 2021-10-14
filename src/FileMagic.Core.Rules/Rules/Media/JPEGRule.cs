@@ -1,7 +1,7 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules.Media
 {
     /// <summary>
     /// http://www.ecma-international.org/publications/files/ECMA-TR/ECMA%20TR-098.pdf

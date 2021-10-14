@@ -2,6 +2,7 @@ using System;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules;
+using ldy985.FileMagic.Core.Rules.Rules.Media;
 using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using ldy985.FileMagic.Extensions;
 using Microsoft.Extensions.DependencyInjection;

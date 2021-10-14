@@ -61,6 +61,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             return TryFind(br, out matchedRules);
         }
 
+        /// <inheritdoc />
         public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();

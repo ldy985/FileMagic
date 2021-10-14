@@ -24,20 +24,21 @@ namespace ldy985.FileMagic.Core.Rules
 
                 Type log = typeof(Logger<>);
                 Type genericLogger = log.MakeGenericType(type);
-                var logger = Activator.CreateInstance(genericLogger, loggerFactory);
-                yield return ((TRule) Activator.CreateInstance(type, logger)!)!;
+                object? logger = Activator.CreateInstance(genericLogger, loggerFactory);
+                yield return ((TRule)Activator.CreateInstance(type, logger)!)!;
             }
         }
 
         [Pure]
-        public static TRule CreateRule<TRule>(ILoggerFactory loggerFactory, Assembly? lookInAssembly = null) where TRule : class, IRule
+        public static TRule CreateRule<TRule>(ILoggerFactory loggerFactory) where TRule : class, IRule
         {
-            var type = typeof(TRule);
+            Type type = typeof(TRule);
 
             Type log = typeof(Logger<>);
             Type genericLogger = log.MakeGenericType(type);
-            var logger = Activator.CreateInstance(genericLogger, loggerFactory);
-            return ((TRule) Activator.CreateInstance(type, logger)!)!;
+            object logger = Activator.CreateInstance(genericLogger, loggerFactory) ?? throw new ArgumentException("Unable to create logger for rule " + type.Name);
+            object rule = Activator.CreateInstance(type, logger) ?? throw new ArgumentException("Unable to create rule " + type.Name);
+            return (TRule)rule;
         }
     }
 }

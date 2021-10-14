@@ -1,7 +1,7 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules.Media
 {
     /// <summary>
     /// https://www.etsi.org/deliver/etsi_ts/126200_126299/126244/07.03.00_60/ts_126244v070300p.pdf

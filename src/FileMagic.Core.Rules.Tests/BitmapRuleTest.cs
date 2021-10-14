@@ -3,6 +3,7 @@ using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core.Extensions;
 using ldy985.FileMagic.Core.Rules.Rules;
+using ldy985.FileMagic.Core.Rules.Rules.Media;
 using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
