@@ -5,7 +5,6 @@ using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
-using ldy985.FileMagic.Core.Rules;
 using ldy985.FileMagic.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -60,7 +59,7 @@ namespace ldy985.FileMagic
         /// <summary>
         /// IdentifyStream
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="binaryReader"></param>
         /// <param name="result"></param>
         /// <param name="metaData"></param>
         /// <returns></returns>
@@ -135,21 +134,18 @@ namespace ldy985.FileMagic
         /// <inheritdoc />
         /// <exception cref="ObjectDisposedException"></exception>
         /// <exception cref="IOException"></exception>
-        public bool StreamMatches<T>(Stream stream, out IResult result) where T : IRule
+        public bool StreamMatches<T>(BinaryReader binaryReader, out IResult result) where T : IRule
         {
             T rule = _ruleProvider.Get<T>();
             result = new Result();
 
-            using (BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true))
-            {
-                (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
+            (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
 
-                if (!patternMatched && !structureMatched && !parserMatched)
-                    return false;
+            if (!patternMatched && !structureMatched && !parserMatched)
+                return false;
 
-                RuleHelper.AddData(result, rule);
-                return true;
-            }
+            RuleHelper.AddData(result, rule);
+            return true;
         }
 
         private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, ref IResult result, bool patternCheck, bool structureCheck, bool parserCheck)

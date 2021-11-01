@@ -57,7 +57,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         {
             switch (reader.ReadUInt32())
             {
-                case 0x04034b50: // zip file record
+                case 0x04034b50:// zip file record
                     reader.SkipForwards(14);
                     uint dataLen = reader.ReadUInt32();
                     reader.SkipForwards(4);
@@ -65,11 +65,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
                     ushort extralen = reader.ReadUInt16();
                     reader.SkipForwards(len + dataLen + extralen);
                     return reader.ReadUInt16() == 0x4b50;
-                case 0x05054b50: // zip sig
+                case 0x05054b50:// zip sig
                     ushort dataLen2 = reader.ReadUInt16();
                     reader.SkipForwards(dataLen2);
                     return reader.ReadUInt16() == 0x4b50;
-                case 0x02014b50: // zip dir record
+                case 0x02014b50:// zip dir record
                     reader.SkipForwards(24);
                     ushort len2 = reader.ReadUInt16();
                     ushort extralen2 = reader.ReadUInt16();
@@ -100,19 +100,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 
             public void AddFile(ZipArchiveEntry zipArchiveEntry)
             {
-                using (Stream stream = zipArchiveEntry.Open())
-                {
-                    int streamLength = (int)zipArchiveEntry.Length;
-                    byte[] data = new byte[streamLength];
-                    stream.Read(data, 0, streamLength);
+                ZipFile zipFile = new ZipFile();
 
-                    ZipFile zipFile = new ZipFile();
-
-                    zipFile.FullName = zipArchiveEntry.FullName;
-                    zipFile.LastWriteTime = zipArchiveEntry.LastWriteTime;
-                    zipFile.Data = data;
-                    Files.Add(zipFile);
-                }
+                zipFile.FullName = zipArchiveEntry.FullName;
+                zipFile.LastWriteTime = zipArchiveEntry.LastWriteTime;
+                Files.Add(zipFile);
             }
         }
 
@@ -120,7 +112,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         {
             public string? FullName { get; set; }
             public DateTimeOffset? LastWriteTime { get; set; }
-            public byte[]? Data { get; set; }
         }
 
         /// <inheritdoc />

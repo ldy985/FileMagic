@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules;
-using ldy985.FileMagic.Core.Rules.Rules.Containers;
 using ldy985.FileMagic.Core.Rules.Rules.Containers.Archive;
 using Microsoft.Extensions.Options;
 

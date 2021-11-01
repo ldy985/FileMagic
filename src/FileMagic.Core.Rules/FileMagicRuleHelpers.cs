@@ -4,6 +4,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ldy985.FileMagic.Core.Rules
 {
@@ -27,6 +28,12 @@ namespace ldy985.FileMagic.Core.Rules
                 object? logger = Activator.CreateInstance(genericLogger, loggerFactory);
                 yield return ((TRule)Activator.CreateInstance(type, logger)!)!;
             }
+        }
+
+        [Pure]
+        public static TRule CreateRule<TRule>() where TRule : class, IRule
+        {
+            return CreateRule<TRule>(NullLoggerFactory.Instance);
         }
 
         [Pure]

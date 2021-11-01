@@ -2,7 +2,6 @@
 using BenchmarkDotNet.Attributes;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
-using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
 
 namespace ldy985.FileMagic.Benchmarks

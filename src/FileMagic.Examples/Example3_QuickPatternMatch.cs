@@ -1,9 +1,7 @@
 using System;
 using System.IO;
 using ldy985.FileMagic.Core.Rules;
-using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace ldy985.FileMagic.Examples
 {
@@ -14,7 +12,7 @@ namespace ldy985.FileMagic.Examples
     {
         public static void Start()
         {
-            PNGRule pngRule = FileMagicRuleHelpers.CreateRule<PNGRule>(NullLoggerFactory.Instance);
+            PNGRule pngRule = FileMagicRuleHelpers.CreateRule<PNGRule>();
 
             using (MemoryStream memoryStream = new MemoryStream(new byte[] {0x1, 0x2, 0x3}))
             {

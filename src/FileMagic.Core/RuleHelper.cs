@@ -6,7 +6,7 @@ namespace ldy985.FileMagic.Core
     {
         public static void AddData(in IResult result, IRule rule)
         {
-            result.MatchedRuleName = rule.GetType().Name;
+            result.MatchedRule = rule;
             result.Extensions ??= rule.TypeInfo.Extensions;
             result.Description ??= rule.TypeInfo.Description;
         }

@@ -1,9 +1,7 @@
 using System;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
-using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
-using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using ldy985.FileMagic.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -51,7 +49,7 @@ namespace ldy985.FileMagic.Examples
                 //File Magic invokes BMPAction if the file is matching the rule specified when running AddParsedHandler
                 if (fileMagic.IdentifyFile(filePath, out var result))
                 {
-                    Console.WriteLine(result.MatchedRuleName);
+                    Console.WriteLine(result.MatchedRule);
                 }
             }
         }

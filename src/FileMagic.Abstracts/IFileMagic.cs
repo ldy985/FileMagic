@@ -24,10 +24,10 @@ namespace ldy985.FileMagic.Abstracts
         /// <summary>
         /// Checks if the stream matches with a given rule.
         /// </summary>
-        /// <param name="stream">The stream to check.</param>
+        /// <param name="binaryReader"></param>
         /// <param name="result">The result of the check.</param>
         /// <typeparam name="T">The type of rule to check against.</typeparam>
         /// <returns>True if the rule matched the stream</returns>
-        bool StreamMatches<T>(Stream stream, out IResult result) where T : IRule;
+        bool StreamMatches<T>(BinaryReader binaryReader, out IResult result) where T : IRule;
     }
 }

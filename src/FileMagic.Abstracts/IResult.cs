@@ -20,7 +20,7 @@ namespace ldy985.FileMagic.Abstracts
         /// <summary>
         /// The name of the rule that matched the data.
         /// </summary>
-        string MatchedRuleName { get; set; }
+        IRule MatchedRule { get; set; }
 
         /// <summary>
         /// The types of checks that matched.

@@ -34,18 +34,20 @@ namespace ldy985.FileMagic
 
         public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result, in IMetaData metaData)
         {
-            result = new Result();
-
             using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
             return fileMagic.IdentifyStream(binaryReader, out result, metaData);
         }
 
         public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result)
         {
-            result = new Result();
-
             using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
             return fileMagic.IdentifyStream(binaryReader, out result);
+        }
+
+        public static bool StreamMatches<T>(this IFileMagic fileMagic, Stream stream, out IResult result) where T : IRule
+        {
+            using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
+            return fileMagic.StreamMatches<T>(binaryReader, out result);
         }
     }
 }

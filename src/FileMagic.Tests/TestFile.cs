@@ -16,15 +16,12 @@ namespace ldy985.FileMagic.Tests
             return _file;
         }
 
-        public string? GetExtension()
+        public string GetExtension()
         {
-            string? extension = Path.GetExtension(_file);
+            string extension = Path.GetExtension(_file);
 
-            if (extension?.Length == 0)
+            if (extension.Length == 0)
                 return extension;
-
-            if (extension == null)
-                return null;
 
             return extension[0] == '.' ? extension.Substring(1).ToUpperInvariant() : extension.ToUpperInvariant();
         }

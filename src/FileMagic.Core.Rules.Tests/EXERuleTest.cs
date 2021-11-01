@@ -1,7 +1,6 @@
 using ldy985.FileMagic.Core.Extensions;
 using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Tests.Utils;
-using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
 namespace ldy985.FileMagic.Core.Rules.Tests
@@ -13,7 +12,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
 
         public EXERuleTest()
         {
-            _rule = FileMagicRuleHelpers.CreateRule<EXERule>(NullLoggerFactory.Instance);
+            _rule = FileMagicRuleHelpers.CreateRule<EXERule>();
         }
 
         [Fact]
