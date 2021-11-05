@@ -6,6 +6,10 @@ FileMagic is a .NET library for detecting if a stream contains data of a known d
 
 See this basic [Example](./src/FileMagic.Examples/Example5_FileType.cs)
 
+## Performance
+
+See [Rule benchmark](Benchmark.md)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

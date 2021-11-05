@@ -8,15 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BenchmarkDotNet" Version="0.13.1"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0"/>
-        <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.0.0"/>
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Toolkit.HighPerformance" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj"/>
-        <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj"/>
-        <ProjectReference Include="..\FileMagic\FileMagic.csproj"/>
+        <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
+        <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj" />
+        <ProjectReference Include="..\FileMagic\FileMagic.csproj" />
     </ItemGroup>
 
 
