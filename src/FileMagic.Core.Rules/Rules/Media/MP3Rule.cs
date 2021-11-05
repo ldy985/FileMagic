@@ -5,12 +5,15 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules.Media
 {
     /// <summary>
-    /// http://www.multiweb.cz/twoinches/mp3inside.htm#FrameHeaderJ
+    ///     http://www.multiweb.cz/twoinches/mp3inside.htm#FrameHeaderJ
     /// </summary>
     public class MP3Rule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("FF", 0);
+        public MP3Rule(ILogger<MP3Rule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("FF");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("MP3 Audio File", "MP3");
 
@@ -29,8 +32,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
             return true;
         }
-
-        /// <inheritdoc />
-        public MP3Rule(ILogger<MP3Rule> logger) : base(logger) { }
     }
 }

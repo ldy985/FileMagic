@@ -47,10 +47,8 @@ namespace ldy985.FileMagic.Examples
                 string filePath = Program.BasePath(0) + "bmp";
 
                 //File Magic invokes BMPAction if the file is matching the rule specified when running AddParsedHandler
-                if (fileMagic.IdentifyFile(filePath, out var result))
-                {
+                if (fileMagic.IdentifyFile(filePath, out IResult result))
                     Console.WriteLine(result.MatchedRule);
-                }
             }
         }
     }

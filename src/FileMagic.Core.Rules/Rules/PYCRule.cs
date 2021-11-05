@@ -7,21 +7,19 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://www.python.org/dev/peps/pep-0552/
-    /// https://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html
-    /// https://formats.kaitai.io/python_pyc_27/index.html
+    ///     https://www.python.org/dev/peps/pep-0552/
+    ///     https://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html
+    ///     https://formats.kaitai.io/python_pyc_27/index.html
     /// </summary>
     public class PYCRule : BaseRule
     {
         /// <inheritdoc />
+        public PYCRule(ILogger<PYCRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("0D0A", 2);
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Python bytecode", "PYC");
-
-        /// <inheritdoc />
-        public PYCRule(ILogger<PYCRule> logger) : base(logger)
-        {
-        }
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
@@ -47,7 +45,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         }
 
         /// <summary>
-        /// https://github.com/python/cpython/blob/master/Lib/importlib/_bootstrap_external.py#L199
+        ///     https://github.com/python/cpython/blob/master/Lib/importlib/_bootstrap_external.py#L199
         /// </summary>
         private enum Version : ushort
         {
@@ -151,12 +149,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             Python3_10a1b = 0xD67, // (New line number table format -- PEP 626)
             Python3_10a2a = 0xD68, // (Function annotation for MAKE_FUNCTION is changed from dict to tuple bpo-42202)
             Python3_10a2b = 0xD69, // (RERAISE restores f_lasti if oparg != 0)
-            Python3_10a6 = 0xD6A// (PEP 634:Structural Pattern Matching)
+            Python3_10a6 = 0xD6A // (PEP 634:Structural Pattern Matching)
         }
 
 
         /// <summary>
-        /// https://github.com/python/cpython/blob/master/Python/marshal.c#L41
+        ///     https://github.com/python/cpython/blob/master/Python/marshal.c#L41
         /// </summary>
         private enum ObjectType : byte
         {

@@ -9,7 +9,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
     public class GIFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("474946", 0);
+        public GIFRule(ILogger<GIFRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("474946");
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Gif image", "GIF");
@@ -24,12 +27,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
             parsed = gif;
             return true;
-        }
-
-        public class GIF : IParsed
-        {
-            public ushort Height { get; set; }
-            public ushort Width { get; set; }
         }
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
@@ -48,7 +45,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
             }
         }
 
-        /// <inheritdoc />
-        public GIFRule(ILogger<GIFRule> logger) : base(logger) { }
+        public class GIF : IParsed
+        {
+            public ushort Height { get; set; }
+            public ushort Width { get; set; }
+        }
     }
 }

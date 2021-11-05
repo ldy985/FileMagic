@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class PFXRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("3082????02010330", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("PFX certificate format", "PFX", "P12", "P7B");
+        public PFXRule(ILogger<PFXRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PFXRule(ILogger<PFXRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("3082????02010330");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("PFX certificate format", "PFX", "P12", "P7B");
     }
 }

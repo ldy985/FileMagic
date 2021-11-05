@@ -7,18 +7,31 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules.Media
 {
     /// <summary>
-    /// https://en.wikipedia.org/wiki/BMP_file_format
+    ///     https://en.wikipedia.org/wiki/BMP_file_format
     /// </summary>
     public class BitmapRule : BaseRule
     {
+        public enum BmpType : short
+        {
+            Bm = 0x4d42,
+            Ba = 0x4142,
+            Ci = 0x4943,
+            Cp = 0x5043,
+            Ic = 0x4349,
+            Pt = 0x5450
+        }
+
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("424D", 0);
+        public BitmapRule(ILogger<BitmapRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("424D");
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bitmap", "BMP");
 
         /// <inheritdoc />
-        protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)]out IParsed? parsed)
+        protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             Bmp bmp = new Bmp();
             BmpType type = reader.ReadEnum<BmpType>();
@@ -83,7 +96,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         }
 
         /// <summary>
-        /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-tagbitmapcoreheader
+        ///     https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-tagbitmapcoreheader
         /// </summary>
         private struct Bitmapcoreheader
         {
@@ -93,7 +106,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         }
 
         /// <summary>
-        /// https://docs.microsoft.com/en-us/previous-versions/dd183376(v%3Dvs.85)
+        ///     https://docs.microsoft.com/en-us/previous-versions/dd183376(v%3Dvs.85)
         /// </summary>
         private struct Bitmapinfoheader
         {
@@ -103,7 +116,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         }
 
         /// <summary>
-        /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header
+        ///     https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header
         /// </summary>
         private struct Bitmapv4Header
         {
@@ -113,7 +126,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         }
 
         /// <summary>
-        /// https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header
+        ///     https://docs.microsoft.com/en-us/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header
         /// </summary>
         private struct Bitmapv5Header
         {
@@ -129,18 +142,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
             public uint Height { get; set; }
             public uint Width { get; set; }
         }
-
-        public enum BmpType : short
-        {
-            Bm = 0x4d42,
-            Ba = 0x4142,
-            Ci = 0x4943,
-            Cp = 0x5043,
-            Ic = 0x4349,
-            Pt = 0x5450
-        }
-
-        /// <inheritdoc />
-        public BitmapRule(ILogger<BitmapRule> logger) : base(logger) { }
     }
 }

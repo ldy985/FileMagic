@@ -8,34 +8,37 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://en.wikipedia.org/wiki/Extensible_Binary_Meta_Language
-    /// https://github.com/Matroska-Org/ebml-specification/blob/master/specification.markdown#ebml-element
-    /// https://matroska-org.github.io/libebml/specs.html
+    ///     https://en.wikipedia.org/wiki/Extensible_Binary_Meta_Language
+    ///     https://github.com/Matroska-Org/ebml-specification/blob/master/specification.markdown#ebml-element
+    ///     https://matroska-org.github.io/libebml/specs.html
     /// </summary>
     public class EBMLContainerRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("1A45DFA3", 0);
+        public EBMLContainerRule(ILogger<EBMLContainerRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("1A45DFA3");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Extensible Binary Meta Language container", "MKV", "WEBM");
 
         /// <inheritdoc />
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
-            List<byte> bytes = new List<byte>();
+            var bytes = new List<byte>();
             for (int i = 0; i < 64; i++)
-            {
                 if (reader.ReadByte() == 0x42 && reader.ReadByte() == 0x82)
                     goto foundStart;
-            }
 
             return false;
 
             foundStart:
             reader.SkipForwards(1);
+
             for (int i = 0; i < 64; i++)
             {
                 byte readByte = reader.ReadByte();
+
                 if (readByte != 0x42)
                 {
                     bytes.Add(readByte);
@@ -43,6 +46,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 }
 
                 byte b = reader.ReadByte();
+
                 if (b != 0x87)
                 {
                     bytes.Add(b);
@@ -55,6 +59,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             return false;
 
             foundEnd:
+
             switch (Encoding.ASCII.GetString(bytes.ToArray()))
             {
                 case "webm":
@@ -68,8 +73,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
             return true;
         }
-
-        /// <inheritdoc />
-        public EBMLContainerRule(ILogger<EBMLContainerRule> logger) : base(logger) { }
     }
 }

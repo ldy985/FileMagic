@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Extensions
     public static class FileMagicBuilderExtensions
     {
         /// <summary>
-        /// Add all the default services.
+        ///     Add all the default services.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
@@ -17,8 +17,8 @@ namespace ldy985.FileMagic.Extensions
         {
             builder.Services.AddSingleton(x =>
             {
-                ILogger<FileMagic> logger = x.GetRequiredService<ILogger<FileMagic>>();
-                IOptions<FileMagicConfig> options = x.GetRequiredService<IOptions<FileMagicConfig>>();
+                var logger = x.GetRequiredService<ILogger<FileMagic>>();
+                var options = x.GetRequiredService<IOptions<FileMagicConfig>>();
                 IRuleProvider ruleProvider = x.GetRequiredService<IRuleProvider>();
                 IParsedHandlerProvider? handlerProvider = x.GetService<IParsedHandlerProvider>();
                 IParallelMagicMatcher parallelMagicMatcher = x.GetRequiredService<IParallelMagicMatcher>();

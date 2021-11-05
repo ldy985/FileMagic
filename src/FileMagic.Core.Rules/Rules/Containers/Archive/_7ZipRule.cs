@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         public _7ZipRule(ILogger<_7ZipRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("377ABCAF271C", 0);
+        public override IMagic Magic { get; } = new Magic("377ABCAF271C");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("7-zip compressed file", "7Z");
     }

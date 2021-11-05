@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
     public class RARRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("526172211A0700", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("RAR compressed file", "RAR");
+        public RARRule(ILogger<RARRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public RARRule(ILogger<RARRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("526172211A0700");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("RAR compressed file", "RAR");
     }
 }

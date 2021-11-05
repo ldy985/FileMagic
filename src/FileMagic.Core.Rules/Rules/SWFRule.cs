@@ -6,12 +6,15 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://www.adobe.com/content/dam/acom/en/devnet/pdf/swf-file-format-spec.pdf
+    ///     https://www.adobe.com/content/dam/acom/en/devnet/pdf/swf-file-format-spec.pdf
     /// </summary>
     public class SWFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("??5753", 0);
+        public SWFRule(ILogger<SWFRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("??5753");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Shockwave Flash Movie", "SWF");
 
@@ -22,8 +25,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             uint fileSize = reader.ReadUInt32();
             return fileSize == reader.GetLength();
         }
-
-        /// <inheritdoc />
-        public SWFRule(ILogger<SWFRule> logger) : base(logger) { }
     }
 }

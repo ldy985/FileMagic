@@ -9,8 +9,8 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Matchers.Signature.Trie
 {
     /// <summary>
-    /// An implementation of <see cref="IParallelMagicMatcher"/> using a trie as lookup structure.
-    /// It allows to match multiple rules quickly by only going though the stream once.
+    ///     An implementation of <see cref="IParallelMagicMatcher" /> using a trie as lookup structure.
+    ///     It allows to match multiple rules quickly by only going though the stream once.
     /// </summary>
     public class TrieSignatureMatcher : IParallelMagicMatcher
     {
@@ -30,6 +30,34 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             }
         }
 
+        private Node<IRule> RootNode { get; }
+
+        /// <inheritdoc />
+        public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
+        {
+            return TryFind(br, out matchedRules);
+        }
+
+        /// <inheritdoc />
+        public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
+        {
+            long streamPosition = br.GetPosition();
+            bool tryFindInternal = TryFindInternal(RootNode, br, streamPosition, out var data);
+            br.SetPosition(streamPosition);
+
+            if (!tryFindInternal)
+            {
+                _logger.LogTrace("Trie found no leafs");
+                matchedRules = null;
+                return false;
+            }
+
+            _logger.LogTrace("Trie found at least 1 leaf");
+
+            matchedRules = data!.GetAllLeafs();
+            return true;
+        }
+
         private void RegisterPattern(IRule rule)
         {
             if (rule.Magic == null)
@@ -38,7 +66,8 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             ulong offset = rule.Magic.Offset;
             string bytes = rule.Magic.Pattern;
 
-            byte?[] data = new byte?[offset + (ulong) bytes.Length / 2];
+            byte?[] data = new byte?[offset + (ulong)bytes.Length / 2];
+
             for (int i = 0; i < bytes.Length; i += 2)
             {
                 string substring = bytes.Substring(i, 2);
@@ -53,35 +82,8 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             AddRule(data, rule);
         }
 
-        private Node<IRule> RootNode { get; }
-
-        /// <inheritdoc />
-        public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
-        {
-            return TryFind(br, out matchedRules);
-        }
-
-        /// <inheritdoc />
-        public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
-        {
-            long streamPosition = br.GetPosition();
-            bool tryFindInternal = TryFindInternal(RootNode, br, streamPosition, out Node<IRule>? data);
-            br.SetPosition(streamPosition);
-            if (!tryFindInternal)
-            {
-                _logger.LogTrace("Trie found no leafs");
-                matchedRules = null;
-                return false;
-            }
-
-            _logger.LogTrace("Trie found at least 1 leaf");
-
-            matchedRules = data!.GetAllLeafs();
-            return true;
-        }
-
         /// <summary>
-        /// TryFindInternal
+        ///     TryFindInternal
         /// </summary>
         /// <param name="node"></param>
         /// <param name="br"></param>
@@ -102,20 +104,21 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             ushort readByte = br.ReadByte();
             pos++;
+
             if (node.Children != null)
             {
-                if (node.Children.TryGetValue(readByte, out Node<IRule>? tempNode))
+                if (node.Children.TryGetValue(readByte, out var tempNode))
                 {
-                    tryFind1 = TryFindInternal(tempNode, br, pos, out Node<IRule>? temp1);
+                    tryFind1 = TryFindInternal(tempNode, br, pos, out var temp1);
                     if (tryFind1)
                         result = temp1;
                 }
 
                 br.SetPosition(pos);
 
-                if (node.Children.TryGetValue(ushort.MaxValue, out Node<IRule>? tempNode2))
+                if (node.Children.TryGetValue(ushort.MaxValue, out var tempNode2))
                 {
-                    tryFind2 = TryFindInternal(tempNode2, br, pos, out Node<IRule>? temp2);
+                    tryFind2 = TryFindInternal(tempNode2, br, pos, out var temp2);
                     if (tryFind2)
                         result = temp2;
                 }
@@ -135,14 +138,14 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private void AddRule(IReadOnlyList<byte?> path, IRule leafData)
         {
-            Node<IRule> node = RootNode;
+            var node = RootNode;
 
             for (int index = 0; index < path.Count; index++)
             {
                 byte? b = path[index];
-                ushort key = b.HasValue ? (ushort) b : ushort.MaxValue;
+                ushort key = b.HasValue ? (ushort)b : ushort.MaxValue;
 
-                if (node.Children != null && node.Children.TryGetValue(key, out Node<IRule>? tempNode))
+                if (node.Children != null && node.Children.TryGetValue(key, out var tempNode))
                 {
                     if (index == path.Count - 1)
                         tempNode.AddValue(leafData);
@@ -151,7 +154,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                     continue;
                 }
 
-                Node<IRule> value = new Node<IRule>();
+                var value = new Node<IRule>();
 
                 if (index == path.Count - 1)
                     value.AddValue(leafData);

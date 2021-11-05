@@ -8,6 +8,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
     public class ICORule : BaseRule
     {
         /// <inheritdoc />
+        public ICORule(ILogger<ICORule> logger) : base(logger) { }
+
+        /// <inheritdoc />
         public override IMagic? Magic { get; }
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Icon file", "ICO", "CUR");
@@ -23,6 +26,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
             bool foundError = false;
             ushort imageCount = reader.ReadUInt16();
+
             for (int i = 0; i < imageCount; i++)
             {
                 reader.SkipForwards(3);
@@ -36,8 +40,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
             return !foundError;
         }
-
-        /// <inheritdoc />
-        public ICORule(ILogger<ICORule> logger) : base(logger) { }
     }
 }

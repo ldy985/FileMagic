@@ -4,16 +4,17 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://www.iana.org/assignments/media-types/application/pdf
+    ///     https://www.iana.org/assignments/media-types/application/pdf
     /// </summary>
     public class PDFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("255044462d", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe Portable Document Format, Forms Document Format, and Illustrator graphics files", "PDF", "FDF", "AI");
+        public PDFRule(ILogger<PDFRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PDFRule(ILogger<PDFRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("255044462d");
+
+        public override ITypeInfo TypeInfo { get; } =
+            new TypeInfo("Adobe Portable Document Format, Forms Document Format, and Illustrator graphics files", "PDF", "FDF", "AI");
     }
 }

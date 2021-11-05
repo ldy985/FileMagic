@@ -8,18 +8,16 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class EmptyRule : BaseRule
     {
         /// <inheritdoc />
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
-        {
-            return reader.GetLength() == 0;
-        }
+        public EmptyRule(ILogger<EmptyRule> logger) : base(logger) { }
 
-        public override IMagic? Magic { get; } = new Magic("", 0);
+        public override IMagic? Magic { get; } = new Magic("");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Empty file");
 
         /// <inheritdoc />
-        public EmptyRule(ILogger<EmptyRule> logger) : base(logger)
+        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
+            return reader.GetLength() == 0;
         }
     }
 }

@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class VMDKRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4B444D", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Virtual Disk Format", "VMDK");
+        public VMDKRule(ILogger<VMDKRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public VMDKRule(ILogger<VMDKRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4B444D");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Virtual Disk Format", "VMDK");
     }
 }

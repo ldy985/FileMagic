@@ -6,22 +6,22 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class PDBRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4D6963726F736F667420432F432B2B20", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft C/C++ debugging symbols file", "PDB");
+        public PDBRule(ILogger<PDBRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PDBRule(ILogger<PDBRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4D6963726F736F667420432F432B2B20");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft C/C++ debugging symbols file", "PDB");
     }
 
     public class PDBNetRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("42534A4201000100000000000C0000005044422076312E30", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft .Net debugging symbols file", "PDB");
+        public PDBNetRule(ILogger<PDBNetRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PDBNetRule(ILogger<PDBNetRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("42534A4201000100000000000C0000005044422076312E30");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft .Net debugging symbols file", "PDB");
     }
 }

@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class DEBRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("213C617263683E", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Debian Software Package", "DEB");
+        public DEBRule(ILogger<DEBRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public DEBRule(ILogger<DEBRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("213C617263683E");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Debian Software Package", "DEB");
     }
 }

@@ -6,7 +6,7 @@ namespace ldy985.FileMagic.Core
     public readonly struct MetaData : IMetaData
     {
         /// <summary>
-        /// The extension, with or without the dot.
+        ///     The extension, with or without the dot.
         /// </summary>
         /// <param name="extension"></param>
         public MetaData(string extension)

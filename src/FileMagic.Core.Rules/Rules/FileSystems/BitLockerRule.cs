@@ -4,13 +4,12 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules.FileSystems
 {
     /// <summary>
-    /// https://github.com/libyal/libbde/blob/master/documentation/BitLocker%20Drive%20Encryption%20(BDE)%20format.asciidoc
+    ///     https://github.com/libyal/libbde/blob/master/documentation/BitLocker%20Drive%20Encryption%20(BDE)%20format.asciidoc
     /// </summary>
     public class BitLockerRule : BaseRule
     {
-        public override IMagic Magic { get; } = new Magic("2d4656452d46532d", 0);
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("BitLocker encrypted volume");
-
         public BitLockerRule(ILogger<BitLockerRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("2d4656452d46532d");
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("BitLocker encrypted volume");
     }
 }

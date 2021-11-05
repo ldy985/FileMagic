@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class PSDRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("38425053", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Photoshop image file", "PSD", "PDD");
+        public PSDRule(ILogger<PSDRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PSDRule(ILogger<PSDRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("38425053");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Photoshop image file", "PSD", "PDD");
     }
 }

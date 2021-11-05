@@ -6,12 +6,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class ELFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("7F454C46", 0);
+        public ELFRule(ILogger<ELFRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("7F454C46");
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("ELF Executable code", "SO", "O");
-
-        /// <inheritdoc />
-        public ELFRule(ILogger<ELFRule> logger) : base(logger) { }
     }
 }

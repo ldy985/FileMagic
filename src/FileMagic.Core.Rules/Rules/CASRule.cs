@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://github.com/mitsuhiko/frostbite2-stuff
-    /// <code>
+    ///     https://github.com/mitsuhiko/frostbite2-stuff
+    ///     <code>
     /// struct entry {
     ///    char header[4];
     ///    char sha1[20];
@@ -17,17 +17,17 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class CASRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("FACE0FF0", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite CAS file", "CAS");
+        public CASRule(ILogger<CASRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public CASRule(ILogger<CASRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("FACE0FF0");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite CAS file", "CAS");
     }
 
     /// <summary>
-    /// https://github.com/mitsuhiko/frostbite2-stuff
-    /// <code>
+    ///     https://github.com/mitsuhiko/frostbite2-stuff
+    ///     <code>
     /// struct entry {
     ///     char sha1[20];
     ///     int32 offset;
@@ -39,17 +39,17 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class CATRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4E79616E4E79616E4E79616E4E79616E", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite Catalog file ", "CAT");
+        public CATRule(ILogger<CATRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public CATRule(ILogger<CATRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4E79616E4E79616E4E79616E4E79616E");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite Catalog file ", "CAT");
     }
 
     /// <summary>
-    /// https://github.com/mitsuhiko/frostbite2-stuff
-    /// <code>
+    ///     https://github.com/mitsuhiko/frostbite2-stuff
+    ///     <code>
     /// struct entry {
     ///     char sha1[20];
     ///     int32 offset;
@@ -61,11 +61,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class SBRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("00D1CE00", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite SuperBundle file ", "SB");
+        public SBRule(ILogger<SBRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public SBRule(ILogger<SBRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("00D1CE00");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite SuperBundle file ", "SB");
     }
 }

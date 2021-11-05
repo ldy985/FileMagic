@@ -6,34 +6,30 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://docs.microsoft.com/en-us/previous-versions/bb417345(v=msdn.10)
-    /// Windows Update Binary Delta Compression
-    /// https://github.com/hfiref0x/SXSEXP
+    ///     https://docs.microsoft.com/en-us/previous-versions/bb417345(v=msdn.10)
+    ///     Windows Update Binary Delta Compression
+    ///     https://github.com/hfiref0x/SXSEXP
     /// </summary>
     public class MSPatchRule : BaseRule
     {
         /// <inheritdoc />
+        public MSPatchRule(ILogger<MSPatchRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("50413330", 4);
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft delta patch data");
-
-        /// <inheritdoc />
-        public MSPatchRule(ILogger<MSPatchRule> logger) : base(logger)
-        {
-        }
     }
 
     public class DC_MSPatchRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4443??01", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft delta patch data");
+        public DC_MSPatchRule(ILogger<DC_MSPatchRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public DC_MSPatchRule(ILogger<DC_MSPatchRule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("4443??01");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft delta patch data");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
@@ -42,12 +38,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
             return type switch
             {
-                (byte) 'D' => true,
-                (byte) 'H' => true,
-                (byte) 'M' => true,
-                (byte) 'N' => true,
-                (byte) 'S' => true,
-                (byte) 'X' => true,
+                (byte)'D' => true,
+                (byte)'H' => true,
+                (byte)'M' => true,
+                (byte)'N' => true,
+                (byte)'S' => true,
+                (byte)'X' => true,
                 _ => false
             };
         }

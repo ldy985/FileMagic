@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class LNKRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4c0000000114020000000000c000000000000046", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows shortcut", "LNK");
+        public LNKRule(ILogger<LNKRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public LNKRule(ILogger<LNKRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4c0000000114020000000000c000000000000046");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows shortcut", "LNK");
     }
 }

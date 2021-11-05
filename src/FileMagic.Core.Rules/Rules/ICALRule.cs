@@ -4,19 +4,17 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://www.webdavsystem.com/server/creating_caldav_carddav/calendar_ics_file_structure/
-    /// https://icalendar.org/
+    ///     https://www.webdavsystem.com/server/creating_caldav_carddav/calendar_ics_file_structure/
+    ///     https://icalendar.org/
     /// </summary>
     public class ICALRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("424547494E3A5643414C454E444152", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("iCalender file", "ICAL", "ICS", "IFB", "ICALENDAR");
+        public ICALRule(ILogger<ICALRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public ICALRule(ILogger<ICALRule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("424547494E3A5643414C454E444152");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("iCalender file", "ICAL", "ICS", "IFB", "ICALENDAR");
     }
 }

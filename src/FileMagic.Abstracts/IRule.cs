@@ -4,42 +4,42 @@ using System.IO;
 namespace ldy985.FileMagic.Abstracts
 {
     /// <summary>
-    /// A Rule is a structure that contains everything needed to detect a given type of data.
+    ///     A Rule is a structure that contains everything needed to detect a given type of data.
     /// </summary>
     public interface IRule
     {
         /// <summary>
-        /// Name of the rule.
+        ///     Name of the rule.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// The magic signature. Null if none.
+        ///     The magic signature. Null if none.
         /// </summary>
         IMagic? Magic { get; }
 
         /// <summary>
-        ///  Contains basic information about the structure identified in the stream.
+        ///     Contains basic information about the structure identified in the stream.
         /// </summary>
         ITypeInfo TypeInfo { get; }
 
         /// <summary>
-        /// True if the <see cref="IRule"/> has a known magic signature.
+        ///     True if the <see cref="IRule" /> has a known magic signature.
         /// </summary>
         bool HasMagic { get; }
 
         /// <summary>
-        /// True if the <see cref="IRule"/> has an implementation of parsing.
+        ///     True if the <see cref="IRule" /> has an implementation of parsing.
         /// </summary>
         bool HasParser { get; }
 
         /// <summary>
-        /// True if the <see cref="IRule"/> has an implementation of any structural checks.
+        ///     True if the <see cref="IRule" /> has an implementation of any structural checks.
         /// </summary>
         bool HasStructure { get; }
 
         /// <summary>
-        /// Tries to use the <see cref="IRule"/> to parse the data in the steam.
+        ///     Tries to use the <see cref="IRule" /> to parse the data in the steam.
         /// </summary>
         /// <param name="reader">The reader with the data.</param>
         /// <param name="result">Any results from the parsing that may help determine which specific type we are looking at.</param>
@@ -48,7 +48,7 @@ namespace ldy985.FileMagic.Abstracts
         bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed);
 
         /// <summary>
-        /// Tries to run basic structure checks from the <see cref="IRule"/> with the data in the steam.
+        ///     Tries to run basic structure checks from the <see cref="IRule" /> with the data in the steam.
         /// </summary>
         /// <param name="reader">The reader with the data.</param>
         /// <param name="result">Any results from the structure that may help determine which specific type we are looking at.</param>
@@ -56,7 +56,7 @@ namespace ldy985.FileMagic.Abstracts
         bool TryStructure(BinaryReader reader, IResult result);
 
         /// <summary>
-        /// Tries to match the magic in the <see cref="IRule"/> with the data in the steam.
+        ///     Tries to match the magic in the <see cref="IRule" /> with the data in the steam.
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>True if the stream matches the expected magic.</returns>

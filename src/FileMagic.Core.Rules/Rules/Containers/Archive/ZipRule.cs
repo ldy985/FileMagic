@@ -10,25 +10,31 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 {
     /// <summary>
-    /// https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
+    ///     https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT
     /// </summary>
     public class PKZipRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("504B", 0);
+        public PKZipRule(ILogger<PKZipRule> logger) : base(logger) { }
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Zip file", "JAR", "WAR", "DOCX", "XLSX", "PPTX", "ODT", "ODS", "ODP", "ZIPX", "NUPKG", "ZIP", "APK", "EPUB");
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("504B");
+
+        public override ITypeInfo TypeInfo { get; } =
+            new TypeInfo("Zip file", "JAR", "WAR", "DOCX", "XLSX", "PPTX", "ODT", "ODS", "ODP", "ZIPX", "NUPKG", "ZIP", "APK", "EPUB");
 
         /// <inheritdoc />
         protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             ZipArchive archive = new ZipArchive();
+
             using (System.IO.Compression.ZipArchive zipArchive = new System.IO.Compression.ZipArchive(reader.BaseStream, ZipArchiveMode.Read, true))
             {
                 foreach (ZipArchiveEntry zipArchiveEntry in zipArchive.Entries)
                 {
                     archive.AddFile(zipArchiveEntry);
                     string fullName = zipArchiveEntry.FullName;
+
                     switch (fullName)
                     {
                         case "word/document.xml":
@@ -57,7 +63,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         {
             switch (reader.ReadUInt32())
             {
-                case 0x04034b50:// zip file record
+                case 0x04034b50: // zip file record
                     reader.SkipForwards(14);
                     uint dataLen = reader.ReadUInt32();
                     reader.SkipForwards(4);
@@ -65,11 +71,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
                     ushort extralen = reader.ReadUInt16();
                     reader.SkipForwards(len + dataLen + extralen);
                     return reader.ReadUInt16() == 0x4b50;
-                case 0x05054b50:// zip sig
+                case 0x05054b50: // zip sig
                     ushort dataLen2 = reader.ReadUInt16();
                     reader.SkipForwards(dataLen2);
                     return reader.ReadUInt16() == 0x4b50;
-                case 0x02014b50:// zip dir record
+                case 0x02014b50: // zip dir record
                     reader.SkipForwards(24);
                     ushort len2 = reader.ReadUInt16();
                     ushort extralen2 = reader.ReadUInt16();
@@ -113,8 +119,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
             public string? FullName { get; set; }
             public DateTimeOffset? LastWriteTime { get; set; }
         }
-
-        /// <inheritdoc />
-        public PKZipRule(ILogger<PKZipRule> logger) : base(logger) { }
     }
 }

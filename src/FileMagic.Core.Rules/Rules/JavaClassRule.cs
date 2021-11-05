@@ -12,6 +12,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         private const short _newestJavaMajorVersion = 56;
 
         /// <inheritdoc />
+        public JavaClassRule(ILogger<JavaClassRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("CAFEBABE");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java class file", "CLASS");
@@ -35,8 +38,5 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
             return false;
         }
-
-        /// <inheritdoc />
-        public JavaClassRule(ILogger<JavaClassRule> logger) : base(logger) { }
     }
 }

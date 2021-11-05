@@ -7,23 +7,18 @@ namespace ldy985.FileMagic.Core
     /// <inheritdoc />
     public class Magic : IMagic
     {
-        /// <inheritdoc />
-        public string Pattern { get; }
-
         private byte?[]? _magicBytes;
 
-        /// <inheritdoc />
-        public byte?[] MagicBytes => _magicBytes ??= GetMagicBytes();
-
-        /// <inheritdoc />
-        public ulong Offset { get; }
-
         /// <summary>
-        /// <inheritdoc cref="Magic"/>
+        ///     <inheritdoc cref="Magic" />
         /// </summary>
-        /// <param name="pattern"><inheritdoc cref="Pattern"/></param>
-        /// <param name="offset"><inheritdoc cref="Offset"/></param>
-        /// <exception cref="ArgumentException">Throws if <see cref="Pattern is not multiples of two."/></exception>
+        /// <param name="pattern">
+        ///     <inheritdoc cref="Pattern" />
+        /// </param>
+        /// <param name="offset">
+        ///     <inheritdoc cref="Offset" />
+        /// </param>
+        /// <exception cref="ArgumentException">Throws if <see cref="Pattern is not multiples of two." /></exception>
         public Magic(string pattern, ulong offset = 0)
         {
             if (pattern.Length % 2 != 0)
@@ -33,11 +28,21 @@ namespace ldy985.FileMagic.Core
             Offset = offset;
         }
 
+        /// <inheritdoc />
+        public string Pattern { get; }
+
+        /// <inheritdoc />
+        public byte?[] MagicBytes => _magicBytes ??= GetMagicBytes();
+
+        /// <inheritdoc />
+        public ulong Offset { get; }
+
         private byte?[] GetMagicBytes()
         {
-            string pattern = Pattern;//TODO use ReadOnlySpan when byte.Parse implements it.
+            string pattern = Pattern; //TODO use ReadOnlySpan when byte.Parse implements it.
             int length = pattern.Length;
             byte?[] data = new byte?[length / 2];
+
             for (int i = 0; i < length; i += 2)
             {
                 string substring = pattern.Substring(i, 2);

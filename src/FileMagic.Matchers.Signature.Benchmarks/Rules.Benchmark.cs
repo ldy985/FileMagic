@@ -15,8 +15,7 @@ namespace ldy985.FileMagic.Benchmarks
     {
         private Stream[] _streams = null!;
 
-        [Params(16, 1024, 1024 * 1024)]
-        public int N { get; set; }
+        [Params(16, 1024, 1024 * 1024)] public int N { get; set; }
 
         [GlobalSetup]
         public void Setup()
@@ -25,7 +24,7 @@ namespace ldy985.FileMagic.Benchmarks
 
             _streams = new Stream[100];
 
-            for (var i = 0; i < _streams.Length; i++)
+            for (int i = 0; i < _streams.Length; i++)
             {
                 byte[] bytes = new byte[N];
                 random.NextBytes(bytes);
@@ -45,22 +44,21 @@ namespace ldy985.FileMagic.Benchmarks
 
         public IEnumerable<object[]> WorstCaseData()
         {
-            IEnumerable<IRule> timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+            var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+
             foreach (IRule timeSpan in timeSpans)
             {
                 if (!timeSpan.HasMagic)
                     continue;
 
-                IEnumerable<byte> a = Enumerable.Empty<byte>();
+                var a = Enumerable.Empty<byte>();
                 if (timeSpan.Magic!.Offset != 0)
-                {
-                    a = Enumerable.Repeat((byte) 0x1, (int) timeSpan.Magic!.Offset);
-                }
+                    a = Enumerable.Repeat((byte)0x1, (int)timeSpan.Magic!.Offset);
 
                 byte[] array = a.Concat(timeSpan.Magic!.MagicBytes.Select(x => x ?? 0)).ToArray();
-                var st = new MemoryStream(array);
+                MemoryStream st = new MemoryStream(array);
 
-                yield return new object[] {timeSpan, st};
+                yield return new object[] { timeSpan, st };
             }
         }
 
@@ -70,6 +68,7 @@ namespace ldy985.FileMagic.Benchmarks
         {
             Stream stream = _streams[0];
             bool a = false;
+
             for (int i = 0; i < _streams.Length; i++)
             {
                 stream.Position = 0;
@@ -81,7 +80,8 @@ namespace ldy985.FileMagic.Benchmarks
 
         public IEnumerable<object> Rules()
         {
-            IEnumerable<IRule> timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+            var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+
             foreach (IRule timeSpan in timeSpans)
             {
                 if (!timeSpan.HasMagic)
@@ -96,6 +96,7 @@ namespace ldy985.FileMagic.Benchmarks
         public bool WorstCaseMatch(IRule rule, Stream st)
         {
             bool a = false;
+
             for (int i = 0; i < _streams.Length; i++)
             {
                 st.Position = 0;
@@ -110,6 +111,7 @@ namespace ldy985.FileMagic.Benchmarks
         public bool AverageCaseMatch(IRule rule)
         {
             bool a = false;
+
             foreach (Stream stream in _streams)
             {
                 stream.Position = 0;

@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class TypeLibRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4D53465402000100", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Visual C++ type library file", "TLB", "OLE", "SPSS");
+        public TypeLibRule(ILogger<TypeLibRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public TypeLibRule(ILogger<TypeLibRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4D53465402000100");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Visual C++ type library file", "TLB", "OLE", "SPSS");
     }
 }

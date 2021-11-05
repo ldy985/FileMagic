@@ -4,16 +4,16 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://keepass.info/help/base/repair.html
+    ///     https://keepass.info/help/base/repair.html
     /// </summary>
     public class KDBRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("03D9A29A65FB4BB5", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("KeePass 1.x database", "KDB");
+        public KDBRule(ILogger<KDBRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public KDBRule(ILogger<KDBRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("03D9A29A65FB4BB5");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("KeePass 1.x database", "KDB");
     }
 }

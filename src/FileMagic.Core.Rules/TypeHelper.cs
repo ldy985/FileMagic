@@ -9,7 +9,7 @@ namespace ldy985.FileMagic.Core.Rules
     public static class TypeHelper
     {
         /// <summary>
-        /// Creates an instance of all types that implement another class/interface.
+        ///     Creates an instance of all types that implement another class/interface.
         /// </summary>
         /// <seealso>https://stackoverflow.com/a/5120722</seealso>
         /// <param name="lookInAssembly"></param>
@@ -28,7 +28,7 @@ namespace ldy985.FileMagic.Core.Rules
         }
 
         /// <summary>
-        /// Gets all types that implement another class/interface.
+        ///     Gets all types that implement another class/interface.
         /// </summary>
         /// <seealso>https://stackoverflow.com/a/5120722</seealso>
         /// <param name="assembly"></param>
@@ -42,10 +42,8 @@ namespace ldy985.FileMagic.Core.Rules
                 assembly = type.Assembly;
 
             foreach (Type t in assembly.GetTypes())
-            {
                 if (!t.IsAbstract && t.IsClass && t.IsPublic && !t.IsGenericType && type.IsAssignableFrom(t))
                     yield return t;
-            }
         }
     }
 }

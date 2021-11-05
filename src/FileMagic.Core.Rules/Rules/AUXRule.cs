@@ -6,10 +6,15 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://stackoverflow.com/questions/17681514/what-is-the-format-of-ni-dll-aux-files
-    ///
-    /// each record has a subrecord type 0xa which appears to be a version number of sorts. subrecord type 0x3 might be a GUID, just judging by its length. types 0x1 and 0xd are descriptive. I have no clue what subrecord types 0x7 and 0x2 may be. perhaps 0x7 is a 32-bit offset into the matching .dll, but the 64-bit number in type 0x2 doesn't suggest anything in particular to me. type 0x8, 20 bytes long, could be some type of hash. perhaps others can fill in the blanks.
-    /// string values, as you can see, end in 0x0 plus 0xcccc. record type 0xa is mostly string data, but preceded by an 0x1 byte, and fixed length of 0x24, so it is padded with extra 0x0s. other record types, but not all, also end in 0xcccc.
+    ///     https://stackoverflow.com/questions/17681514/what-is-the-format-of-ni-dll-aux-files
+    ///     each record has a subrecord type 0xa which appears to be a version number of sorts. subrecord type 0x3 might be a
+    ///     GUID, just judging by its length. types 0x1 and 0xd are descriptive. I have no clue what subrecord types 0x7 and
+    ///     0x2 may be. perhaps 0x7 is a 32-bit offset into the matching .dll, but the 64-bit number in type 0x2 doesn't
+    ///     suggest anything in particular to me. type 0x8, 20 bytes long, could be some type of hash. perhaps others can fill
+    ///     in the blanks.
+    ///     string values, as you can see, end in 0x0 plus 0xcccc. record type 0xa is mostly string data, but preceded by an
+    ///     0x1 byte, and fixed length of 0x24, so it is padded with extra 0x0s. other record types, but not all, also end in
+    ///     0xcccc.
     /// </summary>
     /// <code>
     ///  #!/usr/bin/python    
@@ -43,10 +48,13 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     ///    typeword = struct.unpack('<I', data[:4])[0]    
     ///    length = struct.unpack('<I', data[4:8])[0]    
     ///   else:    
-    ///    raise Exception('Invalid data length %d' % len(data))    
+    ///    raise Exception('
+    ///                                                                                    Invalid data length %
+    ///                                                                                    d' % len(data))    
     ///   return typeword, length, data[8:]    
     ///  def read(filename):    
-    ///   input = open(filename, 'rb')    
+    ///   input = open(filename, '
+    ///                                                                                    rb')    
     ///   data = input.read()    
     ///   input.close()    
     ///   return data        
@@ -62,21 +70,20 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     ///   if message:
     ///    print >>sys.stderr, message
     ///   return True
-    /// if __name__ == '__main__':
+    /// if __name__ == '
+    ///                                                                                    __main__':
     ///  for infile in sys.argv[1:]:
     ///   dump(infile)
     /// </code>
     public class AUXRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("05000000????????0B", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown .NET resource", "AUX");
+        public AUXRule(ILogger<AUXRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public AUXRule(ILogger<AUXRule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("05000000????????0B");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown .NET resource", "AUX");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {

@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class ATFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("415446000002FF02", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown atf file", "ATF");
+        public ATFRule(ILogger<ATFRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public ATFRule(ILogger<ATFRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("415446000002FF02");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown atf file", "ATF");
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Rules.Containers.Archive;
@@ -18,12 +19,12 @@ namespace ldy985.FileMagic.Examples
             };
 
             using (FileMagic fileMagic = new FileMagic(Options.Create(fileMagicConfig)))
-            using (MemoryStream memoryStream = new MemoryStream(new byte[] {0x4d, 0x5a}))
+            using (MemoryStream memoryStream = new MemoryStream(new byte[] { 0x4d, 0x5a }))
             {
-                if (fileMagic.StreamMatches<EXERule>(memoryStream, out var result))
+                if (fileMagic.StreamMatches<EXERule>(memoryStream, out IResult result))
                     Console.WriteLine(result.Description);
 
-                if (fileMagic.StreamMatches<RAR5Rule>(memoryStream, out var result2))
+                if (fileMagic.StreamMatches<RAR5Rule>(memoryStream, out IResult result2))
                     Console.WriteLine(result2.Description);
             }
         }

@@ -41,7 +41,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
             if (lastNode.Children == null)
                 yield break;
 
-            foreach ((ushort key, Node<T> value) in lastNode.Children)
+            foreach ((ushort key, var value) in lastNode.Children)
             {
                 if (value != node2)
                     continue;
@@ -64,13 +64,11 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private static IEnumerable<T> ValuesDeep(Node<T> node)
         {
-            IEnumerable<T> valuesDeep = Enumerable.Empty<T>();
+            var valuesDeep = Enumerable.Empty<T>();
 
             if (node.Children != null)
-            {
-                foreach (KeyValuePair<ushort, Node<T>> pair in node.Children)
+                foreach (var pair in node.Children)
                     valuesDeep = valuesDeep.Concat(ValuesDeep(pair.Value));
-            }
 
             if (node.Values != null)
                 valuesDeep = valuesDeep.Concat(node.Values);

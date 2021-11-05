@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
     public class VHDRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("636F6E6563746978", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Virtual PC Virtual HD image", "VHD");
+        public VHDRule(ILogger<VHDRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public VHDRule(ILogger<VHDRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("636F6E6563746978");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Virtual PC Virtual HD image", "VHD");
     }
 }

@@ -8,7 +8,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class DMPRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("504147454455", 0);
+        public DMPRule(ILogger<DMPRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("504147454455");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Minidump", "DMP");
 
@@ -17,6 +20,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         {
             reader.SkipForwards(6);
             ushort readUInt16 = reader.ReadUInt16();
+
             switch (readUInt16)
             {
                 case 0x3634: //x64
@@ -26,19 +30,16 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                     return false;
             }
         }
-
-        /// <inheritdoc />
-        public DMPRule(ILogger<DMPRule> logger) : base(logger) { }
     }
 
     public class MDMPRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4D444D5093A7", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
+        public MDMPRule(ILogger<MDMPRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public MDMPRule(ILogger<MDMPRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("4D444D5093A7");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
     }
 }

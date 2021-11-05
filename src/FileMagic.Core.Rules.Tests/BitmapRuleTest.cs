@@ -28,6 +28,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         public void TestStructure()
         {
             Result result = new Result();
+
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
                 bool match = _rule.TryStructure(binaryReader, result);
@@ -39,11 +40,12 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         public void TestParsing()
         {
             Result result = new Result();
+
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
                 if (_rule.TryParse(binaryReader, result, out IParsed? parsedObject))
                 {
-                    BitmapRule.Bmp bmp = (BitmapRule.Bmp) parsedObject;
+                    BitmapRule.Bmp bmp = (BitmapRule.Bmp)parsedObject;
 
                     Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
                     Assert.Equal(73926u, bmp.Size);
@@ -51,7 +53,9 @@ namespace ldy985.FileMagic.Core.Rules.Tests
                     Assert.Equal(215u, bmp.Width);
                 }
                 else
+                {
                     throw new Exception("Didn't succeed");
+                }
             }
         }
     }

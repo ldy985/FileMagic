@@ -12,9 +12,7 @@ namespace ldy985.FileMagic.Core
         public RuleProvider(IEnumerable<IRule> rules)
         {
             foreach (IRule rule in rules)
-            {
                 _rules.Add(rule.GetType(), rule);
-            }
 
             Rules = _rules.Values.ToArray();
             PatternRules = _rules.Values.Where(rule => rule.HasMagic).ToArray();

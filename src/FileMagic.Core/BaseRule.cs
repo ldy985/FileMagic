@@ -10,36 +10,19 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core
 {
     /// <summary>
-    /// The Base for all rules.
+    ///     The Base for all rules.
     /// </summary>
     [PublicAPI]
     [UsedImplicitly]
     public abstract class BaseRule : IRule
     {
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        protected ILogger Logger { get; }
-
         protected BaseRule(ILogger logger)
         {
             Logger = logger;
             Name = GetType().Name;
         }
 
-        /// <summary>
-        /// Checks if a given method is set in the derived type.
-        /// </summary>
-        /// <param name="t">The type to check the method in.</param>
-        /// <param name="methodName">The name of the method to check.</param>
-        /// <returns>True if the method is defined.</returns>
-        private static bool IsOverridden(Type t, string methodName)
-        {
-            return t.GetMember(methodName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).Length > 0;
-        }
+        protected ILogger Logger { get; }
 
         /// <inheritdoc />
         public string Name { get; }
@@ -59,16 +42,16 @@ namespace ldy985.FileMagic.Core
         /// <inheritdoc />
         public bool HasStructure => IsOverridden(GetType(), nameof(TryStructureInternal));
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
-        /// <exception cref="ArgumentException">Thrown when the <see cref="IRule"/> has no magic.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="IRule" /> has no magic.</exception>
         public bool TryMagic(Stream stream)
         {
             if (!HasMagic)
                 throw new ArgumentException("The rule has no magic");
 
-            IMagic magic = Magic!;//Now we know the magic exists.
+            IMagic magic = Magic!; //Now we know the magic exists.
 
             long position = stream.Position;
             long length = stream.Length;
@@ -103,6 +86,7 @@ namespace ldy985.FileMagic.Core
         {
             long position = reader.GetPosition();
             bool tryParseInternal = false;
+
             try
             {
                 tryParseInternal = TryParseInternal(reader, result, out parsed);
@@ -122,24 +106,12 @@ namespace ldy985.FileMagic.Core
             return tryParseInternal;
         }
 
-        /// <summary>
-        /// Tries to parse as much as the identified structure in the stream as possible.
-        /// </summary>
-        /// <param name="reader">The stream to parse packed in a <see cref="BinaryReader"/>.</param>
-        /// <param name="result">Common information about the parsed structure from the stream.</param>
-        /// <param name="parsed">The parsed structure from the stream.</param>
-        /// <returns>True if parsing was successful.</returns>
-        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
-        {
-            parsed = null;
-            return false;
-        }
-
         /// <inheritdoc />
         public bool TryStructure(BinaryReader reader, IResult result)
         {
             long position = reader.GetPosition();
             bool tryStructureInternal = false;
+
             try
             {
                 tryStructureInternal = TryStructureInternal(reader, result);
@@ -157,10 +129,40 @@ namespace ldy985.FileMagic.Core
             return tryStructureInternal;
         }
 
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Name;
+        }
+
         /// <summary>
-        /// Tries if the stream matches the structure defined in the rule.
+        ///     Checks if a given method is set in the derived type.
         /// </summary>
-        /// <param name="reader">The stream to check packed in a <see cref="BinaryReader"/>.</param>
+        /// <param name="t">The type to check the method in.</param>
+        /// <param name="methodName">The name of the method to check.</param>
+        /// <returns>True if the method is defined.</returns>
+        private static bool IsOverridden(Type t, string methodName)
+        {
+            return t.GetMember(methodName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).Length > 0;
+        }
+
+        /// <summary>
+        ///     Tries to parse as much as the identified structure in the stream as possible.
+        /// </summary>
+        /// <param name="reader">The stream to parse packed in a <see cref="BinaryReader" />.</param>
+        /// <param name="result">Common information about the parsed structure from the stream.</param>
+        /// <param name="parsed">The parsed structure from the stream.</param>
+        /// <returns>True if parsing was successful.</returns>
+        protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
+        {
+            parsed = null;
+            return false;
+        }
+
+        /// <summary>
+        ///     Tries if the stream matches the structure defined in the rule.
+        /// </summary>
+        /// <param name="reader">The stream to check packed in a <see cref="BinaryReader" />.</param>
         /// <param name="result">Common information about the checked structure from the stream.</param>
         /// <returns>True if parsing was successful.</returns>
         protected virtual bool TryStructureInternal(BinaryReader reader, IResult result)

@@ -37,22 +37,18 @@ namespace ldy985.FileMagic.Benchmarks
             _memoryStream.Position = 0;
             int b = 0;
             for (int i = 0; i < N; i++)
-            {
                 b = _memoryStream.Read<byte>();
-            }
 
             return b;
         }
-        
+
         [Benchmark]
         public int StreamByte()
         {
             _memoryStream.Position = 0;
             int b = 0;
             for (int i = 0; i < N; i++)
-            {
                 b = _memoryStream.ReadByte();
-            }
 
             return b;
         }
@@ -62,13 +58,12 @@ namespace ldy985.FileMagic.Benchmarks
         {
             int b;
             _memoryStream.Position = 0;
+
             using (BinaryReader binaryReader = new BinaryReader(_memoryStream, Encoding.Default, true))
             {
                 b = 0;
                 for (int i = 0; i < N; i++)
-                {
                     b = binaryReader.ReadByte();
-                }
             }
 
             return b;
@@ -80,12 +75,11 @@ namespace ldy985.FileMagic.Benchmarks
             _memoryStream.Position = 0;
             long b = 0;
             for (int i = 0; i < N / sizeof(long); i++)
-            {
                 b = _memoryStream.Read<long>();
-            }
+
             return b;
         }
-        
+
         [Benchmark]
         public long StreamLong()
         {
@@ -107,13 +101,12 @@ namespace ldy985.FileMagic.Benchmarks
         {
             long b;
             _memoryStream.Position = 0;
+
             using (BinaryReader binaryReader = new BinaryReader(_memoryStream, Encoding.Default, true))
             {
                 b = 0;
                 for (int i = 0; i < N / sizeof(long); i++)
-                {
                     b = binaryReader.ReadInt64();
-                }
             }
 
             return b;

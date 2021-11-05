@@ -5,11 +5,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 {
     public class GZipRule : BaseRule
     {
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("1f8b", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("GZIP file format", "GZ", "TAR.GZ", "TGZ");
-
         ///// <inheritdoc />
         //protected override bool TryParseInternal(BinaryReader reader, Result result, out object parsed)
         //{
@@ -34,5 +29,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 
         /// <inheritdoc />
         public GZipRule(ILogger<GZipRule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("1f8b");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("GZIP file format", "GZ", "TAR.GZ", "TGZ");
     }
 }

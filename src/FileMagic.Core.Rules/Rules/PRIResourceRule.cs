@@ -4,18 +4,16 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://docs.microsoft.com/en-us/windows/uwp/app-resources/compile-resources-manually-with-makepri
+    ///     https://docs.microsoft.com/en-us/windows/uwp/app-resources/compile-resources-manually-with-makepri
     /// </summary>
     public class PRIResourceRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("6D726D5F707269", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows UWP App resource file", "PRI");
+        public PRIResourceRule(ILogger<PRIResourceRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PRIResourceRule(ILogger<PRIResourceRule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("6D726D5F707269");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows UWP App resource file", "PRI");
     }
 }

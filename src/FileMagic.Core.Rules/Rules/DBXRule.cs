@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class DBXRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("CFAD12FE", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("MS Outlook Express DBX file", "DBX");
+        public DBXRule(ILogger<DBXRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public DBXRule(ILogger<DBXRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("CFAD12FE");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("MS Outlook Express DBX file", "DBX");
     }
 }

@@ -8,21 +8,19 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://docs.microsoft.com/da-dk/typography/opentype/spec/otff
-    /// https://fontforge.org/docs/techref/TrueOpenTables.html
+    ///     https://docs.microsoft.com/da-dk/typography/opentype/spec/otff
+    ///     https://fontforge.org/docs/techref/TrueOpenTables.html
     /// </summary>
     public class TTFRule : BaseRule
     {
+        /// <inheritdoc />
+        public TTFRule(ILogger<TTFRule> logger) : base(logger) { }
+
         /// <inheritdoc />
         public override IMagic Magic { get; }
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("True type font", "OTF", "TTF", "OTC", "TTC");
-
-        /// <inheritdoc />
-        public TTFRule(ILogger<TTFRule> logger) : base(logger)
-        {
-        }
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {

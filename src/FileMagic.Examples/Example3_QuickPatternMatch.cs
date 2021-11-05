@@ -6,7 +6,7 @@ using ldy985.FileMagic.Core.Rules.Rules.Media;
 namespace ldy985.FileMagic.Examples
 {
     /// <summary>
-    /// Checks if a specific stream is of a specific type.
+    ///     Checks if a specific stream is of a specific type.
     /// </summary>
     internal static class Example3_QuickPatternMatch
     {
@@ -14,7 +14,7 @@ namespace ldy985.FileMagic.Examples
         {
             PNGRule pngRule = FileMagicRuleHelpers.CreateRule<PNGRule>();
 
-            using (MemoryStream memoryStream = new MemoryStream(new byte[] {0x1, 0x2, 0x3}))
+            using (MemoryStream memoryStream = new MemoryStream(new byte[] { 0x1, 0x2, 0x3 }))
             {
                 Console.WriteLine(pngRule.TryMagic(memoryStream));
             }

@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class DEXRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("6465780A30333500", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Dalvik Executable Format", "DEX");
+        public DEXRule(ILogger<DEXRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public DEXRule(ILogger<DEXRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("6465780A30333500");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Dalvik Executable Format", "DEX");
     }
 }

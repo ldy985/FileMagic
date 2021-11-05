@@ -8,14 +8,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
     public class PAK5Rule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("05000000", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
+        public PAK5Rule(ILogger<PAK5Rule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PAK5Rule(ILogger<PAK5Rule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("05000000");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
@@ -36,14 +34,12 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
     public class PAK4Rule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("04000000", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
+        public PAK4Rule(ILogger<PAK4Rule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PAK4Rule(ILogger<PAK4Rule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("04000000");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {

@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
+using Microsoft.Extensions.Options;
 
 namespace ldy985.FileMagic.Benchmarks
 {
@@ -10,11 +11,14 @@ namespace ldy985.FileMagic.Benchmarks
     [InProcess]
     public class ByteComparison
     {
-        public static string BasePath(uint id) => $"../../../../../resources/test{id}.";
+        private FileMagic _fileMagic;
 
         private Stream _memoryStream;
 
-        private FileMagic _fileMagic;
+        public static string BasePath(uint id)
+        {
+            return $"../../../../../resources/test{id}.";
+        }
 
         [GlobalSetup]
         public void Setup()
@@ -27,7 +31,7 @@ namespace ldy985.FileMagic.Benchmarks
             fileMagicConfig.ParserHandle = false;
             fileMagicConfig.PatternCheck = true;
 
-            _fileMagic = new FileMagic(Microsoft.Extensions.Options.Options.Create(fileMagicConfig));
+            _fileMagic = new FileMagic(Options.Create(fileMagicConfig));
         }
 
         [GlobalCleanup]

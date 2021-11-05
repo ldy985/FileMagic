@@ -2,6 +2,7 @@
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Extensions;
+using ldy985.FileMagic.Core.Misc;
 using ldy985.FileMagic.Core.Rules;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +16,7 @@ namespace ldy985.FileMagic.Extensions
             coreBuilder.UseFileMagic();
             coreBuilder.AddDefaultFileMagicRules();
 
-            return new Core.Misc.FileMagicBuilder(collection);
+            return new FileMagicBuilder(collection);
         }
 
         public static IParsedHandlerProvider AddDefaultParsedHandler(this IFileMagicBuilder fileMagicBuilder)

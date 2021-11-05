@@ -5,12 +5,15 @@ using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Matchers.Signature.Trie;
 using ldy985.FileMagic.Tests.TestRules;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace ldy985.FileMagic.Tests
 {
     public class RuleSimpleMatchingTest : IDisposable
     {
+        private readonly FileMagic _simpleSignatureMatcher;
+
         public RuleSimpleMatchingTest()
         {
             IRule[] rules =
@@ -19,13 +22,15 @@ namespace ldy985.FileMagic.Tests
                 new TestRule2(NullLogger<TestRule2>.Instance),
                 new TestRule3(NullLogger<TestRule3>.Instance)
             };
+
             FileMagicConfig fileMagicConfig = new FileMagicConfig();
             fileMagicConfig.ParserCheck = false;
             fileMagicConfig.StructureCheck = false;
             fileMagicConfig.ParserHandle = false;
             fileMagicConfig.PatternCheck = true;
             RuleProvider ruleProvider = new RuleProvider(rules);
-            _simpleSignatureMatcher = new FileMagic( Microsoft.Extensions.Options.Options.Create(fileMagicConfig),NullLogger<FileMagic>.Instance, ruleProvider, new TrieSignatureMatcher(NullLogger<TrieSignatureMatcher>.Instance, ruleProvider));
+            _simpleSignatureMatcher = new FileMagic(Options.Create(fileMagicConfig), NullLogger<FileMagic>.Instance, ruleProvider,
+                new TrieSignatureMatcher(NullLogger<TrieSignatureMatcher>.Instance, ruleProvider));
         }
 
         public void Dispose()
@@ -33,8 +38,6 @@ namespace ldy985.FileMagic.Tests
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        private readonly FileMagic _simpleSignatureMatcher;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -51,49 +54,63 @@ namespace ldy985.FileMagic.Tests
         public void LongRuleMatchCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x2 }))
+            {
                 Assert.True(_simpleSignatureMatcher.StreamMatches<TestRule2>(ms, out _));
+            }
         }
 
         [Fact]
         public void LongRuleNoMatchCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0 }))
+            {
                 Assert.False(_simpleSignatureMatcher.StreamMatches<TestRule2>(ms, out _));
+            }
         }
 
         [Fact]
         public void LongSteamCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0 }))
+            {
                 Assert.False(_simpleSignatureMatcher.StreamMatches<TestRule>(ms, out _));
+            }
         }
 
         [Fact]
         public void MatchCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0, 0x1, 0x2 }))
+            {
                 Assert.True(_simpleSignatureMatcher.StreamMatches<TestRule>(ms, out _));
+            }
         }
 
         [Fact]
         public void NoMatchCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0, 0x1, 0x3 }))
+            {
                 Assert.False(_simpleSignatureMatcher.StreamMatches<TestRule>(ms, out _));
+            }
         }
 
         [Fact]
         public void ShortSteamCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0 }))
+            {
                 Assert.False(_simpleSignatureMatcher.StreamMatches<TestRule>(ms, out _));
+            }
         }
 
         [Fact]
         public void WildcardRuleCase()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x0, 1, 2, 7 }))
+            {
                 Assert.True(_simpleSignatureMatcher.StreamMatches<TestRule3>(ms, out _));
+            }
         }
     }
 }

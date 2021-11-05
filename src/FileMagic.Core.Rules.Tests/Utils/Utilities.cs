@@ -16,6 +16,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests.Utils
         {
             FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096,
                 FileOptions.SequentialScan);
+
             return new BufferedStream(fileStream, 8096);
         }
 

@@ -6,13 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class PBORule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("0073726556000000", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bohemia Interactive resource file", "PBO", "EBO");
+        public PBORule(ILogger<PBORule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public PBORule(ILogger<PBORule> logger) : base(logger)
-        {
-        }
+        public override IMagic Magic { get; } = new Magic("0073726556000000");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bohemia Interactive resource file", "PBO", "EBO");
     }
 }

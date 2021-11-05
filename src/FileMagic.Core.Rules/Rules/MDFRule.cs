@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class MDFRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("010F0000", 0); 
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("MSSQL database", "MDF");
+        public MDFRule(ILogger<MDFRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public MDFRule(ILogger<MDFRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("010F0000");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("MSSQL database", "MDF");
     }
 }

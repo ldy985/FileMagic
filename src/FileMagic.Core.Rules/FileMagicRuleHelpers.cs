@@ -43,7 +43,9 @@ namespace ldy985.FileMagic.Core.Rules
 
             Type log = typeof(Logger<>);
             Type genericLogger = log.MakeGenericType(type);
-            object logger = Activator.CreateInstance(genericLogger, loggerFactory) ?? throw new ArgumentException("Unable to create logger for rule " + type.Name);
+            object logger = Activator.CreateInstance(genericLogger, loggerFactory) ??
+                            throw new ArgumentException("Unable to create logger for rule " + type.Name);
+
             object rule = Activator.CreateInstance(type, logger) ?? throw new ArgumentException("Unable to create rule " + type.Name);
             return (TRule)rule;
         }

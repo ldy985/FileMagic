@@ -8,7 +8,7 @@ namespace ldy985.FileMagic
     public static class FileMagicExtensions
     {
         /// <summary>
-        /// IdentifyFile
+        ///     IdentifyFile
         /// </summary>
         /// <param name="fileMagic"></param>
         /// <param name="filePath"></param>

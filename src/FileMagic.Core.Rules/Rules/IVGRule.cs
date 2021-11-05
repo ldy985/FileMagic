@@ -1,9 +1,10 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
+
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://github.com/google/iconvg
+    ///     https://github.com/google/iconvg
     /// </summary>
     public class IVGRule : BaseRule
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace ldy985.FileMagic.Core.Rules.Rules
 {
     /// <summary>
-    /// https://www.aescrypt.com/aes_file_format.html
+    ///     https://www.aescrypt.com/aes_file_format.html
     /// </summary>
     public class AESRule : BaseRule
     {

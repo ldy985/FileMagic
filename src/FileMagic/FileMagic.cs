@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
@@ -14,13 +13,13 @@ namespace ldy985.FileMagic
 {
     public class FileMagic : IDisposable, IFileMagic
     {
-        private readonly ILogger<FileMagic> _logger;
-        private readonly IRuleProvider _ruleProvider;
-        private readonly ServiceProvider? _provider;
         private readonly IOptions<FileMagicConfig> _config;
-        private readonly IParallelMagicMatcher _parallelMagicMatcher;
         private readonly IParsedHandlerProvider? _handlerProvider;
+        private readonly ILogger<FileMagic> _logger;
         private readonly string _name;
+        private readonly IParallelMagicMatcher _parallelMagicMatcher;
+        private readonly ServiceProvider? _provider;
+        private readonly IRuleProvider _ruleProvider;
 
         public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler) { }
 
@@ -56,8 +55,15 @@ namespace ldy985.FileMagic
             _name = _parallelMagicMatcher.GetType().Name;
         }
 
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
-        /// IdentifyStream
+        ///     IdentifyStream
         /// </summary>
         /// <param name="binaryReader"></param>
         /// <param name="result"></param>
@@ -68,8 +74,36 @@ namespace ldy985.FileMagic
         {
             result = new Result();
             _logger.LogTrace("Trying {Matcher} matcher", _name);
-            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out IEnumerable<IRule>? matchedRules);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out var matchedRules);
             return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
+        }
+
+        /// <inheritdoc />
+        public bool IdentifyStream(BinaryReader binaryReader, out IResult result)
+        {
+            result = new Result();
+
+            _logger.LogTrace("Trying {Matcher} matcher", _name);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out var matchedRules);
+            return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="ObjectDisposedException"></exception>
+        /// <exception cref="IOException"></exception>
+        public bool StreamMatches<T>(BinaryReader binaryReader, out IResult result) where T : IRule
+        {
+            T rule = _ruleProvider.Get<T>();
+            result = new Result();
+
+            (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, _config.Value.PatternCheck,
+                _config.Value.StructureCheck, _config.Value.ParserCheck);
+
+            if (!patternMatched && !structureMatched && !parserMatched)
+                return false;
+
+            RuleHelper.AddData(result, rule);
+            return true;
         }
 
         private bool ComplexMatch(bool hasMagicMatch, IResult result, BinaryReader binaryReader, IEnumerable<IRule> matchedRules)
@@ -82,7 +116,8 @@ namespace ldy985.FileMagic
                 {
                     _logger.LogDebug("Rule: {Rule} matched", rule.Name);
 
-                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
+                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck,
+                        _config.Value.ParserCheck);
 
                     if (!structureMatched && !parserMatched && (rule.HasStructure || rule.HasParser))
                         continue;
@@ -96,7 +131,8 @@ namespace ldy985.FileMagic
             {
                 foreach (IRule rule in _ruleProvider.ComplexRulesOnly)
                 {
-                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck, _config.Value.ParserCheck);
+                    (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck,
+                        _config.Value.ParserCheck);
 
                     if (rule.HasStructure && rule.HasParser && structureMatched && parserMatched)
                     {
@@ -121,41 +157,17 @@ namespace ldy985.FileMagic
             return false;
         }
 
-        /// <inheritdoc />
-        public bool IdentifyStream(BinaryReader binaryReader, out IResult result)
-        {
-            result = new Result();
-
-            _logger.LogTrace("Trying {Matcher} matcher", _name);
-            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules);
-            return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
-        }
-
-        /// <inheritdoc />
-        /// <exception cref="ObjectDisposedException"></exception>
-        /// <exception cref="IOException"></exception>
-        public bool StreamMatches<T>(BinaryReader binaryReader, out IResult result) where T : IRule
-        {
-            T rule = _ruleProvider.Get<T>();
-            result = new Result();
-
-            (bool patternMatched, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, _config.Value.PatternCheck, _config.Value.StructureCheck, _config.Value.ParserCheck);
-
-            if (!patternMatched && !structureMatched && !parserMatched)
-                return false;
-
-            RuleHelper.AddData(result, rule);
-            return true;
-        }
-
-        private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, ref IResult result, bool patternCheck, bool structureCheck, bool parserCheck)
+        private (bool patternMatched, bool structureMatched, bool parserMatched) RuleMatches(BinaryReader binaryReader, IRule rule, ref IResult result,
+            bool patternCheck, bool structureCheck, bool parserCheck)
         {
             bool patternMatched = false;
             bool structureMatched = false;
             bool parserMatched = false;
+
             if (patternCheck && rule.HasMagic)
             {
                 _logger.LogTrace("Testing {Rule} pattern", rule.Name);
+
                 if (rule.TryMagic(binaryReader.BaseStream))
                 {
                     _logger.LogDebug("Matched {Rule} pattern", rule.Name);
@@ -167,6 +179,7 @@ namespace ldy985.FileMagic
             if (structureCheck && rule.HasStructure)
             {
                 _logger.LogTrace("Testing {Rule} structure", rule.Name);
+
                 if (rule.TryStructure(binaryReader, result))
                 {
                     _logger.LogDebug("Matched {Rule} structure", rule.Name);
@@ -178,6 +191,7 @@ namespace ldy985.FileMagic
             if (parserCheck && rule.HasParser)
             {
                 _logger.LogTrace("Testing {Rule} parser", rule.Name);
+
                 if (rule.TryParse(binaryReader, result, out IParsed? parsedObject))
                 {
                     if (_config.Value.ParserHandle)
@@ -189,20 +203,14 @@ namespace ldy985.FileMagic
                 }
             }
 
-            return (patternCheck && rule.HasMagic && patternMatched, structureCheck && rule.HasStructure && structureMatched, parserCheck && rule.HasParser && parserMatched);
+            return (patternCheck && rule.HasMagic && patternMatched, structureCheck && rule.HasStructure && structureMatched,
+                parserCheck && rule.HasParser && parserMatched);
         }
 
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
                 _provider?.Dispose();
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />

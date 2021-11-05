@@ -6,11 +6,11 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class WASMRule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("0061736d", 0);
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("WebAssembly binary format", "WASM");
+        public WASMRule(ILogger<WASMRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public WASMRule(ILogger<WASMRule> logger) : base(logger) { }
+        public override IMagic Magic { get; } = new Magic("0061736d");
+
+        public override ITypeInfo TypeInfo { get; } = new TypeInfo("WebAssembly binary format", "WASM");
     }
 }

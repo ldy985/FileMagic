@@ -8,7 +8,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     public class ADTS4Rule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("FFF1", 0);
+        public ADTS4Rule(ILogger<ADTS4Rule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("FFF1");
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");
@@ -16,19 +19,16 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             return ADTSShared.B(reader);
-        }
-
-
-        /// <inheritdoc />
-        public ADTS4Rule(ILogger<ADTS4Rule> logger) : base(logger)
-        {
         }
     }
 
     public class ADTS2Rule : BaseRule
     {
         /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("FFF9", 0);
+        public ADTS2Rule(ILogger<ADTS2Rule> logger) : base(logger) { }
+
+        /// <inheritdoc />
+        public override IMagic Magic { get; } = new Magic("FFF9");
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");
@@ -36,11 +36,6 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             return ADTSShared.B(reader);
-        }
-
-        /// <inheritdoc />
-        public ADTS2Rule(ILogger<ADTS2Rule> logger) : base(logger)
-        {
         }
     }
 
@@ -52,7 +47,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
                 return false;
 
             byte sync = reader.ReadByte();
-            
+
             // AAAABCCD
             // A MUST be 1
             // C MUST be 0
