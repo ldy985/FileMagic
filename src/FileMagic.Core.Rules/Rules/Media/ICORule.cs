@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
             {
                 reader.SkipForwards(3);
                 uint reserved = reader.ReadByte();
-                if (reserved == 0 || reserved == 255)
+                if (reserved is 0 or 255)
                     continue;
 
                 foundError = true;

@@ -30,10 +30,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             if (majorVersion > _newestJavaMajorVersion)
                 return false;
 
-            if (majorVersion >= 56 && (minorVersion == 0 || minorVersion == 65535))
+            if (majorVersion >= 56 && minorVersion is 0 or 65535)
                 return true;
 
-            if (majorVersion > 45 && majorVersion <= 55)
+            if (majorVersion is > 45 and <= 55)
                 return constantPoolCount > 0;
 
             return false;
