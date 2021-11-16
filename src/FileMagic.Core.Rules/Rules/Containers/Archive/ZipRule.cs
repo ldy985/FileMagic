@@ -102,7 +102,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 
         public class ZipArchive : IParsed
         {
-            public List<ZipFile> Files { get; } = new List<ZipFile>();
+            public ICollection<ZipFile> Files { get; } = new List<ZipFile>();
 
             public void AddFile(ZipArchiveEntry zipArchiveEntry)
             {
