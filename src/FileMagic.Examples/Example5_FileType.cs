@@ -22,7 +22,7 @@ namespace ldy985.FileMagic.Examples
                 if (fileMagic.IdentifyFile(filePath, out IResult result))
                 {
                     Console.WriteLine("The file: " + filePath);
-                    Console.WriteLine("Was detected as matching the following rule: " + result.MatchedRule.Name);
+                    Console.WriteLine("Was detected as matching the following rule: " + result.MatchedRule?.Name);
 
                     if (result.MatchedRule is BitmapRule)
                     {
