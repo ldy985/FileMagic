@@ -33,7 +33,7 @@ namespace ldy985.FileMagic.Examples
 
             serviceCollection.AddLogging(builder => builder.SetMinimumLevel(LogLevel.Debug).AddConsole());
 
-            serviceCollection.AddSingleton<IParsedHandlerProvider>(provider =>
+            serviceCollection.AddSingleton<IParsedHandlerProvider>(_ =>
             {
                 ParsedHandlerProvider parsedHandlerProvider = new ParsedHandlerProvider();
                 //Add handlers here

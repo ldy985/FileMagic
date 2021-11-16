@@ -26,7 +26,7 @@ namespace ldy985.FileMagic
         public FileMagic(IOptions<FileMagicConfig> config, IParsedHandlerProvider? parsedHandler = null)
         {
             if (config.Value.ParserHandle && parsedHandler == null)
-                throw new Exception("A Handler must be defined");
+                throw new ArgumentException("A Handler must be defined");
 
             _config = config;
             _handlerProvider = parsedHandler;
@@ -112,7 +112,9 @@ namespace ldy985.FileMagic
             {
                 _logger.LogDebug("{Matcher} matched", _name);
 
-                foreach (IRule rule in matchedRules!)
+                result.MatchedRuleTypes |= MatchTypes.Signature;
+
+                foreach (IRule rule in matchedRules)
                 {
                     _logger.LogDebug("Rule: {Rule} matched", rule.Name);
 
@@ -180,7 +182,7 @@ namespace ldy985.FileMagic
             {
                 _logger.LogTrace("Testing {Rule} structure", rule.Name);
 
-                if (rule.TryStructure(binaryReader, result))
+                if (rule.TryStructure(binaryReader, ref result))
                 {
                     _logger.LogDebug("Matched {Rule} structure", rule.Name);
                     structureMatched = true;
@@ -192,7 +194,7 @@ namespace ldy985.FileMagic
             {
                 _logger.LogTrace("Testing {Rule} parser", rule.Name);
 
-                if (rule.TryParse(binaryReader, result, out IParsed? parsedObject))
+                if (rule.TryParse(binaryReader, ref result, out IParsed? parsedObject))
                 {
                     if (_config.Value.ParserHandle)
                         _handlerProvider?.ExecuteHandlers(rule, parsedObject);

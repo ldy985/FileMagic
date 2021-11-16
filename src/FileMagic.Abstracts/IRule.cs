@@ -45,7 +45,7 @@ namespace ldy985.FileMagic.Abstracts
         /// <param name="result">Any results from the parsing that may help determine which specific type we are looking at.</param>
         /// <param name="parsed">Any parsed data from the stream.</param>
         /// <returns></returns>
-        bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed);
+        bool TryParse(BinaryReader reader, ref IResult result, [NotNullWhen(true)] out IParsed? parsed);
 
         /// <summary>
         ///     Tries to run basic structure checks from the <see cref="IRule" /> with the data in the steam.
@@ -53,7 +53,7 @@ namespace ldy985.FileMagic.Abstracts
         /// <param name="reader">The reader with the data.</param>
         /// <param name="result">Any results from the structure that may help determine which specific type we are looking at.</param>
         /// <returns></returns>
-        bool TryStructure(BinaryReader reader, IResult result);
+        bool TryStructure(BinaryReader reader, ref IResult result);
 
         /// <summary>
         ///     Tries to match the magic in the <see cref="IRule" /> with the data in the steam.

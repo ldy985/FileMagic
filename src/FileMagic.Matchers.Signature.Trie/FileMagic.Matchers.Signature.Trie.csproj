@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <Nullable>enable</Nullable>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.1.0"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0"/>
+        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj"/>
+        <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />
     </ItemGroup>
 
 </Project>

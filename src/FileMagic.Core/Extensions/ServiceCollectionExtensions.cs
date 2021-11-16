@@ -15,11 +15,6 @@ namespace ldy985.FileMagic.Core.Extensions
             if (configureOptions != null)
                 collection.Configure(configureOptions);
 
-            return AddFileMagicCore(collection);
-        }
-
-        public static IFileMagicBuilder AddFileMagicCore(this IServiceCollection collection)
-        {
             collection.AddLogging();
             collection.AddOptions();
 

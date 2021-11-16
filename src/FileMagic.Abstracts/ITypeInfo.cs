@@ -8,11 +8,11 @@
         /// <summary>
         ///     A descriptions of the type.
         /// </summary>
-        string Description { get; }
+        string? Description { get; }
 
         /// <summary>
         ///     Extensions normally used with the data type.
         /// </summary>
-        string[] Extensions { get; }
+        string[]? Extensions { get; }
     }
 }

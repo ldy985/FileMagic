@@ -14,16 +14,16 @@ namespace ldy985.FileMagic.Core
         /// <param name="extensions">
         ///     <inheritdoc cref="Extensions" />
         /// </param>
-        public TypeInfo(string description, params string[] extensions)
+        public TypeInfo(string? description, params string[]? extensions)
         {
             Description = description;
             Extensions = extensions;
         }
 
         /// <inheritdoc />
-        public string Description { get; }
+        public string? Description { get; }
 
         /// <inheritdoc />
-        public string[] Extensions { get; }
+        public string[]? Extensions { get; }
     }
 }

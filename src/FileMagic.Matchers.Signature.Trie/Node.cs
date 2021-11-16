@@ -13,7 +13,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <summary>
         ///     Only set in leafs
         /// </summary>
-        public List<T>? Values { get; private set; }
+        public ICollection<T>? Values { get; private set; }
 
         public string MagicString
         {

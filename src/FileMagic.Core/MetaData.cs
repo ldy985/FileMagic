@@ -1,9 +1,10 @@
-﻿using ldy985.FileMagic.Abstracts;
+﻿using System;
+using ldy985.FileMagic.Abstracts;
 
 namespace ldy985.FileMagic.Core
 {
-    /// <inheritdoc />
-    public readonly struct MetaData : IMetaData
+    /// <inheritdoc cref="ldy985.FileMagic.Abstracts.IMetaData" />
+    public readonly struct MetaData : IMetaData, IEquatable<MetaData>
     {
         /// <summary>
         ///     The extension, with or without the dot.
@@ -16,5 +17,30 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         public string Extension { get; }
+
+        public static bool operator ==(MetaData left, MetaData right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(MetaData left, MetaData right)
+        {
+            return !(left == right);
+        }
+
+        public bool Equals(MetaData other)
+        {
+            return Extension == other.Extension;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is MetaData other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Extension.GetHashCode(StringComparison.Ordinal);
+        }
     }
 }

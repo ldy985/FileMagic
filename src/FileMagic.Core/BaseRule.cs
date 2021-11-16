@@ -82,7 +82,7 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         /// <exception cref="IOException"></exception>
-        public bool TryParse(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
+        public bool TryParse(BinaryReader reader, ref IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             long position = reader.GetPosition();
             bool tryParseInternal = false;
@@ -107,7 +107,7 @@ namespace ldy985.FileMagic.Core
         }
 
         /// <inheritdoc />
-        public bool TryStructure(BinaryReader reader, IResult result)
+        public bool TryStructure(BinaryReader reader, ref IResult result)
         {
             long position = reader.GetPosition();
             bool tryStructureInternal = false;

@@ -25,8 +25,8 @@ namespace ldy985.FileMagic.Core.Rules
 
                 Type log = typeof(Logger<>);
                 Type genericLogger = log.MakeGenericType(type);
-                object? logger = Activator.CreateInstance(genericLogger, loggerFactory);
-                yield return ((TRule)Activator.CreateInstance(type, logger)!)!;
+                object logger = Activator.CreateInstance(genericLogger, loggerFactory) ?? throw new MissingMemberException();
+                yield return (TRule)(Activator.CreateInstance(type, logger) ?? throw new MissingMemberException());
             }
         }
 

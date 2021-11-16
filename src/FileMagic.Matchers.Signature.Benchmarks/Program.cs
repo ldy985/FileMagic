@@ -4,7 +4,7 @@ namespace ldy985.FileMagic.Benchmarks
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             //BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
             // BenchmarkRunner.Run<StreamReading>();

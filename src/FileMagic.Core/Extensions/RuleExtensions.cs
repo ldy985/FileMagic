@@ -11,7 +11,7 @@ namespace ldy985.FileMagic.Core.Extensions
             if (!rule.HasMagic)
                 throw new ArgumentException("Rule must have a magic");
 
-            using (FileStream? stream = File.OpenRead(filePath))
+            using (FileStream stream = File.OpenRead(filePath))
             {
                 return rule.TryMagic(stream);
             }

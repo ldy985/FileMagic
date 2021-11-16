@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using BenchmarkDotNet.Attributes;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
@@ -9,6 +10,10 @@ namespace ldy985.FileMagic.Benchmarks
 {
     [MemoryDiagnoser]
     [InProcess]
+    [SuppressMessage("Design", "CA1001", MessageId = "Types that own disposable fields should be disposable")]
+    [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP003", MessageId = "Dispose previous before re-assigning.")]
+    [SuppressMessage("Security", "CA5394", MessageId = "Do not use insecure randomness")]
+    [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP006", MessageId = "Implement IDisposable.")]
     public class ByteComparison
     {
         private FileMagic _fileMagic;

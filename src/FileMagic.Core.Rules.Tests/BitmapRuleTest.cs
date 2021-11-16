@@ -27,11 +27,11 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         [Fact]
         public void TestStructure()
         {
-            Result result = new Result();
+            IResult result = new Result();
 
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
-                bool match = _rule.TryStructure(binaryReader, result);
+                bool match = _rule.TryStructure(binaryReader, ref result);
                 Assert.True(match);
             }
         }
@@ -39,11 +39,11 @@ namespace ldy985.FileMagic.Core.Rules.Tests
         [Fact]
         public void TestParsing()
         {
-            Result result = new Result();
+            IResult result = new Result();
 
             using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
             {
-                if (_rule.TryParse(binaryReader, result, out IParsed? parsedObject))
+                if (_rule.TryParse(binaryReader, ref result, out IParsed? parsedObject))
                 {
                     BitmapRule.Bmp bmp = (BitmapRule.Bmp)parsedObject;
 
@@ -54,7 +54,7 @@ namespace ldy985.FileMagic.Core.Rules.Tests
                 }
                 else
                 {
-                    throw new Exception("Didn't succeed");
+                    throw new ArgumentException("Didn't succeed");
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public TTFRule(ILogger<TTFRule> logger) : base(logger) { }
 
         /// <inheritdoc />
-        public override IMagic Magic { get; }
+        public override IMagic? Magic { get; }
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("True type font", "OTF", "TTF", "OTC", "TTC");

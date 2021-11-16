@@ -10,12 +10,12 @@ namespace ldy985.FileMagic.Abstracts
         /// <summary>
         ///     Any extensions that is normal for the type of data.
         /// </summary>
-        string[] Extensions { get; set; }
+        string[]? Extensions { get; set; }
 
         /// <summary>
         ///     A description of the data.
         /// </summary>
-        string Description { get; set; }
+        string? Description { get; set; }
 
         /// <summary>
         ///     The name of the rule that matched the data.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
@@ -47,6 +48,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         ///     https://github.com/python/cpython/blob/master/Lib/importlib/_bootstrap_external.py#L199
         /// </summary>
+        [SuppressMessage("ReSharper", "UnusedMember.Local")]
+        [SuppressMessage("Design", "CA1069", MessageId = "Enums values should not be duplicated")]
         private enum Version : ushort
         {
             Python1_5 = 0x4E99, //
@@ -156,6 +159,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <summary>
         ///     https://github.com/python/cpython/blob/master/Python/marshal.c#L41
         /// </summary>
+        [SuppressMessage("ReSharper", "UnusedMember.Local")]
+        [SuppressMessage("Design", "CA1069", MessageId = "Enums values should not be duplicated")]
         private enum ObjectType : byte
         {
             TYPE_TUPLE = 0x28,

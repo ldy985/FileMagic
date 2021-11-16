@@ -11,6 +11,9 @@
         <LangVersion>latest</LangVersion>
         <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
         <Nullable>enable</Nullable>
+        <AnalysisMode>All</AnalysisMode>
+        <AnalysisLevel>latest</AnalysisLevel>
+
 
         <DebugType>portable</DebugType>
         <DebugSymbols>true</DebugSymbols>
@@ -67,5 +70,6 @@
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+        <DebugType>none</DebugType>
     </PropertyGroup>
 </Project>

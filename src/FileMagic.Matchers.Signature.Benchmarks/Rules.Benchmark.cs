@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
@@ -11,6 +12,11 @@ namespace ldy985.FileMagic.Benchmarks
 {
     [MemoryDiagnoser]
     [InProcess]
+    [SuppressMessage("Design", "CA1001", MessageId = "Types that own disposable fields should be disposable")]
+    [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP003", MessageId = "Dispose previous before re-assigning.")]
+    [SuppressMessage("Security", "CA5394", MessageId = "Do not use insecure randomness")]
+    [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP006", MessageId = "Implement IDisposable.")]
+    [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001", MessageId = "Dispose created.")]
     public class RuleBenchmark
     {
         private Stream[] _streams = null!;
@@ -42,7 +48,7 @@ namespace ldy985.FileMagic.Benchmarks
                 stream.Dispose();
         }
 
-        public IEnumerable<object[]> WorstCaseData()
+        public static IEnumerable<object[]> WorstCaseData()
         {
             var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
 
@@ -78,7 +84,7 @@ namespace ldy985.FileMagic.Benchmarks
             return a;
         }
 
-        public IEnumerable<object> Rules()
+        public static IEnumerable<object> Rules()
         {
             var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
 

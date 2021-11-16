@@ -52,7 +52,7 @@ namespace ldy985.FileMagic.Tests
         public void DetectAllCorrectly(TestFile testFile)
         {
             Assert.True(_fileMagic.IdentifyFile(testFile.GetPath(), out IResult result), testFile.GetPath());
-            Assert.Contains(testFile.GetExtension(), result.Extensions, StringComparer.Ordinal);
+            Assert.Contains(testFile.GetExtension(), result.Extensions!, StringComparer.Ordinal);
         }
     }
 }

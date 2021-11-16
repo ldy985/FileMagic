@@ -7,10 +7,10 @@ namespace ldy985.FileMagic.Core
     public class Result : IResult
     {
         /// <inheritdoc />
-        public string[] Extensions { get; set; }
+        public string[]? Extensions { get; set; }
 
         /// <inheritdoc />
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <inheritdoc />
         public IRule MatchedRule { get; set; }
