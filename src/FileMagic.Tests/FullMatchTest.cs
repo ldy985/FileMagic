@@ -51,7 +51,8 @@ namespace ldy985.FileMagic.Tests
         [MemberData(nameof(TestFiles))]
         public void DetectAllCorrectly(TestFile testFile)
         {
-            Assert.True(_fileMagic.IdentifyFile(testFile.GetPath(), out IResult result), testFile.GetPath());
+            string filePath = testFile.Path;
+            Assert.True(_fileMagic.IdentifyFile(filePath, out IResult result), filePath);
             Assert.Contains(testFile.GetExtension(), result.Extensions!, StringComparer.Ordinal);
         }
     }

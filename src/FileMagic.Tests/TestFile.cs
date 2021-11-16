@@ -4,21 +4,16 @@ namespace ldy985.FileMagic.Tests
 {
     public class TestFile
     {
-        private readonly string _file;
-
         public TestFile(string file)
         {
-            _file = file;
+            Path = file;
         }
 
-        public string GetPath()
-        {
-            return _file;
-        }
+        public string Path { get; }
 
         public string GetExtension()
         {
-            string extension = Path.GetExtension(_file);
+            string extension = System.IO.Path.GetExtension(Path);
 
             if (extension.Length == 0)
                 return extension;
@@ -28,7 +23,7 @@ namespace ldy985.FileMagic.Tests
 
         public override string ToString()
         {
-            return _file;
+            return Path;
         }
     }
 }
