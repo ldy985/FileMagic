@@ -158,7 +158,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
             MetaInfo = new Dictionary<string, object>();
         }
 
-        public List<string> Directories { get; }
+        public IList<string> Directories { get; }
         public IDictionary<string, object> MetaInfo { get; }
     }
 }

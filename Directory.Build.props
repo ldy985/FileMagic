@@ -41,7 +41,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MinVer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="*" PrivateAssets="all"/>
     </ItemGroup>
 
@@ -53,9 +52,12 @@
         <PackageReference Include="AsyncFixer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="JetBrains.Annotations" Version="*" PrivateAssets="all"/>
+        <PackageReference Include="Lindhart.Analyser.MissingAwaitWarning" Version="*" PrivateAssets="all" />
     </ItemGroup>
 
-    <ItemGroup>
+
+    <ItemGroup Condition="'$(BuildingInsideVisualStudio)' == 'false' OR '$(BuildingByReSharper)' == 'false'">
+        <PackageReference Include="MinVer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="Nerdbank.GitVersioning"
                           Version="*"
                           PrivateAssets="all"

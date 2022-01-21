@@ -11,6 +11,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
     /// </summary>
     public class BitmapRule : BaseRule
     {
+        [SuppressMessage("Design", "CA1008:Enums should have zero value")]
         public enum BmpType : short
         {
             Bm = 0x4d42,
