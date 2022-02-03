@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("494433");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Low;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("ID3 container", "MP3", "AAC", "MP2");
     }
 }

@@ -15,6 +15,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FFD8");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Image format", "JPE", "JPEG", "JPG", "JPS");
     }
 }

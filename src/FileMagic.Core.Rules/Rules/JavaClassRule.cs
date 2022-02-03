@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
 using Microsoft.Extensions.Logging;
@@ -9,7 +8,7 @@ namespace ldy985.FileMagic.Core.Rules.Rules
     /// <summary>https://docs.oracle.com/javase/specs/jvms/se12/html/jvms-4.html</summary>
     public class JavaClassRule : BaseRule
     {
-        private const short _newestJavaMajorVersion = 56;
+        private const short _newestJavaMajorVersion = 61;
 
         /// <inheritdoc />
         public JavaClassRule(ILogger<JavaClassRule> logger) : base(logger) { }
@@ -17,6 +16,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("CAFEBABE");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java class file", "CLASS");
 
         /// <inheritdoc />

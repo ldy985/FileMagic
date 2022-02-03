@@ -12,6 +12,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         public override IMagic Magic { get; } = new Magic("89495647");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("IconVG, Binary SVG", "IVG");
     }
 }

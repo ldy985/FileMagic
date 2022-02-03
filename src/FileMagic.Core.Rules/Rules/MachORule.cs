@@ -12,6 +12,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("CAFEBABE");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Mach-o Fat binary", "", "JNILIB");
     }
 
@@ -22,6 +25,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FEEDFACE");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Mach-o 32-bit binary", "", "JNILIB");
@@ -36,6 +42,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("FEEDFACF");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Mach-o 64-bit binary", "", "JNILIB");
     }
 
@@ -48,6 +57,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("CEFAEDFE");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Mach-o 32-bit binary", "", "JNILIB");
     }
 
@@ -58,6 +70,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("CFFAEDFE");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Mach-o 64-bit binary", "", "JNILIB");

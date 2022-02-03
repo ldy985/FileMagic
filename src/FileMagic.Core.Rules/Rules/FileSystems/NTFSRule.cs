@@ -11,6 +11,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.FileSystems
     {
         public NTFSRule(ILogger<NTFSRule> logger) : base(logger) { }
         public override IMagic Magic { get; } = new Magic("4e54465320202020", 3);
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("New Technologies File System (NTFS)");
     }
 }

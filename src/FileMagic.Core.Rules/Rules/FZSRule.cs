@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("467A5300");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Common Interchange of non-precise information", "FZS");
     }
 }

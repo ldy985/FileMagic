@@ -12,6 +12,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         public override IMagic Magic { get; } = new Magic("28445746205630??2e????29");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Autodesk Design Web Format", "DWF", "DWFX");
     }
 }

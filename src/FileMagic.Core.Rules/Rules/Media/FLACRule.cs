@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("664C614300000022");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Free Lossless Audio Codec file", "FLAC");
     }
 }

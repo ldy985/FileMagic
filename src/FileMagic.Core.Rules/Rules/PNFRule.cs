@@ -15,6 +15,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("01030200??0000");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Precompiled INF File", "PNF");
     }
 }

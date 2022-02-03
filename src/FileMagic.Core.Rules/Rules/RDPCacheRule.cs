@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("52445038626D7000");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Remote desktop bitmap cache", "BIN");
     }
 }

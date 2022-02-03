@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4c0000000114020000000000c000000000000046");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows shortcut", "LNK");
     }
 }

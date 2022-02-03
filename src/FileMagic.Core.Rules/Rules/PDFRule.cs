@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("255044462d");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } =
             new TypeInfo("Adobe Portable Document Format, Forms Document Format, and Illustrator graphics files", "PDF", "FDF", "AI");
     }

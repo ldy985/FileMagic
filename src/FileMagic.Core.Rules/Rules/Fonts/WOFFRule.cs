@@ -12,6 +12,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Fonts
 
         public override IMagic Magic { get; } = new Magic("774F4646");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("WOFF font packaging", "WOFF");
     }
 }

@@ -14,7 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("58424600????0000");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Binary representation of a XAML", "XBF");
     }

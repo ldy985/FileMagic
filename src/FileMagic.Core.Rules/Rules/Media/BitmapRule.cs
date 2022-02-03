@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -27,6 +26,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("424D");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.VeryHigh;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Bitmap", "BMP");

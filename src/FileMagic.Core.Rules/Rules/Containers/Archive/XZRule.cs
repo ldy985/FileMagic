@@ -11,6 +11,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FD377A585A00");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("XZ Compressed Archive", "XZ");
     }
 }

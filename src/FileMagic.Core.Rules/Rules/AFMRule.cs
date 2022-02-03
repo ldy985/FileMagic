@@ -15,6 +15,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("5374617274466F6E744D657472696373");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe font metrics file", "AFM");
     }
 
@@ -30,6 +33,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("5374617274436f6d70466f6e744d657472696373");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe font metrics file", "ACFM");
     }
 
@@ -43,6 +49,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("53746172744d6173746572466f6e744d657472696373");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe font metrics file", "AMFM");

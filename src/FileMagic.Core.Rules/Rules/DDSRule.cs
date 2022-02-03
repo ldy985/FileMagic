@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("444453207C00");
 
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft DirectDraw Surface file format ", "DDS", "PNG");
     }
 }

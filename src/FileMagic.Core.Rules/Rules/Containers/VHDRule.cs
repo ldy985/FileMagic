@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("636F6E6563746978");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Virtual PC Virtual HD image", "VHD");
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.FileMagic.Abstracts;
+﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules.Rules.Media
@@ -14,6 +13,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FF");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("MP3 Audio File", "MP3");
 

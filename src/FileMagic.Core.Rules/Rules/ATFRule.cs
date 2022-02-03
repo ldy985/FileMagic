@@ -11,6 +11,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("415446000002FF02");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown atf file", "ATF");
     }
 }

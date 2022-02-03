@@ -14,6 +14,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("49492A00080000");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Digital negative image, subtype of TIFF", "DNG");
     }
 }

@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("3C73766720");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics", "SVG");
     }
 
@@ -22,6 +24,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("EFBBBF3C73766720");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics with BOM", "SVG");
     }
 }

@@ -12,6 +12,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         public override IMagic Magic { get; } = new Magic("414553??00");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("AES Crypt file format", "AES");
     }
 }

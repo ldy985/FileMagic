@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -83,6 +82,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("05000000????????0B");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Unknown .NET resource", "AUX");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)

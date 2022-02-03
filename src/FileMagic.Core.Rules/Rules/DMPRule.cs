@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +11,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("504147454455");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Minidump", "DMP");
 
@@ -39,6 +41,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4D444D5093A7");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
     }

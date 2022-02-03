@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("213C617263683E");
 
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Debian Software Package", "DEB");
     }
 }

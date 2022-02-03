@@ -17,6 +17,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("7A646266", 8);
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Shim database format", "SDB");
     }
 }

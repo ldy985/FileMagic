@@ -16,6 +16,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("FEEDFEED");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java Key Store", "JKS");
     }
 }

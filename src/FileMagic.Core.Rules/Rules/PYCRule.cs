@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -19,6 +17,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("0D0A", 2);
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Python bytecode", "PYC");
 

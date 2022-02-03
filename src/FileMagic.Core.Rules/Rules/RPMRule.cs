@@ -14,6 +14,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("EDABEEDB");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Red Hat Package Manager file", "RPM");
     }
 }

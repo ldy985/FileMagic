@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("424C41481F8B0800000000000400");
 
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Cortana undocumented compressed grammar", "GZ");
     }
 }

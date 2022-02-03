@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -17,6 +16,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("52494646");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Resource Interchange File", "ANI", "AVI", "BND", "DXR", "PAL", "RDI", "RMI", "WAV");
 

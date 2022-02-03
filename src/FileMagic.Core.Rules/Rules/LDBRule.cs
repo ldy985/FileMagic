@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         public override IMagic? Magic { get; }
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("LevelDB data file", "LDB");
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)

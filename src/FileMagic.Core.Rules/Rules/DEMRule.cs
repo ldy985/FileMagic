@@ -14,6 +14,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("484C3244454D4F");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("CS:GO-Demo", "DEM");
     }
 }

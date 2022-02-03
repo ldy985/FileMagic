@@ -10,6 +10,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.FileSystems
     {
         public BitLockerRule(ILogger<BitLockerRule> logger) : base(logger) { }
         public override IMagic Magic { get; } = new Magic("2d4656452d46532d");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("BitLocker encrypted volume");
     }
 }

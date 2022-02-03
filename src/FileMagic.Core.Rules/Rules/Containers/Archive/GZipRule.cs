@@ -33,6 +33,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("1f8b");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("GZIP file format", "GZ", "TAR.GZ", "TGZ");
     }
 }

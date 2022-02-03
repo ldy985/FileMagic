@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -24,6 +21,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("D0CF11E0A1B11AE1");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Object Linking and Embedding (OLE) Compound File", "DOC", "DOT", "PPS", "PPT", "XLA",
             "XLS", "WIZ", "AC_", "ADP", "DB", "MSC", "MSG", "MSI", "MTW", "MXD", "OPT", "PUB", "QBM", "RVT", "SUO", "SPO", "VSD", "WPS");
 

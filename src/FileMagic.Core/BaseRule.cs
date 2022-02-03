@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Abstracts.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core
@@ -32,6 +33,9 @@ namespace ldy985.FileMagic.Core
 
         /// <inheritdoc />
         public abstract IMagic? Magic { get; }
+
+        /// <inheritdoc />
+        public abstract Quality Quality { get; }
 
         /// <inheritdoc />
         public abstract ITypeInfo TypeInfo { get; }

@@ -10,6 +10,10 @@ namespace ldy985.FileMagic.Core.Rules.Rules.FileSystems
     {
         public REFSRule(ILogger<REFSRule> logger) : base(logger) { }
         public override IMagic Magic { get; } = new Magic("5265465300000000");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Resilient File System (ReFS)");
     }
 }

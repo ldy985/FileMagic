@@ -11,6 +11,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("526172211A070100");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("RAR5 compressed file", "RAR");
     }
 }

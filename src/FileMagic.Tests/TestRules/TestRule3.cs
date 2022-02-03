@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +13,8 @@ namespace ldy985.FileMagic.Tests.TestRules
         public TestRule3(ILogger<TestRule3> logger) : base(logger) { }
 
         public override IMagic Magic { get; } = new Magic("000102??");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("test", "test");
     }

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using ldy985.FileMagic.Abstracts.Enums;
 
 namespace ldy985.FileMagic.Abstracts
 {
@@ -17,6 +18,11 @@ namespace ldy985.FileMagic.Abstracts
         ///     The magic signature. Null if none.
         /// </summary>
         IMagic? Magic { get; }
+
+        /// <summary>
+        ///     The quality of the rule.
+        /// </summary>
+        Quality Quality { get; }
 
         /// <summary>
         ///     Contains basic information about the structure identified in the stream.

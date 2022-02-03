@@ -22,6 +22,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FACE0FF0");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite CAS file", "CAS");
     }
 
@@ -44,6 +47,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4E79616E4E79616E4E79616E4E79616E");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite Catalog file ", "CAT");
     }
 
@@ -65,6 +71,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("00D1CE00");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Frostbite SuperBundle file ", "SB");
     }

@@ -15,6 +15,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("424547494E3A5643414C454E444152");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("iCalender file", "ICAL", "ICS", "IFB", "ICALENDAR");
     }
 }

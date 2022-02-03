@@ -15,6 +15,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("D4C3B2A1");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("libpcap file format", "PCAP");
     }
 }

@@ -11,6 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("49492A00");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Tif image format", "TIF");
     }
 
@@ -21,6 +23,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4D4D002A");
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Tif image format", "TIF");
     }

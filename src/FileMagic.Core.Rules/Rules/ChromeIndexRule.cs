@@ -13,6 +13,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         public override IMagic Magic { get; } = new Magic("305C72A71B6DFBFC");
 
+        public override Quality Quality => Quality.High;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chrome webview cache");
     }
 }

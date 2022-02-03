@@ -15,6 +15,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("000100005374616E646172642041434520444200");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Access database", "ACCDB");
     }
 
@@ -29,6 +32,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("000100005374616E64617264204A657420444200");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Access database", "MDB");
     }

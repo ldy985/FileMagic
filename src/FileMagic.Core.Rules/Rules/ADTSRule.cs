@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.FileMagic.Abstracts;
+﻿using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +11,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FFF1");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");
@@ -29,6 +31,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("FFF9");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Audio Data Transport Stream", "AAC");

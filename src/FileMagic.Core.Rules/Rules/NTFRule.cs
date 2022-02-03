@@ -28,6 +28,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("3146544E5350544E");
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Binary device font descriptor for Pscript", "NTF");
     }
 }

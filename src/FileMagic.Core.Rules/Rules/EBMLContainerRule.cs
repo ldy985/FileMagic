@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -19,6 +17,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("1A45DFA3");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Extensible Binary Meta Language container", "MKV", "WEBM");
 

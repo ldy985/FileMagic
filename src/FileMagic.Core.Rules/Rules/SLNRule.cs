@@ -14,7 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4D6963726F736F66742056697375616C2053747564696F20536F6C7574696F6E2046696C65");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Visual studio solution file", "SLN");
     }
 
@@ -29,7 +30,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("EFBBBF0D0A4D6963726F736F66742056697375616C2053747564696F20536F6C7574696F6E2046696C65");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Visual studio solution file", "SLN");
     }
 }

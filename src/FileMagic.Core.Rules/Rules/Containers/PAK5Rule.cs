@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +13,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         public override IMagic Magic { get; } = new Magic("05000000");
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
@@ -38,6 +40,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("04000000");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
 

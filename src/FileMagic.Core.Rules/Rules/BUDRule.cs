@@ -16,6 +16,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
         public override IMagic Magic { get; } = new Magic("00002044504773001900", 2);
 
         /// <inheritdoc />
+        public override Quality Quality => Quality.High;
+        /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Binary printer description file", "BUD");
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO.Compression;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
@@ -19,6 +16,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("504B");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
 
         public override ITypeInfo TypeInfo { get; } =
             new TypeInfo("Zip file", "JAR", "WAR", "DOCX", "XLSX", "PPTX", "ODT", "ODS", "ODP", "ZIPX", "NUPKG", "ZIP", "APK", "EPUB");

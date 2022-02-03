@@ -15,6 +15,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("455646090D0AFF00");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Expert Witness Compression Format", "E01");
     }
 
@@ -30,6 +33,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("4C5646090D0AFF00");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
+
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Expert Witness Compression Format", "E01");
     }
 
@@ -44,6 +50,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("455646320D0A81");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("EnCase® Evidence File Format Version 2", "Ex01");
     }

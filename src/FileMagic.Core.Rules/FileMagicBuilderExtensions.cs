@@ -1,5 +1,4 @@
-﻿using System;
-using ldy985.FileMagic.Abstracts;
+﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ldy985.FileMagic.Core.Rules

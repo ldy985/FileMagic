@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Icon file", "ICO", "CUR");
 
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             if (reader.ReadUInt16() != 0)

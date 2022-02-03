@@ -49,7 +49,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("B0B5F11E");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft proprietary format for storing a single RSA Private Key", "PVK");
     }

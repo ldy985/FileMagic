@@ -14,6 +14,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic Magic { get; } = new Magic("504B43583082");
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("APPX Packed Digital Signature File", "P7X");

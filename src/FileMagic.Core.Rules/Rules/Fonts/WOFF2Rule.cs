@@ -11,7 +11,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Fonts
         public WOFF2Rule(ILogger<WOFF2Rule> logger) : base(logger) { }
 
         public override IMagic Magic { get; } = new Magic("774F4632");
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Medium;
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("WOFF2 font packaging", "WOFF2");
     }
 }

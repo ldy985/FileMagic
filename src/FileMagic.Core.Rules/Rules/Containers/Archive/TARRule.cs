@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ldy985.BinaryReaderExtensions;
+﻿using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +13,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Containers.Archive
         public override IMagic? Magic { get; } //= new Magic("757374617200", 257); //Too much overhead
 
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("TAR file format", "TAR");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.Low;
 
         protected override bool TryStructureInternal(BinaryReader reader, IResult result)
         {

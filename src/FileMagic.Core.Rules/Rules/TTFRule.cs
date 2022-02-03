@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
@@ -18,7 +17,8 @@ namespace ldy985.FileMagic.Core.Rules.Rules
 
         /// <inheritdoc />
         public override IMagic? Magic { get; }
-
+        /// <inheritdoc />
+        public override Quality Quality => Quality.High;
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("True type font", "OTF", "TTF", "OTC", "TTC");
 

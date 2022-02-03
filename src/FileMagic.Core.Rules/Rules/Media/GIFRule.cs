@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
@@ -16,6 +15,9 @@ namespace ldy985.FileMagic.Core.Rules.Rules.Media
 
         /// <inheritdoc />
         public override ITypeInfo TypeInfo { get; } = new TypeInfo("Gif image", "GIF");
+
+        /// <inheritdoc />
+        public override Quality Quality => Quality.VeryHigh;
 
         /// <inheritdoc />
         protected override bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
