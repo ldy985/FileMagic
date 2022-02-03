@@ -1,31 +1,32 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules.Media
+namespace ldy985.FileMagic.Core.Rules.Rules.Media;
+
+public class SVGRule : BaseRule
 {
-    public class SVGRule : BaseRule
-    {
-        /// <inheritdoc />
-        public SVGRule(ILogger<SVGRule> logger) : base(logger) { }
+    /// <inheritdoc />
+    public SVGRule(ILogger<SVGRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("3C73766720");
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("3C73766720");
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.Medium;
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics", "SVG");
-    }
+    /// <inheritdoc />
+    public override Quality Quality => Quality.Medium;
 
-    public class SVGBOMRule : BaseRule
-    {
-        /// <inheritdoc />
-        public SVGBOMRule(ILogger<SVGBOMRule> logger) : base(logger) { }
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics", "SVG");
+}
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("EFBBBF3C73766720");
+public class SVGBOMRule : BaseRule
+{
+    /// <inheritdoc />
+    public SVGBOMRule(ILogger<SVGBOMRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.Medium;
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics with BOM", "SVG");
-    }
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("EFBBBF3C73766720");
+
+    /// <inheritdoc />
+    public override Quality Quality => Quality.Medium;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("SVG vector graphics with BOM", "SVG");
 }

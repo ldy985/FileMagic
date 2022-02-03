@@ -3,41 +3,41 @@ using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules;
+
+/// <summary>https://docs.oracle.com/javase/specs/jvms/se12/html/jvms-4.html</summary>
+public class JavaClassRule : BaseRule
 {
-    /// <summary>https://docs.oracle.com/javase/specs/jvms/se12/html/jvms-4.html</summary>
-    public class JavaClassRule : BaseRule
+    private const short _newestJavaMajorVersion = 61;
+
+    /// <inheritdoc />
+    public JavaClassRule(ILogger<JavaClassRule> logger) : base(logger) { }
+
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("CAFEBABE");
+
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java class file", "CLASS");
+
+    /// <inheritdoc />
+    protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
-        private const short _newestJavaMajorVersion = 61;
+        reader.SkipForwards(4);
+        ushort minorVersion = reader.ReadUInt16().Reverse();
+        ushort majorVersion = reader.ReadUInt16().Reverse();
+        ushort constantPoolCount = reader.ReadUInt16().Reverse();
 
-        /// <inheritdoc />
-        public JavaClassRule(ILogger<JavaClassRule> logger) : base(logger) { }
-
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("CAFEBABE");
-
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Java class file", "CLASS");
-
-        /// <inheritdoc />
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
-        {
-            reader.SkipForwards(4);
-            ushort minorVersion = reader.ReadUInt16().Reverse();
-            ushort majorVersion = reader.ReadUInt16().Reverse();
-            ushort constantPoolCount = reader.ReadUInt16().Reverse();
-
-            if (majorVersion > _newestJavaMajorVersion)
-                return false;
-
-            if (majorVersion >= 56 && minorVersion is 0 or 65535)
-                return true;
-
-            if (majorVersion is > 45 and <= 55)
-                return constantPoolCount > 0;
-
+        if (majorVersion > _newestJavaMajorVersion)
             return false;
-        }
+
+        if (majorVersion >= 56 && minorVersion is 0 or 65535)
+            return true;
+
+        if (majorVersion is > 45 and <= 55)
+            return constantPoolCount > 0;
+
+        return false;
     }
 }

@@ -2,47 +2,46 @@
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules.Containers
+namespace ldy985.FileMagic.Core.Rules.Rules.Containers;
+
+/// <summary>
+///     https://en.wikipedia.org/wiki/Resource_Interchange_File_Format
+///     https://www.daubnet.com/en/file-format-riff
+///     https://johnloomis.org/cpe102/asgn/asgn1/riff.html
+/// </summary>
+public class RIFFRule : BaseRule
 {
-    /// <summary>
-    ///     https://en.wikipedia.org/wiki/Resource_Interchange_File_Format
-    ///     https://www.daubnet.com/en/file-format-riff
-    ///     https://johnloomis.org/cpe102/asgn/asgn1/riff.html
-    /// </summary>
-    public class RIFFRule : BaseRule
+    /// <inheritdoc />
+    public RIFFRule(ILogger<RIFFRule> logger) : base(logger) { }
+
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("52494646");
+
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Resource Interchange File", "ANI", "AVI", "BND", "DXR", "PAL", "RDI", "RMI", "WAV");
+
+    protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
-        /// <inheritdoc />
-        public RIFFRule(ILogger<RIFFRule> logger) : base(logger) { }
+        reader.SkipForwards(4);
+        uint size = reader.ReadUInt32();
+        if (reader.GetLength() != size + 8)
+            return false;
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("52494646");
+        uint riffType = reader.ReadUInt32();
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
+        if (riffType == 0x45564157) //WAVE
+            result.Extensions = new[] { "WAV" };
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Resource Interchange File", "ANI", "AVI", "BND", "DXR", "PAL", "RDI", "RMI", "WAV");
+        if (riffType == 0x504D4D52) //RMMP
+            result.Extensions = new[] { "AVI" };
 
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
-        {
-            reader.SkipForwards(4);
-            uint size = reader.ReadUInt32();
-            if (reader.GetLength() != size + 8)
-                return false;
+        if (riffType == 0x42494452) //RDIB
+            result.Extensions = new[] { "RDI" };
 
-            uint riffType = reader.ReadUInt32();
+        //TODO add more riff types
 
-            if (riffType == 0x45564157) //WAVE
-                result.Extensions = new[] { "WAV" };
-
-            if (riffType == 0x504D4D52) //RMMP
-                result.Extensions = new[] { "AVI" };
-
-            if (riffType == 0x42494452) //RDIB
-                result.Extensions = new[] { "RDI" };
-
-            //TODO add more riff types
-
-            return true;
-        }
+        return true;
     }
 }

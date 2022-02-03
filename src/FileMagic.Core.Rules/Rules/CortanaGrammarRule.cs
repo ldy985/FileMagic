@@ -1,18 +1,17 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules;
+
+public class CortanaGrammarRule : BaseRule
 {
-    public class CortanaGrammarRule : BaseRule
-    {
-        /// <inheritdoc />
-        public CortanaGrammarRule(ILogger<CortanaGrammarRule> logger) : base(logger) { }
+    /// <inheritdoc />
+    public CortanaGrammarRule(ILogger<CortanaGrammarRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("424C41481F8B0800000000000400");
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("424C41481F8B0800000000000400");
 
-        public override Quality Quality => Quality.High;
+    public override Quality Quality => Quality.High;
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Cortana undocumented compressed grammar", "GZ");
-    }
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Cortana undocumented compressed grammar", "GZ");
 }

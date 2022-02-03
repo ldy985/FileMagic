@@ -2,49 +2,48 @@
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules;
+
+public class DMPRule : BaseRule
 {
-    public class DMPRule : BaseRule
+    /// <inheritdoc />
+    public DMPRule(ILogger<DMPRule> logger) : base(logger) { }
+
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("504147454455");
+
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Minidump", "DMP");
+
+    /// <inheritdoc />
+    protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
-        /// <inheritdoc />
-        public DMPRule(ILogger<DMPRule> logger) : base(logger) { }
+        reader.SkipForwards(6);
+        ushort readUInt16 = reader.ReadUInt16();
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("504147454455");
-
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
-
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows Minidump", "DMP");
-
-        /// <inheritdoc />
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        switch (readUInt16)
         {
-            reader.SkipForwards(6);
-            ushort readUInt16 = reader.ReadUInt16();
-
-            switch (readUInt16)
-            {
-                case 0x3634: //x64
-                case 0x4D32: //x86
-                    return true;
-                default:
-                    return false;
-            }
+            case 0x3634: //x64
+            case 0x4D32: //x86
+                return true;
+            default:
+                return false;
         }
     }
+}
 
-    public class MDMPRule : BaseRule
-    {
-        /// <inheritdoc />
-        public MDMPRule(ILogger<MDMPRule> logger) : base(logger) { }
+public class MDMPRule : BaseRule
+{
+    /// <inheritdoc />
+    public MDMPRule(ILogger<MDMPRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4D444D5093A7");
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("4D444D5093A7");
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
 
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
-    }
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Windows compressed Minidump", "DMP", "MDMP");
 }

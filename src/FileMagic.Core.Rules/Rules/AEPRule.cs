@@ -1,4 +1,4 @@
-﻿namespace ldy985.FileMagic.Core.Rules.Rules { }
+﻿namespace ldy985.FileMagic.Core.Rules.Rules; 
 
 
 // /// <summary>

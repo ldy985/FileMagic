@@ -1,18 +1,18 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules;
+
+public class CABRule : BaseRule
 {
-    public class CABRule : BaseRule
-    {
-        /// <inheritdoc />
-        public CABRule(ILogger<CABRule> logger) : base(logger) { }
+    /// <inheritdoc />
+    public CABRule(ILogger<CABRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("4D534346");
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("4D534346");
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Cabinet file", "CAB");
-    }
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Microsoft Cabinet file", "CAB");
 }

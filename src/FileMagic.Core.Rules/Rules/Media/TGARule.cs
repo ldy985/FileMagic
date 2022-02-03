@@ -3,61 +3,61 @@ using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules.Media
+namespace ldy985.FileMagic.Core.Rules.Rules.Media;
+
+/// <summary>
+///     http://www.paulbourke.net/dataformats/tga/
+///     https://www.fileformat.info/format/tga/egff.htm
+///     http://www.opennet.ru/docs/formats/targa.pdf
+///     https://www.dca.fee.unicamp.br/~martino/disciplinas/ea978/tgaffs.pdf
+/// </summary>
+public class TGARule : BaseRule
 {
-    /// <summary>
-    ///     http://www.paulbourke.net/dataformats/tga/
-    ///     https://www.fileformat.info/format/tga/egff.htm
-    ///     http://www.opennet.ru/docs/formats/targa.pdf
-    ///     https://www.dca.fee.unicamp.br/~martino/disciplinas/ea978/tgaffs.pdf
-    /// </summary>
-    public class TGARule : BaseRule
+    /// <inheritdoc />
+    public TGARule(ILogger<TGARule> logger) : base(logger) { }
+
+    public override IMagic? Magic { get; }
+
+    /// <inheritdoc />
+    public override Quality Quality => Quality.Medium;
+
+    /// <inheritdoc />
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("TGA image file", "TGA");
+
+    protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
-        /// <inheritdoc />
-        public TGARule(ILogger<TGARule> logger) : base(logger) { }
+        long position = reader.GetPosition();
+        if (!reader.TrySetPosition(reader.GetLength() - 18))
+            return false;
 
-        public override IMagic? Magic { get; }
+        //Check for v2 optional footer
+        string readFixedString = reader.ReadFixedString(17, Encoding.ASCII);
+        if (readFixedString == "TRUEVISION-XFILE.")
+            return true;
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.Medium;
-        /// <inheritdoc />
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("TGA image file", "TGA");
+        if (!reader.TrySetPosition(position + 2))
+            return false;
 
-        protected override bool TryStructureInternal(BinaryReader reader, IResult result)
+        byte colorMap = reader.ReadByte();
+        if (colorMap > 2)
+            return false;
+
+        byte dataType = reader.ReadByte();
+
+        switch (dataType)
         {
-            long position = reader.GetPosition();
-            if (!reader.TrySetPosition(reader.GetLength() - 18))
-                return false;
-
-            //Check for v2 optional footer
-            string readFixedString = reader.ReadFixedString(17, Encoding.ASCII);
-            if (readFixedString == "TRUEVISION-XFILE.")
+            // case 0: //this is useless eg. empty image
+            case 1:
+            case 2:
+            case 3:
+            case 9:
+            case 10:
+            case 11:
+            case 32:
+            case 33:
                 return true;
-
-            if (!reader.TrySetPosition(position + 2))
+            default:
                 return false;
-
-            byte colorMap = reader.ReadByte();
-            if (colorMap > 2)
-                return false;
-
-            byte dataType = reader.ReadByte();
-
-            switch (dataType)
-            {
-                // case 0: //this is useless eg. empty image
-                case 1:
-                case 2:
-                case 3:
-                case 9:
-                case 10:
-                case 11:
-                case 32:
-                case 33:
-                    return true;
-                default:
-                    return false;
-            }
         }
     }
 }

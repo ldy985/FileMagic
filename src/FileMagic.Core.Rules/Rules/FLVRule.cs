@@ -1,18 +1,18 @@
 ﻿using ldy985.FileMagic.Abstracts;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Core.Rules.Rules
+namespace ldy985.FileMagic.Core.Rules.Rules;
+
+public class FLVRule : BaseRule
 {
-    public class FLVRule : BaseRule
-    {
-        /// <inheritdoc />
-        public FLVRule(ILogger<FLVRule> logger) : base(logger) { }
+    /// <inheritdoc />
+    public FLVRule(ILogger<FLVRule> logger) : base(logger) { }
 
-        /// <inheritdoc />
-        public override IMagic Magic { get; } = new Magic("464C5601??0000000900000000");
+    /// <inheritdoc />
+    public override IMagic Magic { get; } = new Magic("464C5601??0000000900000000");
 
-        /// <inheritdoc />
-        public override Quality Quality => Quality.High;
-        public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe flash video format", "FLV");
-    }
+    /// <inheritdoc />
+    public override Quality Quality => Quality.High;
+
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Adobe flash video format", "FLV");
 }
