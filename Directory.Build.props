@@ -52,7 +52,7 @@
         <PackageReference Include="AsyncFixer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="JetBrains.Annotations" Version="*" PrivateAssets="all"/>
-        <PackageReference Include="Lindhart.Analyser.MissingAwaitWarning" Version="*" PrivateAssets="all" />
+        <PackageReference Include="Lindhart.Analyser.MissingAwaitWarning" Version="*" PrivateAssets="all"/>
     </ItemGroup>
 
 
