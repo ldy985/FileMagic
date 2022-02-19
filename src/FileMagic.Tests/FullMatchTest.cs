@@ -26,7 +26,7 @@ namespace ldy985.FileMagic.Tests
         {
             get
             {
-                var testFiles = new List<object[]>();
+                List<object[]> testFiles = new List<object[]>();
 
                 string[] files = Directory.GetFiles("../../../../../resources/", "*");
 
@@ -52,8 +52,8 @@ namespace ldy985.FileMagic.Tests
         public void DetectAllCorrectly(TestFile testFile)
         {
             string filePath = testFile.Path;
-            Assert.True(_fileMagic.IdentifyFile(filePath, out IResult result), filePath);
-            Assert.Contains(testFile.GetExtension(), result.Extensions!, StringComparer.Ordinal);
+            Assert.True(_fileMagic.IdentifyFile(filePath, out IResult? result), filePath);
+            Assert.Contains(testFile.GetExtension(), result!.Extensions!, StringComparer.Ordinal);
         }
     }
 }

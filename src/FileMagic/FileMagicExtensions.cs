@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Text;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
@@ -19,7 +20,7 @@ namespace ldy985.FileMagic
         /// <exception cref="System.UnauthorizedAccessException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="IOException"></exception>
-        public static bool IdentifyFile(this IFileMagic fileMagic, string filePath, out IResult result)
+        public static bool IdentifyFile(this IFileMagic fileMagic, string filePath, [NotNullWhen(true)] out IResult? result)
         {
             using (FileStream fileStream = File.OpenRead(filePath))
             {
@@ -32,19 +33,19 @@ namespace ldy985.FileMagic
             }
         }
 
-        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result, in IMetaData metaData)
+        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, [NotNullWhen(true)] out IResult? result, in IMetaData metaData)
         {
             using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
             return fileMagic.IdentifyStream(binaryReader, out result, metaData);
         }
 
-        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, out IResult result)
+        public static bool IdentifyStream(this IFileMagic fileMagic, Stream stream, [NotNullWhen(true)] out IResult? result)
         {
             using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
             return fileMagic.IdentifyStream(binaryReader, out result);
         }
 
-        public static bool StreamMatches<T>(this IFileMagic fileMagic, Stream stream, out IResult result) where T : IRule
+        public static bool StreamMatches<T>(this IFileMagic fileMagic, Stream stream, [NotNullWhen(true)] out IResult? result) where T : IRule
         {
             using BinaryReader binaryReader = new BinaryReader(stream, Encoding.UTF8, true);
             return fileMagic.StreamMatches<T>(binaryReader, out result);

@@ -10,10 +10,10 @@ namespace ldy985.FileMagic.Core
 
         public void ExecuteHandlers(IRule type, IParsed parsed)
         {
-            if (!_parsedActions.TryGetValue(type.GetType(), out var handlers))
+            if (!_parsedActions.TryGetValue(type.GetType(), out List<Action<object>>? handlers))
                 return;
 
-            foreach (var parsedHandler in handlers)
+            foreach (Action<object>? parsedHandler in handlers)
                 parsedHandler.Invoke(parsed);
         }
 
@@ -25,7 +25,7 @@ namespace ldy985.FileMagic.Core
             }
 
             Type type = typeof(TRule);
-            if (_parsedActions.TryGetValue(type, out var actions))
+            if (_parsedActions.TryGetValue(type, out List<Action<object>>? actions))
                 actions.Add(Action);
             else
                 _parsedActions.Add(type, new List<Action<object>> { Action });

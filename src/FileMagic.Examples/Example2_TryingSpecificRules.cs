@@ -21,10 +21,10 @@ namespace ldy985.FileMagic.Examples
             using (FileMagic fileMagic = new FileMagic(Options.Create(fileMagicConfig)))
             using (MemoryStream memoryStream = new MemoryStream(new byte[] { 0x4d, 0x5a }))
             {
-                if (fileMagic.StreamMatches<EXERule>(memoryStream, out IResult result))
+                if (fileMagic.StreamMatches<EXERule>(memoryStream, out IResult? result))
                     Console.WriteLine(result.Description);
 
-                if (fileMagic.StreamMatches<RAR5Rule>(memoryStream, out IResult result2))
+                if (fileMagic.StreamMatches<RAR5Rule>(memoryStream, out IResult? result2))
                     Console.WriteLine(result2.Description);
             }
         }

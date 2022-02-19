@@ -42,7 +42,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();
-            bool tryFindInternal = TryFindInternal(RootNode, br, streamPosition, out var data);
+            bool tryFindInternal = TryFindInternal(RootNode, br, streamPosition, out Node<IRule>? data);
             br.SetPosition(streamPosition);
 
             if (!tryFindInternal)
@@ -107,18 +107,18 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             if (node.Children != null)
             {
-                if (node.Children.TryGetValue(readByte, out var tempNode))
+                if (node.Children.TryGetValue(readByte, out Node<IRule>? tempNode))
                 {
-                    tryFind1 = TryFindInternal(tempNode, br, pos, out var temp1);
+                    tryFind1 = TryFindInternal(tempNode, br, pos, out Node<IRule>? temp1);
                     if (tryFind1)
                         result = temp1;
                 }
 
                 br.SetPosition(pos);
 
-                if (node.Children.TryGetValue(ushort.MaxValue, out var tempNode2))
+                if (node.Children.TryGetValue(ushort.MaxValue, out Node<IRule>? tempNode2))
                 {
-                    tryFind2 = TryFindInternal(tempNode2, br, pos, out var temp2);
+                    tryFind2 = TryFindInternal(tempNode2, br, pos, out Node<IRule>? temp2);
                     if (tryFind2)
                         result = temp2;
                 }
@@ -138,14 +138,14 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private void AddRule(IReadOnlyList<byte?> path, IRule leafData)
         {
-            var node = RootNode;
+            Node<IRule>? node = RootNode;
 
             for (int index = 0; index < path.Count; index++)
             {
                 byte? b = path[index];
                 ushort key = b.HasValue ? (ushort)b : ushort.MaxValue;
 
-                if (node.Children != null && node.Children.TryGetValue(key, out var tempNode))
+                if (node.Children != null && node.Children.TryGetValue(key, out Node<IRule>? tempNode))
                 {
                     if (index == path.Count - 1)
                         tempNode.AddValue(leafData);
@@ -154,7 +154,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                     continue;
                 }
 
-                var value = new Node<IRule>();
+                Node<IRule>? value = new Node<IRule>();
 
                 if (index == path.Count - 1)
                     value.AddValue(leafData);

@@ -21,7 +21,7 @@ namespace ldy985.FileMagic.Benchmarks
         {
             get
             {
-                var testFiles = new List<object[]>();
+                List<object[]> testFiles = new List<object[]>();
 
                 string[] files = Directory.GetFiles("../../../../../resources/", "*");
 
@@ -60,7 +60,7 @@ namespace ldy985.FileMagic.Benchmarks
         [ArgumentsSource(nameof(TestFiles))]
         public (bool bestCaseNoMatch, IResult result) RuleTest(string extension, Stream stream)
         {
-            bool bestCaseNoMatch = _fileMagic.IdentifyStream(stream, out var result);
+            bool bestCaseNoMatch = _fileMagic.IdentifyStream(stream, out IResult result);
             return (bestCaseNoMatch, result);
         }
     }
