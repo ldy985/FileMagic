@@ -50,14 +50,14 @@ namespace ldy985.FileMagic.Benchmarks
 
         public static IEnumerable<object[]> WorstCaseData()
         {
-            var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+            IEnumerable<IRule> timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
 
             foreach (IRule timeSpan in timeSpans)
             {
                 if (!timeSpan.HasMagic)
                     continue;
 
-                var a = Enumerable.Empty<byte>();
+                IEnumerable<byte> a = Enumerable.Empty<byte>();
                 if (timeSpan.Magic!.Offset != 0)
                     a = Enumerable.Repeat((byte)0x1, (int)timeSpan.Magic!.Offset);
 
@@ -86,7 +86,7 @@ namespace ldy985.FileMagic.Benchmarks
 
         public static IEnumerable<object> Rules()
         {
-            var timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
+            IEnumerable<IRule> timeSpans = FileMagicRuleHelpers.CreateRules<IRule>(NullLoggerFactory.Instance, typeof(FileMagicBuilderExtensions).Assembly);
 
             foreach (IRule timeSpan in timeSpans)
             {

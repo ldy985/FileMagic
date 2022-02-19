@@ -13,7 +13,7 @@ namespace ldy985.FileMagic.Core
         public string? Description { get; set; }
 
         /// <inheritdoc />
-        public IRule? MatchedRule { get; set; }
+        public IRule MatchedRule { get; set; }
 
         /// <inheritdoc />
         public MatchTypes MatchedRuleTypes { get; set; }

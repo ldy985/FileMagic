@@ -24,7 +24,7 @@ namespace ldy985.FileMagic.Examples
 
                 using (FileStream fs = File.OpenRead(filePath))
                 {
-                    bool identifyStream = fileMagic.StreamMatches<ICORule>(fs, out IResult result);
+                    bool identifyStream = fileMagic.StreamMatches<ICORule>(fs, out IResult? result);
                     Console.WriteLine(identifyStream);
 
                     fs.Seek(0, SeekOrigin.Begin);

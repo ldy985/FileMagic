@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
@@ -70,28 +71,28 @@ namespace ldy985.FileMagic
         /// <param name="metaData"></param>
         /// <returns></returns>
         /// <exception cref="IOException"></exception>
-        public bool IdentifyStream(BinaryReader binaryReader, out IResult result, in IMetaData metaData)
+        public bool IdentifyStream(BinaryReader binaryReader, [NotNullWhen(true)] out IResult? result, in IMetaData metaData)
         {
             result = new Result();
             _logger.LogTrace("Trying {Matcher} matcher", _name);
-            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out var matchedRules);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out IEnumerable<IRule>? matchedRules);
             return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
         }
 
         /// <inheritdoc />
-        public bool IdentifyStream(BinaryReader binaryReader, out IResult result)
+        public bool IdentifyStream(BinaryReader binaryReader, [NotNullWhen(true)] out IResult? result)
         {
             result = new Result();
 
             _logger.LogTrace("Trying {Matcher} matcher", _name);
-            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out var matchedRules);
+            bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules);
             return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
         }
 
         /// <inheritdoc />
         /// <exception cref="ObjectDisposedException"></exception>
         /// <exception cref="IOException"></exception>
-        public bool StreamMatches<T>(BinaryReader binaryReader, out IResult result) where T : IRule
+        public bool StreamMatches<T>(BinaryReader binaryReader, [NotNullWhen(true)] out IResult? result) where T : IRule
         {
             T rule = _ruleProvider.Get<T>();
             result = new Result();

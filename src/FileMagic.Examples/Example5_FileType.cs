@@ -19,7 +19,7 @@ namespace ldy985.FileMagic.Examples
             {
                 string filePath = Program.BasePath(0) + "bmp";
 
-                if (fileMagic.IdentifyFile(filePath, out IResult result))
+                if (fileMagic.IdentifyFile(filePath, out IResult? result))
                 {
                     Console.WriteLine("The file: " + filePath);
                     Console.WriteLine("Was detected as matching the following rule: " + result.MatchedRule?.Name);
