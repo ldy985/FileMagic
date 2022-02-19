@@ -1,3 +1,4 @@
 ﻿https://www.loc.gov/preservation/digital/formats/fdd/browse_list.shtml
 https://github.com/apache/tika/blob/main/tika-core/src/main/resources/org/apache/tika/mime/tika-mimetypes.xml
 https://www.iana.org/assignments/media-types/media-types.xhtml
+https://github.com/horsicq/Detect-It-Easy/tree/master/db

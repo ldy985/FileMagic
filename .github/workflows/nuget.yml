@@ -20,7 +20,12 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Build with dotnet
-        run: |    
+      - name: Nuget push (github)
+        run: |
           dotnet pack -c Release src/FileMagic.sln -o artifacts
-          dotnet nuget push --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json artifacts/*
+          dotnet nuget push --no-symbols --skip-duplicate -k ${{ secrets.GITHUB_TOKEN }} -s "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" artifacts/*.nupkg
+        
+#      - name: Build with dotnet
+#        run: |    
+#          dotnet pack -c Release src/FileMagic.sln -o artifacts
+#          dotnet nuget push --skip-duplicate -k ${{secrets.NUGET_KEY}} -s https://api.nuget.org/v3/index.json artifacts/*
