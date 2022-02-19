@@ -56,11 +56,11 @@
     </ItemGroup>
 
 
-    <ItemGroup Condition="'$(BuildingInsideVisualStudio)' == 'false' OR '$(BuildingByReSharper)' == 'false'">
-        <PackageReference Include="MinVer" Version="*" PrivateAssets="all"/>
+    <ItemGroup>
         <PackageReference Include="Nerdbank.GitVersioning"
                           Version="*"
                           PrivateAssets="all"
+                          IncludeAssets="runtime; build; native; contentfiles; analyzers"
                           Condition="!Exists('packages.config')"/>
     </ItemGroup>
 
