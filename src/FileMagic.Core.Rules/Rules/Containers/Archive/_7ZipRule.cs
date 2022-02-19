@@ -19,6 +19,6 @@ public class _7ZipRule : BaseRule
 
     protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
-        return reader.GetLength() >= 64;
+        return reader.GetLength() >= 32;
     }
 }
