@@ -15,5 +15,5 @@ public class EXERule : BaseRule
     public override Quality Quality => Quality.High;
 
     /// <inheritdoc />
-    public override ITypeInfo TypeInfo { get; } = new TypeInfo("MZ Executable code", "EXE", "DLL", "SYS", "WINMD", "XLL");
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("MZ Executable code", "EXE", "DLL", "SYS", "WINMD", "XLL", "CPL", "FON");
 }

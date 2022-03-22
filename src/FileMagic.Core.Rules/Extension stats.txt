@@ -1,0 +1,136 @@
+﻿ .manifest 52254973 text
+y .dll 41077325 binary
+- .cat 39247618 
+ .mui 23776368 
+ .mum 22705466 
+-  21630280 
+y .png 14430897 binary
+y .xml 6373011 text
+n .js 5740886 text
+y .exe 5260770 binary
+n .R 4512090 text
+y .rtf 4472228 binary
+ .xrm-ms 3722711 
+n .log 2487004 text
+n .json 2482932 text
+n .T 2296244 
+n .adml 2291338 
+ .inf_loc 2280830 
+ .inf 2253048 text
+y .jpg 2153616 binary
+y .cdf-ms 2082700 binary
+ .mfl 2053390 
+y .sys 2012559 binary
+ .htm 1870041 
+y .pri 1824968 binary
+n .mof 1788554 text
+y .DLL 1691515 binary
+n .txt 1675310 text
+ .dat 1642709 
+ .cdxml 1603900 text
+ .P 1590780 
+n .html 1546470 text
+- .tmp 1516874 
+ .idrc 1465904 
+ .settingcontent-ms 1465698 
+n .sql 1432885 text
+y .svg 1400967 text
+n .cs 1317169 text
+TODO .etl 1281036 binary
+y .cab 1177413 binary
+ .man 1170455 text
+n .ini 1019586 text
+ .psd1 953758 text
+y .pdf 916496 binary
+ .ps1xml 869720 text
+- .bin 826735 
+n .css 799963 text
+n .ps1 786754 text
+y .lnk 751686 binary
+y .tif 714917 binary
+y .gz 697255 binary
+y .gif 687346 binary
+y .WMF 686820 binary
+y .winmd 676860 binary
+ .resx 647218 text
+y .psd 645177 binary
+y .ttf 600372 binary
+y .pyc 569833 binary
+ .config 551432 
+ .ts 549209 
+n .py 540102 text
+ .aux 491196 
+ .xsd 452884 
+ .admx 451015 text
+y .GIF 448788 binary
+ .h 365876 text
+y .bmp 363032 binary
+ .pak 337064 
+y .XML 328780 text
+ .map 327800 text
+ .msc 326604 
+ .psm1 323280 text
+todo .fon 319301 binary
+y .cur 304510 binary
+y .wav 288464 binary
+y .p7x 282927 binary
+n .md 281930 text
+y .JPG 277405 binary
+y .xbf 264899 binary
+"needs signature" .mun 258366 binary
+ .xsl 257198 
+y .ico 256327 binary
+n .vbs 254278 text
+y .xls 239605 binary
+ .cov 237905 
+ .aspx 236073 text
+y .PNF 232010 binary
+ .NLS 227215 
+ .xaml 225705 text
+y .TTF 217908 binary
+ .tlb 209729 
+y .evtx 208328 binary
+ .odlgz 207315 
+ .indd 207181 
+ .pckgdep 206913 
+ .db 203332 
+ .GPD 201788 
+ .LOG1 191973 
+ .LOG2 191972 
+y .xlsx 176772 binary
+ .lock 172034 
+ .ai 169605 
+ .dcp 163064 
+y .docx 153196 binary
+ .LOG 148051 
+ .file 144493 
+ .pm 143284 
+y .ICO 142114 binary
+ ._ 138987 
+ .resjson 134336 text
+ .eps 134157 text
+ .msb 132731 
+ .nlp 132104 
+ .properties 132089 
+ .lcp 131322 
+ .mui_0da4e682 128556 
+ .DATA 126167 
+ .odlsent 125500 
+ .msi 124718 binary
+ .CSS 124413 text
+ .odl 123921 
+y .pdb 123553 binary
+ .final 121127 
+ .gpd 120605 
+ .cpl 118251 binary
+y .otf 116592 binary
+ .ascx 112164 
+ .pl 110615 text
+y .EXE 107550 binary
+y .pf 101993 binary
+ .INI 101963 text
+ .rll 101437 
+ .pma 100850 
+ .browser 100209 
+ .hyb 100157 
+ other 14329269 
