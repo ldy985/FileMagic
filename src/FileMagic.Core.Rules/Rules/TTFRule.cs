@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using JetBrains.Annotations;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using ldy985.NumberExtensions;

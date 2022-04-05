@@ -1,8 +1,8 @@
 ﻿ .manifest 52254973 text
 y .dll 41077325 binary
-- .cat 39247618 
- .mui 23776368 
- .mum 22705466 
+y .cat 39247618 binary
+y .mui 23776368 binary
+y .mum 22705466 "text xml"
 -  21630280 
 y .png 14430897 binary
 y .xml 6373011 text
@@ -10,23 +10,23 @@ n .js 5740886 text
 y .exe 5260770 binary
 n .R 4512090 text
 y .rtf 4472228 binary
- .xrm-ms 3722711 
+y .xrm-ms 3722711 "text xml"
 n .log 2487004 text
 n .json 2482932 text
 n .T 2296244 
 n .adml 2291338 
- .inf_loc 2280830 
- .inf 2253048 text
+n .inf_loc 2280830 text
+n .inf 2253048 text
 y .jpg 2153616 binary
 y .cdf-ms 2082700 binary
- .mfl 2053390 
+n .mfl 2053390 text
 y .sys 2012559 binary
- .htm 1870041 
+n .htm 1870041 text
 y .pri 1824968 binary
 n .mof 1788554 text
 y .DLL 1691515 binary
 n .txt 1675310 text
- .dat 1642709 
+- .dat 1642709 
  .cdxml 1603900 text
  .P 1590780 
 n .html 1546470 text
@@ -40,9 +40,9 @@ TODO .etl 1281036 binary
 y .cab 1177413 binary
  .man 1170455 text
 n .ini 1019586 text
- .psd1 953758 text
+n .psd1 953758 text
 y .pdf 916496 binary
- .ps1xml 869720 text
+y .ps1xml 869720 text
 - .bin 826735 
 n .css 799963 text
 n .ps1 786754 text
@@ -116,7 +116,7 @@ y .ICO 142114 binary
  .mui_0da4e682 128556 
  .DATA 126167 
  .odlsent 125500 
- .msi 124718 binary
+y .msi 124718 binary
  .CSS 124413 text
  .odl 123921 
 y .pdb 123553 binary
