@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace ldy985.FileMagic.Tests
 {
     public class TestFile
