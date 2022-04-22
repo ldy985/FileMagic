@@ -65,10 +65,10 @@ n .py 540102 text
 y .GIF 448788 binary
  .h 365876 text
 y .bmp 363032 binary
- .pak 337064 
+y .pak 337064 binary
 y .XML 328780 text
  .map 327800 text
- .msc 326604 
+ .msc 326604 "text xml"
  .psm1 323280 text
 todo .fon 319301 binary
 y .cur 304510 binary
@@ -78,11 +78,11 @@ n .md 281930 text
 y .JPG 277405 binary
 y .xbf 264899 binary
 "needs signature" .mun 258366 binary
- .xsl 257198 
+ .xsl 257198 text
 y .ico 256327 binary
 n .vbs 254278 text
 y .xls 239605 binary
- .cov 237905 
+y .cov 237905 binary
  .aspx 236073 text
 y .PNF 232010 binary
  .NLS 227215 
@@ -133,4 +133,4 @@ y .pf 101993 binary
  .pma 100850 
  .browser 100209 
  .hyb 100157 
- other 14329269 
+- other 14329269 
