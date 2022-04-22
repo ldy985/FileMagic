@@ -14,7 +14,7 @@ public class XMLRule : BaseRule
     /// <inheritdoc />
     public override Quality Quality => Quality.Medium;
 
-    public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML based file", "WSDL", "XML", "CONFIG", "MUM", "XRM-MS", "PS1XML");
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML based file", "WSDL", "XML", "CONFIG", "MUM", "XRM-MS", "PS1XML", "MSC");
 }
 
 public class XMLBOMRule : BaseRule
@@ -28,5 +28,5 @@ public class XMLBOMRule : BaseRule
     /// <inheritdoc />
     public override Quality Quality => Quality.Medium;
 
-    public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML with BOM based file", "WSDL", "XML", "CONFIG", "MUM", "XRM-MS", "PS1XML");
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("XML with BOM based file", "WSDL", "XML", "CONFIG", "MUM", "XRM-MS", "PS1XML", "MSC");
 }
