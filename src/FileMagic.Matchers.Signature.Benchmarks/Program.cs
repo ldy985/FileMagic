@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace ldy985.FileMagic.Benchmarks
+namespace FileMagic.Benchmarks
 {
     internal static class Program
     {
@@ -8,8 +8,8 @@ namespace ldy985.FileMagic.Benchmarks
         {
             //BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
             // BenchmarkRunner.Run<StreamReading>();
-            // BenchmarkRunner.Run<RuleBenchmark>();
-            BenchmarkRunner.Run<Rule2Benchmark>();
+            BenchmarkRunner.Run<RuleBenchmark>();
+            // BenchmarkRunner.Run<Rule2Benchmark>();
         }
     }
 }

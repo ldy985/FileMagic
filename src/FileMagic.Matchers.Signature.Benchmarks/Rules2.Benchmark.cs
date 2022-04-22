@@ -2,10 +2,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using BenchmarkDotNet.Attributes;
+using ldy985.FileMagic;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 
-namespace ldy985.FileMagic.Benchmarks
+namespace FileMagic.Benchmarks
 {
     [MemoryDiagnoser]
     [InProcess]
@@ -15,7 +16,8 @@ namespace ldy985.FileMagic.Benchmarks
     [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP006", MessageId = "Implement IDisposable.")]
     public class Rule2Benchmark
     {
-        private FileMagic _fileMagic;
+       
+        private ldy985.FileMagic.FileMagic _fileMagic;
 
         public static IEnumerable<object[]> TestFiles
         {
@@ -37,10 +39,7 @@ namespace ldy985.FileMagic.Benchmarks
         [GlobalCleanup]
         public void Dispose()
         {
-            if (_fileMagic == null)
-                return;
-
-            _fileMagic.Dispose();
+            _fileMagic?.Dispose();
         }
 
         [GlobalSetup]
@@ -53,7 +52,7 @@ namespace ldy985.FileMagic.Benchmarks
                 StructureCheck = true
             };
 
-            _fileMagic = new FileMagic(fileMagicConfig);
+            _fileMagic = new ldy985.FileMagic.FileMagic(fileMagicConfig);
         }
 
         [Benchmark]
