@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
+using ldy985.FileMagic.Matchers.Signature.Trie.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Matchers.Signature.Trie
@@ -25,7 +26,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             foreach (IRule rule in ruleProvider.PatternRules)
             {
-                logger.LogTrace("Registered: {RuleName}", rule.GetType().Name);
+                TrieSignatureMatcherLogger.LogRuleRegistration(logger, rule.GetType().Name);
                 RegisterPattern(rule);
             }
         }
@@ -47,12 +48,12 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             if (!tryFindInternal)
             {
-                _logger.LogTrace("Trie found no leafs");
+                TrieSignatureMatcherLogger.LogNoLeafs(_logger);
                 matchedRules = null;
                 return false;
             }
 
-            _logger.LogTrace("Trie found at least 1 leaf");
+            TrieSignatureMatcherLogger.LogFoundLeaf(_logger);
 
             matchedRules = data!.GetAllLeafs();
             return true;
@@ -138,7 +139,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private void AddRule(IReadOnlyList<byte?> path, IRule leafData)
         {
-            Node<IRule>? node = RootNode;
+            Node<IRule> node = RootNode;
 
             for (int index = 0; index < path.Count; index++)
             {
@@ -154,7 +155,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
                     continue;
                 }
 
-                Node<IRule>? value = new Node<IRule>();
+                Node<IRule> value = new Node<IRule>();
 
                 if (index == path.Count - 1)
                     value.AddValue(leafData);
