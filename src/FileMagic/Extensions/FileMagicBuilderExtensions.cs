@@ -17,8 +17,8 @@ namespace ldy985.FileMagic.Extensions
         {
             builder.Services.AddSingleton(x =>
             {
-                ILogger<FileMagic>? logger = x.GetRequiredService<ILogger<FileMagic>>();
-                IOptions<FileMagicConfig>? options = x.GetRequiredService<IOptions<FileMagicConfig>>();
+                ILogger<FileMagic> logger = x.GetRequiredService<ILogger<FileMagic>>();
+                IOptions<FileMagicConfig> options = x.GetRequiredService<IOptions<FileMagicConfig>>();
                 IRuleProvider ruleProvider = x.GetRequiredService<IRuleProvider>();
                 IParsedHandlerProvider? handlerProvider = x.GetService<IParsedHandlerProvider>();
                 IParallelMagicMatcher parallelMagicMatcher = x.GetRequiredService<IParallelMagicMatcher>();
