@@ -2,18 +2,20 @@
 
     <PropertyGroup>
         <Authors>Lasse Dyrsted</Authors>
-        <Copyright>Copyright 2021, by Lasse Dyrsted. All rights reserved.</Copyright>
+        <Copyright>Copyright 2022, by Lasse Dyrsted. All rights reserved.</Copyright>
 
         <!-- Set copying files etc. to timeout faster -->
         <CopyRetryCount>2</CopyRetryCount>
         <CopyRetryDelayMilliseconds>500</CopyRetryDelayMilliseconds>
 
-        <LangVersion>latest</LangVersion>
+        <LangVersion>preview</LangVersion>
         <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
         <Nullable>enable</Nullable>
         <AnalysisMode>All</AnalysisMode>
-        <AnalysisLevel>latest</AnalysisLevel>
-
+        <AnalysisLevel>preview</AnalysisLevel>
+        <IsTrimmable>true</IsTrimmable>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+        <TrimmerSingleWarn>false</TrimmerSingleWarn>
 
         <DebugType>portable</DebugType>
         <DebugSymbols>true</DebugSymbols>

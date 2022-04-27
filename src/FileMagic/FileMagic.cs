@@ -6,6 +6,7 @@ using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Extensions;
+using ldy985.FileMagic.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -74,7 +75,7 @@ namespace ldy985.FileMagic
         public bool IdentifyStream(BinaryReader binaryReader, [NotNullWhen(true)] out IResult? result, in IMetaData metaData)
         {
             result = new Result();
-            _logger.LogTrace("Trying {Matcher} matcher", _name);
+            FileMagicLogger.LogMatchTry(_logger, _name);
             bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, in metaData, out IEnumerable<IRule>? matchedRules);
             return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
         }
@@ -84,7 +85,7 @@ namespace ldy985.FileMagic
         {
             result = new Result();
 
-            _logger.LogTrace("Trying {Matcher} matcher", _name);
+            FileMagicLogger.LogMatchTry(_logger, _name);
             bool hasMagicMatch = _parallelMagicMatcher.TryFind(binaryReader, out IEnumerable<IRule>? matchedRules);
             return ComplexMatch(hasMagicMatch, result, binaryReader, matchedRules!);
         }
@@ -111,13 +112,13 @@ namespace ldy985.FileMagic
         {
             if (hasMagicMatch)
             {
-                _logger.LogDebug("{Matcher} matched", _name);
+                FileMagicLogger.LogMatch(_logger, _name);
 
                 result.MatchedRuleTypes |= MatchTypes.Signature;
 
                 foreach (IRule rule in matchedRules)
                 {
-                    _logger.LogDebug("Rule: {Rule} matched", rule.Name);
+                    FileMagicLogger.LogRuleMatch(_logger, _name);
 
                     (bool _, bool structureMatched, bool parserMatched) = RuleMatches(binaryReader, rule, ref result, false, _config.Value.StructureCheck,
                         _config.Value.ParserCheck);
@@ -169,11 +170,12 @@ namespace ldy985.FileMagic
 
             if (patternCheck && rule.HasMagic)
             {
-                _logger.LogTrace("Testing {Rule} pattern", rule.Name);
+                FileMagicLogger.LogTestPattern(_logger, rule.Name);
 
                 if (rule.TryMagic(binaryReader.BaseStream))
                 {
-                    _logger.LogDebug("Matched {Rule} pattern", rule.Name);
+                    FileMagicLogger.LogPatternMatch(_logger, rule.Name);
+
                     patternMatched = true;
                     result.MatchedRuleTypes |= MatchTypes.Signature;
                 }
@@ -181,11 +183,12 @@ namespace ldy985.FileMagic
 
             if (structureCheck && rule.HasStructure)
             {
-                _logger.LogTrace("Testing {Rule} structure", rule.Name);
+                FileMagicLogger.LogTestStructure(_logger, rule.Name);
 
                 if (rule.TryStructure(binaryReader, ref result))
                 {
-                    _logger.LogDebug("Matched {Rule} structure", rule.Name);
+                    FileMagicLogger.LogStructureMatch(_logger, rule.Name);
+
                     structureMatched = true;
                     result.MatchedRuleTypes |= MatchTypes.Structure;
                 }
@@ -193,14 +196,15 @@ namespace ldy985.FileMagic
 
             if (parserCheck && rule.HasParser)
             {
-                _logger.LogTrace("Testing {Rule} parser", rule.Name);
+                FileMagicLogger.LogTestParser(_logger, rule.Name);
 
                 if (rule.TryParse(binaryReader, ref result, out IParsed? parsedObject))
                 {
                     if (_config.Value.ParserHandle)
                         _handlerProvider?.ExecuteHandlers(rule, parsedObject);
 
-                    _logger.LogDebug("Matched {Rule} parser", rule.Name);
+                    FileMagicLogger.LogParserMatch(_logger, rule.Name);
+
                     parserMatched = true;
                     result.MatchedRuleTypes |= MatchTypes.Parser;
                 }

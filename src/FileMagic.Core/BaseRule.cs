@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using ldy985.BinaryReaderExtensions;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Abstracts.Enums;
+using ldy985.FileMagic.Core.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core
@@ -102,7 +103,7 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Error while parsing with: {RuleName}", GetType().Name);
+                BaseRuleLogger.LogParsingError(Logger, ex, GetType().Name);
                 parsed = null;
             }
 
@@ -126,7 +127,7 @@ namespace ldy985.FileMagic.Core
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex, "Error while TryingStructure with: {RuleName}", GetType().Name);
+                BaseRuleLogger.LogStructureError(Logger, ex, GetType().Name);
             }
 
             reader.SetPosition(position);
@@ -145,9 +146,10 @@ namespace ldy985.FileMagic.Core
         /// <param name="t">The type to check the method in.</param>
         /// <param name="methodName">The name of the method to check.</param>
         /// <returns>True if the method is defined.</returns>
-        private static bool IsOverridden(Type t, string methodName)
+        private static bool IsOverridden([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.NonPublicMethods)] Type t, string methodName)
         {
-            return t.GetMember(methodName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly).Length > 0;
+            MethodInfo? methodInfo = t.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            return methodInfo != null && methodInfo.DeclaringType != typeof(BaseRule);
         }
 
         /// <summary>

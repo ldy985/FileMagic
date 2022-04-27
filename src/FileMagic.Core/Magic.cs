@@ -39,14 +39,14 @@ namespace ldy985.FileMagic.Core
 
         private byte?[] GetMagicBytes()
         {
-            string pattern = Pattern; //TODO use ReadOnlySpan when byte.Parse implements it.
+            ReadOnlySpan<char> pattern = Pattern;
             int length = pattern.Length;
             byte?[] data = new byte?[length / 2];
 
             for (int i = 0; i < length; i += 2)
             {
-                string substring = pattern.Substring(i, 2);
-                if (substring == "??")
+                ReadOnlySpan<char> substring = pattern.Slice(i, 2);
+                if (substring.SequenceEqual("??"))
                     data[i >> 1] = null;
                 else
                     data[i >> 1] = byte.Parse(substring, NumberStyles.HexNumber, CultureInfo.InvariantCulture);

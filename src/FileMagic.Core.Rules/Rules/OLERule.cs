@@ -39,6 +39,7 @@ public class OLERule : BaseRule
         if (oleData.Directories.Contains(_metaInfoName))
         {
             if (compoundFile.RootStorage.TryGetStream(_metaInfoName, out CFStream? tryGetStream))
+            {
                 try
                 {
                     OLEPropertiesContainer propertySetStream = tryGetStream.AsOLEPropertiesContainer();
@@ -53,7 +54,9 @@ public class OLERule : BaseRule
                 catch (Exception ex)
                 {
                     Logger.LogWarning(ex, "Failed to parse OLE SummaryInformation");
+                    OLERuleLogger.LogOLEParseError(Logger, ex);
                 }
+            }
 
             if (oleData.MetaInfo.TryGetValue("Application Name", out object? dataValue))
             {
@@ -87,7 +90,7 @@ public class OLERule : BaseRule
                 }
                 else
                 {
-                    Logger.LogWarning("Unhandled Application Name: {AppName}", value);
+                    OLERuleLogger.LogUnhandledApplication(Logger, value);
                 }
 
                 if (any)
@@ -160,4 +163,13 @@ public class OLEData : IParsed
 
     public IList<string> Directories { get; }
     public IDictionary<string, object> MetaInfo { get; }
+}
+
+internal static partial class OLERuleLogger
+{
+    [LoggerMessage(9000, LogLevel.Warning, "Unhandled Application Name: {AppName}")]
+    internal static partial void LogUnhandledApplication(ILogger logger, string AppName);
+
+    [LoggerMessage(9001, LogLevel.Warning, "Failed to parse OLE SummaryInformation")]
+    internal static partial void LogOLEParseError(ILogger logger, Exception ex);
 }

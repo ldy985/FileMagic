@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ldy985.FileMagic.Core.Rules.Rules;
 
-public class ATFRule : BaseRule
+public  class ATFRule : BaseRule
 {
     /// <inheritdoc />
     public ATFRule(ILogger<ATFRule> logger) : base(logger) { }

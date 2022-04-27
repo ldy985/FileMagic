@@ -12,7 +12,7 @@ public class PAK5Rule : BaseRule
     /// <inheritdoc />
     public override IMagic Magic { get; } = new Magic("05000000");
 
-    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Chromium pak files", "PAK", "DATA");
+    public override ITypeInfo TypeInfo { get; } = new TypeInfo("Pak archive", "PAK", "DATA");
 
     /// <inheritdoc />
     public override Quality Quality => Quality.High;

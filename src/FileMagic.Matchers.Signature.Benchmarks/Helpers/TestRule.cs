@@ -3,7 +3,7 @@ using ldy985.FileMagic.Abstracts.Enums;
 using ldy985.FileMagic.Core;
 using Microsoft.Extensions.Logging;
 
-namespace ldy985.FileMagic.Benchmarks.Helpers
+namespace FileMagic.Benchmarks.Helpers
 {
     public class TestRule : BaseRule
     {

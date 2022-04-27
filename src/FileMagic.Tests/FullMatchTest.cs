@@ -53,7 +53,10 @@ namespace ldy985.FileMagic.Tests
         {
             string filePath = testFile.Path;
             Assert.True(_fileMagic.IdentifyFile(filePath, out IResult? result), filePath);
-            Assert.Contains(testFile.GetExtension(), result!.Extensions!, StringComparer.Ordinal);
+            Assert.NotNull(result);
+
+            if (result!.Extensions is not null && result.Extensions.Length > 0)
+                Assert.Contains(testFile.GetExtension(), result.Extensions, StringComparer.Ordinal);
         }
     }
 }

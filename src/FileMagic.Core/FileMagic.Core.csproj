@@ -5,11 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.1.0" />
+        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.2.0" />
         <PackageReference Include="System.Buffers" Version="4.5.1" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     </ItemGroup>
+    
+
 
     <ItemGroup>
         <ProjectReference Include="..\FileMagic.Abstracts\FileMagic.Abstracts.csproj" />

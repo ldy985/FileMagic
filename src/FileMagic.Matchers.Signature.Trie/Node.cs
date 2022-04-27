@@ -64,7 +64,7 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
         private static IEnumerable<T> ValuesDeep(Node<T> node)
         {
-            IEnumerable<T>? valuesDeep = Enumerable.Empty<T>();
+            IEnumerable<T> valuesDeep = Enumerable.Empty<T>();
 
             if (node.Children != null)
                 foreach (KeyValuePair<ushort, Node<T>> pair in node.Children)

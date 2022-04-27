@@ -6,7 +6,7 @@ using System.Text;
 using BenchmarkDotNet.Attributes;
 using Microsoft.Toolkit.HighPerformance;
 
-namespace ldy985.FileMagic.Benchmarks
+namespace FileMagic.Benchmarks
 {
     [MemoryDiagnoser]
     [InProcess]

@@ -16,7 +16,7 @@ public class LUACRule : BaseRule
     public override IMagic Magic { get; } = new Magic("1b4c7561??000104040408");
 
     /// <inheritdoc />
-    public override Quality Quality => Quality.Medium;
+    public override Quality Quality => Quality.High;
 
     public override ITypeInfo TypeInfo { get; } = new TypeInfo("Lua bytecode", "LUAC");
 }
