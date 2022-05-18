@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using BenchmarkDotNet.Attributes;
+using ldy985.FileMagic;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
 using Microsoft.Extensions.Options;
 
-namespace ldy985.FileMagic.Benchmarks
+namespace FileMagic.Benchmarks
 {
     [MemoryDiagnoser]
     [InProcess]
@@ -16,7 +17,7 @@ namespace ldy985.FileMagic.Benchmarks
     [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP006", MessageId = "Implement IDisposable.")]
     public class ByteComparison
     {
-        private FileMagic _fileMagic;
+        private ldy985.FileMagic.FileMagic _fileMagic;
 
         private Stream _memoryStream;
 
@@ -36,7 +37,7 @@ namespace ldy985.FileMagic.Benchmarks
             fileMagicConfig.ParserHandle = false;
             fileMagicConfig.PatternCheck = true;
 
-            _fileMagic = new FileMagic(Options.Create(fileMagicConfig));
+            _fileMagic = new ldy985.FileMagic.FileMagic(Options.Create(fileMagicConfig));
         }
 
         [GlobalCleanup]

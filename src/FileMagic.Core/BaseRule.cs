@@ -51,6 +51,7 @@ namespace ldy985.FileMagic.Core
         /// <exception cref="IOException"></exception>
         /// <exception cref="ObjectDisposedException"></exception>
         /// <exception cref="ArgumentException">Thrown when the <see cref="IRule" /> has no magic.</exception>
+        /// <exception cref="T:System.NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output.</exception>
         public bool TryMagic(Stream stream)
         {
             if (!HasMagic)
@@ -86,7 +87,7 @@ namespace ldy985.FileMagic.Core
         }
 
         /// <inheritdoc />
-        /// <exception cref="IOException"></exception>
+        /// <exception cref="T:System.IO.IOException">An I/O error occurred.</exception>
         public bool TryParse(BinaryReader reader, ref IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             long position = reader.GetPosition();
@@ -112,6 +113,7 @@ namespace ldy985.FileMagic.Core
         }
 
         /// <inheritdoc />
+        /// <exception cref="T:System.IO.IOException">An I/O error occurred.</exception>
         public bool TryStructure(BinaryReader reader, ref IResult result)
         {
             long position = reader.GetPosition();
@@ -159,6 +161,10 @@ namespace ldy985.FileMagic.Core
         /// <param name="result">Common information about the parsed structure from the stream.</param>
         /// <param name="parsed">The parsed structure from the stream.</param>
         /// <returns>True if parsing was successful.</returns>
+        /// <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+        /// <exception cref="T:System.IO.IOException">An I/O error occurred.</exception>
+        /// <exception cref="T:System.Exception">Anything can be implemented in a rule.</exception>
+        /// <exception cref="T:System.ObjectDisposedException">The stream is closed.</exception>
         protected virtual bool TryParseInternal(BinaryReader reader, IResult result, [NotNullWhen(true)] out IParsed? parsed)
         {
             parsed = null;
@@ -171,6 +177,10 @@ namespace ldy985.FileMagic.Core
         /// <param name="reader">The stream to check packed in a <see cref="BinaryReader" />.</param>
         /// <param name="result">Common information about the checked structure from the stream.</param>
         /// <returns>True if parsing was successful.</returns>
+        /// <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached.</exception>
+        /// <exception cref="T:System.IO.IOException">An I/O error occurred.</exception>
+        /// <exception cref="T:System.Exception">Anything can be implemented in a rule.</exception>
+        /// <exception cref="T:System.ObjectDisposedException">The stream is closed.</exception>
         protected virtual bool TryStructureInternal(BinaryReader reader, IResult result)
         {
             return false;

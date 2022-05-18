@@ -17,6 +17,8 @@ namespace ldy985.FileMagic.Core
                 parsedHandler.Invoke(parsed);
         }
 
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="key" /> is <see langword="null" />.</exception>
+        /// <exception cref="T:System.Exception">A delegate callback throws an exception.</exception>
         public IParsedHandlerProvider AddParsedHandler<TRule, TParsed>(Action<TParsed> action1) where TRule : IRule where TParsed : IParsed
         {
             void Action(object obj)

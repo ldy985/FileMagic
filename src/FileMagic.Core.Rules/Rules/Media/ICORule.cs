@@ -17,6 +17,7 @@ public class ICORule : BaseRule
     /// <inheritdoc />
     public override Quality Quality => Quality.High;
 
+    /// <inheritdoc />
     protected override bool TryStructureInternal(BinaryReader reader, IResult result)
     {
         if (reader.ReadUInt16() != 0)

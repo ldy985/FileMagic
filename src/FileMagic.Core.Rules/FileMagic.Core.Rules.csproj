@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\RuleListGenerator\RuleListGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
         <ProjectReference Include="..\FileMagic.Core\FileMagic.Core.csproj" />
     </ItemGroup>
-
 </Project>

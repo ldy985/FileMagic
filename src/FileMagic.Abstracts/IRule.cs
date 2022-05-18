@@ -66,6 +66,10 @@ namespace ldy985.FileMagic.Abstracts
         /// </summary>
         /// <param name="stream"></param>
         /// <returns>True if the stream matches the expected magic.</returns>
+        /// <exception cref="IOException"></exception>
+        /// <exception cref="ObjectDisposedException"></exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="IRule" /> has no magic.</exception>
+        /// <exception cref="T:System.NotSupportedException">The stream does not support seeking, such as if the stream is constructed from a pipe or console output.</exception>
         bool TryMagic(Stream stream);
     }
 }
