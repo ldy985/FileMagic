@@ -34,12 +34,16 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         private Node<IRule> RootNode { get; }
 
         /// <inheritdoc />
+        /// <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
+        /// <exception cref="T:System.ObjectDisposedException">Condition.</exception>
         public bool TryFind(BinaryReader br, in IMetaData metaData, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             return TryFind(br, out matchedRules);
         }
 
         /// <inheritdoc />
+        /// <exception cref="T:System.ObjectDisposedException">Condition.</exception>
+        /// <exception cref="T:System.IO.IOException">Condition.</exception>
         public bool TryFind(BinaryReader br, [NotNullWhen(true)] out IEnumerable<IRule>? matchedRules)
         {
             long streamPosition = br.GetPosition();
@@ -91,8 +95,6 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
         /// <param name="pos"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        /// <exception cref="IOException"></exception>
-        /// <exception cref="ObjectDisposedException"></exception>
         private static bool TryFindInternal(Node<IRule> node, BinaryReader br, long pos, [NotNullWhen(true)] out Node<IRule>? result)
         {
             result = null;
@@ -102,8 +104,18 @@ namespace ldy985.FileMagic.Matchers.Signature.Trie
 
             bool tryFind1 = false;
             bool tryFind2 = false;
+            ushort readByte;
 
-            ushort readByte = br.ReadByte();
+            try
+            {
+                readByte = br.ReadByte();
+            }
+            catch (EndOfStreamException)
+            {
+                // End of stream is fine, we just early exit. This is hit in rare cases when the stream is created from a device or similar.
+                return false;
+            }
+
             pos++;
 
             if (node.Children != null)

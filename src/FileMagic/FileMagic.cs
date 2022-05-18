@@ -25,6 +25,7 @@ namespace ldy985.FileMagic
 
         public FileMagic(FileMagicConfig config, IParsedHandlerProvider? parsedHandler = null) : this(Options.Create(config), parsedHandler) { }
 
+        /// <exception cref="T:System.ArgumentException">A Handler must be defined</exception>
         public FileMagic(IOptions<FileMagicConfig> config, IParsedHandlerProvider? parsedHandler = null)
         {
             if (config.Value.ParserHandle && parsedHandler == null)

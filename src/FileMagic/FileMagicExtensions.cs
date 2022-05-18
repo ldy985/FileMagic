@@ -20,6 +20,9 @@ namespace ldy985.FileMagic
         /// <exception cref="System.UnauthorizedAccessException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
         /// <exception cref="IOException"></exception>
+        /// <exception cref="T:System.ArgumentException">.NET Framework and .NET Core versions older than 2.1: <paramref name="path" /> is a zero-length string, contains only white space, or contains one or more invalid characters. You can query for invalid characters by using the <see cref="M:System.IO.Path.GetInvalidPathChars" /> method.</exception>
+        /// <exception cref="T:System.NotSupportedException"><paramref name="path" /> is in an invalid format.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
         public static bool IdentifyFile(this IFileMagic fileMagic, string filePath, [NotNullWhen(true)] out IResult? result)
         {
             using (FileStream fileStream = File.OpenRead(filePath))
