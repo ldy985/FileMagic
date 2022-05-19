@@ -42,9 +42,10 @@
         <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
 
-    <Target Name="SetVersion" AfterTargets="MinVer">
-        <PropertyGroup>
-            <AssemblyVersion>$(MinVerVersion)</AssemblyVersion>
+    <!--MinVer versioning-->
+    <Target Name="ModifyAssemblyVersion" AfterTargets="MinVer">
+        <PropertyGroup Condition="'$(MinVerMajor)' != ''">
+            <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).0</AssemblyVersion>
         </PropertyGroup>
     </Target>
 
