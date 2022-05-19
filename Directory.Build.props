@@ -42,6 +42,12 @@
         <MinVerTagPrefix>v</MinVerTagPrefix>
     </PropertyGroup>
 
+    <Target Name="SetVersion" AfterTargets="MinVer">
+        <PropertyGroup>
+            <AssemblyVersion>$(MinVerVersion)</AssemblyVersion>
+        </PropertyGroup>
+    </Target>
+
     <ItemGroup>
         <PackageReference Include="MinVer" Version="*" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="*" PrivateAssets="all"/>
