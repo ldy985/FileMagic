@@ -1,5 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using JetBrains.Annotations;
 using ldy985.FileMagic.Abstracts.Enums;
 
 namespace ldy985.FileMagic.Abstracts
@@ -7,6 +9,8 @@ namespace ldy985.FileMagic.Abstracts
     /// <summary>
     ///     A Rule is a structure that contains everything needed to detect a given type of data.
     /// </summary>
+    [PublicAPI]
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public interface IRule
     {
         /// <summary>

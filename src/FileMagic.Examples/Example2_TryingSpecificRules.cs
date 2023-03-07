@@ -19,7 +19,7 @@ namespace ldy985.FileMagic.Examples
             };
 
             using (FileMagic fileMagic = new FileMagic(Options.Create(fileMagicConfig)))
-            using (MemoryStream memoryStream = new MemoryStream(new byte[] { 0x4d, 0x5a }))
+            using (MemoryStream memoryStream = new MemoryStream("MZ"u8.ToArray()))
             {
                 if (fileMagic.StreamMatches<EXERule>(memoryStream, out IResult? result))
                     Console.WriteLine(result.Description);

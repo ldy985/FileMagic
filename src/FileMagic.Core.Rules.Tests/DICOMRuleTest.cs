@@ -1,13 +1,12 @@
 using ldy985.FileMagic.Core.Extensions;
-using ldy985.FileMagic.Core.Rules.Rules;
-using ldy985.FileMagic.Core.Rules.Tests.Utils;
+using ldy985.FileMagic.Core.Rules.Rules.Media;
 using Xunit;
 
 namespace ldy985.FileMagic.Core.Rules.Tests;
 
-public sealed class SWFRuleTest : RuleTestBase<SWFRule>
+public sealed class DICOMRuleTest : RuleTestBase<DICOMRule>
 {
-    public SWFRuleTest() : base("swf") { }
+    public DICOMRuleTest() : base("dcm") { }
 
     public override void TestMagic()
     {

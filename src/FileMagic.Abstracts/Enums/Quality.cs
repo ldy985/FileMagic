@@ -1,5 +1,8 @@
 namespace ldy985.FileMagic.Abstracts.Enums
 {
+    /// <summary>
+    /// Sets a hint about how good a rule is.
+    /// </summary>
     public enum Quality
     {
         /// <summary>

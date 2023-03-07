@@ -1,9 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using BenchmarkDotNet.Attributes;
 using ldy985.FileMagic;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core;
+using ldy985.FileMagic.Core.Rules.Rules;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
 using Microsoft.Extensions.Options;
 
@@ -20,6 +23,7 @@ namespace FileMagic.Benchmarks
         private ldy985.FileMagic.FileMagic _fileMagic;
 
         private Stream _memoryStream;
+        private static readonly byte[] _exeHeader = "MZ"u8.ToArray();
 
         public static string BasePath(uint id)
         {
@@ -29,7 +33,7 @@ namespace FileMagic.Benchmarks
         [GlobalSetup]
         public void Setup()
         {
-            _memoryStream = new FileStream(BasePath(0) + "bmp", FileMode.Open);
+            _memoryStream = File.OpenRead(BasePath(0) + "exe");
 
             FileMagicConfig fileMagicConfig = new FileMagicConfig();
             fileMagicConfig.ParserCheck = false;
@@ -47,10 +51,35 @@ namespace FileMagic.Benchmarks
             _memoryStream?.Dispose();
         }
 
+        [Benchmark(Baseline = true)]
+        public bool IsPeFile()
+        {
+            return CheckHeader(_memoryStream, _exeHeader);
+        }
+
         [Benchmark]
         public bool FileTesterDirect()
         {
-            return _fileMagic.StreamMatches<BitmapRule>(_memoryStream, out IResult _);
+            return _fileMagic.StreamMatches<EXERule>(_memoryStream, out IResult _);
+        }
+
+        [Benchmark]
+        public bool FileLen()
+        {
+            return _memoryStream.Length > 0;
+        }
+
+        private static bool CheckHeader(Stream stream, byte[] expectedHeader, byte[]? secondaryExpectedHeader = null)
+        {
+            //Save the position of the steam in order to reset it back afterward. This is to make sure people that call these methods don't get bugs in their code
+            long prevPosition = stream.Position;
+
+            byte[] header = new byte[expectedHeader.Length];
+            bool result = stream.Read(header, 0, expectedHeader.Length) > 0 &&
+                          (expectedHeader.SequenceEqual(header) || (secondaryExpectedHeader != null && secondaryExpectedHeader.SequenceEqual(header)));
+
+            stream.Position = prevPosition;
+            return result;
         }
     }
 }

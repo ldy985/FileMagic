@@ -18,7 +18,7 @@ namespace ldy985.FileMagic.Core
         /// <param name="offset">
         ///     <inheritdoc cref="Offset" />
         /// </param>
-        /// <exception cref="ArgumentException">Throws if <see cref="Pattern is not multiples of two." /></exception>
+        /// <exception cref="ArgumentException">Throws if Pattern is not multiples of two.</exception>
         public Magic(string pattern, ulong offset = 0)
         {
             if (pattern.Length % 2 != 0)

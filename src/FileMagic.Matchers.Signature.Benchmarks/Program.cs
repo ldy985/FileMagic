@@ -8,7 +8,8 @@ namespace FileMagic.Benchmarks
         {
             //BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
             // BenchmarkRunner.Run<StreamReading>();
-            BenchmarkRunner.Run<RuleBenchmark>();
+            // BenchmarkRunner.Run<RuleBenchmark>();
+            BenchmarkRunner.Run<ByteComparison>();
             // BenchmarkRunner.Run<Rule2Benchmark>();
         }
     }

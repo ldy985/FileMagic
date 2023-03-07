@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,7 +13,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-        <PackageReference Include="OpenMcdf" Version="2.2.1.9" />
+        <PackageReference Include="OpenMcdf" Version="2.2.1.12" />
         <PackageReference Include="OpenMcdf.Extensions" Version="2.2.1.4" />
         <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.2.1" />
     </ItemGroup>

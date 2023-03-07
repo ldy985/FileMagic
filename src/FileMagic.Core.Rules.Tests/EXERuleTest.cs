@@ -1,24 +1,15 @@
 using ldy985.FileMagic.Core.Extensions;
 using ldy985.FileMagic.Core.Rules.Rules;
-using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using Xunit;
 
-namespace ldy985.FileMagic.Core.Rules.Tests
+namespace ldy985.FileMagic.Core.Rules.Tests;
+
+public sealed class EXERuleTest : RuleTestBase<EXERule>
 {
-    public sealed class EXERuleTest
+    public EXERuleTest() : base("exe") { }
+
+    public override void TestMagic()
     {
-        private const string Extension = "exe";
-        private readonly EXERule _rule;
-
-        public EXERuleTest()
-        {
-            _rule = FileMagicRuleHelpers.CreateRule<EXERule>();
-        }
-
-        [Fact]
-        public void TestMagic()
-        {
-            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + Extension));
-        }
+        Assert.True(_rule.TryMagic(BasePath));
     }
 }

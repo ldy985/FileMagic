@@ -3,59 +3,48 @@ using System.IO;
 using ldy985.FileMagic.Abstracts;
 using ldy985.FileMagic.Core.Extensions;
 using ldy985.FileMagic.Core.Rules.Rules.Media;
-using ldy985.FileMagic.Core.Rules.Tests.Utils;
 using Xunit;
 
-namespace ldy985.FileMagic.Core.Rules.Tests
+namespace ldy985.FileMagic.Core.Rules.Tests;
+
+public sealed class BitmapRuleTest : RuleTestBase<BitmapRule>
 {
-    public sealed class BitmapRuleTest
+    public BitmapRuleTest() : base("bmp") { }
+
+    public override void TestMagic()
     {
-        private const string Extension = "bmp";
-        private readonly BitmapRule _rule;
+        Assert.True(_rule.TryMagic(BasePath));
+    }
 
-        public BitmapRuleTest()
+    public override void TestStructure()
+    {
+        IResult result = new Result();
+
+        using (BinaryReader binaryReader = GetBinaryReader())
         {
-            _rule = FileMagicRuleHelpers.CreateRule<BitmapRule>();
+            bool match = _rule.TryStructure(binaryReader, ref result);
+            Assert.True(match);
         }
+    }
 
-        [Fact]
-        public void TestMagic()
+    public override void TestParsing()
+    {
+        IResult result = new Result();
+
+        using (BinaryReader binaryReader = GetBinaryReader())
         {
-            Assert.True(_rule.TryMagic(Utilities.BasePath(0) + Extension));
-        }
-
-        [Fact]
-        public void TestStructure()
-        {
-            IResult result = new Result();
-
-            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
+            if (_rule.TryParse(binaryReader, ref result, out IParsed? parsedObject))
             {
-                bool match = _rule.TryStructure(binaryReader, ref result);
-                Assert.True(match);
+                BitmapRule.Bmp bmp = (BitmapRule.Bmp)parsedObject;
+
+                Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
+                Assert.Equal(73926u, bmp.Size);
+                Assert.Equal(114u, bmp.Height);
+                Assert.Equal(215u, bmp.Width);
             }
-        }
-
-        [Fact]
-        public void TestParsing()
-        {
-            IResult result = new Result();
-
-            using (BinaryReader binaryReader = Utilities.GetReader(Utilities.BasePath(0) + Extension))
+            else
             {
-                if (_rule.TryParse(binaryReader, ref result, out IParsed? parsedObject))
-                {
-                    BitmapRule.Bmp bmp = (BitmapRule.Bmp)parsedObject;
-
-                    Assert.Equal(BitmapRule.BmpType.Bm, bmp.Type);
-                    Assert.Equal(73926u, bmp.Size);
-                    Assert.Equal(114u, bmp.Height);
-                    Assert.Equal(215u, bmp.Width);
-                }
-                else
-                {
-                    throw new ArgumentException("Didn't succeed");
-                }
+                throw new ArgumentException("Didn't succeed");
             }
         }
     }

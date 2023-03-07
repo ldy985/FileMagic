@@ -15,7 +15,7 @@ namespace ldy985.FileMagic.Core
     ///     The Base for all rules.
     /// </summary>
     [PublicAPI]
-    [UsedImplicitly]
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public abstract class BaseRule : IRule
     {
         protected BaseRule(ILogger logger)
