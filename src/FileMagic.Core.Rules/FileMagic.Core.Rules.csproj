@@ -15,7 +15,7 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="OpenMcdf" Version="2.2.1.12" />
         <PackageReference Include="OpenMcdf.Extensions" Version="2.2.1.4" />
-        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.2.1" />
+        <PackageReference Include="ldy985.BinaryReaderExtensions" Version="0.2.2" />
     </ItemGroup>
 
     <ItemGroup>

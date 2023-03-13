@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <Authors>Lasse Dyrsted</Authors>
-        <Copyright>Copyright 2022, by Lasse Dyrsted. All rights reserved.</Copyright>
+        <Copyright>Copyright $([System.DateTime]::Now.Year), by Lasse Dyrsted. All rights reserved.</Copyright>
 
         <!-- Set copying files etc. to timeout faster -->
         <CopyRetryCount>2</CopyRetryCount>
