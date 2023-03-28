@@ -1,1 +1,1 @@
-dotnet pack -c Release src/FileMagic.sln -o artifacts
+dotnet pack -c Release src/FileMagic.sln --property:PackageOutputPath="o:\BitSync\Programering\C#\FileMagic\FileMagic\artifacts\"
