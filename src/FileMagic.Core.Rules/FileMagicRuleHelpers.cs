@@ -40,7 +40,8 @@ public static partial class FileMagicRuleHelpers
     }
 
     [Pure]
-    public static TRule CreateRule<TRule>(ILoggerFactory? loggerFactory = null) where TRule : class, IRule
+    public static TRule CreateRule<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] TRule>(
+        ILoggerFactory? loggerFactory = null) where TRule : class, IRule
     {
         loggerFactory ??= NullLoggerFactory.Instance;
         ILogger<TRule> logger = loggerFactory.CreateLogger<TRule>();
