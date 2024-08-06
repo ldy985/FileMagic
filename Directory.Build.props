@@ -73,6 +73,5 @@
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-        <DebugType>none</DebugType>
     </PropertyGroup>
 </Project>
